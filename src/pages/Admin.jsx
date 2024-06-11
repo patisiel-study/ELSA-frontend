@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ProjectTitle from "../components/ProjectTitle";
 import Subtitle from "../components/Subtitle";
@@ -6,6 +6,7 @@ import Input from "../components/Input";
 import DropdownItem from "../components/DropdownItem";
 import Checkbox from "../components/Checkbox";
 import useDetectOpen from "../hooks/useDetectOpen";
+import { DatasetAPI } from "../apis/DatasetAPI";
 
 const Admin = () => {
   const datasetRef = useRef();
@@ -14,19 +15,14 @@ const Admin = () => {
   const dropdownRef = useRef();
 
   const [dataset, setDataset] = useState("Dataset");
-  const datasetList = [
-    "Human rights",
-    "Privacy",
-    "Diversity",
-    "Infringement",
-    "Publicity",
-    "Solidarity",
-  ];
+  const [datasetList, setDatasetList] = useState(null);
 
-  const initialSelectedDataset = datasetList.reduce((obj, item) => {
-    obj[item] = false;
-    return obj;
-  }, {});
+  const initialSelectedDataset = datasetList
+    ? datasetList.reduce((obj, item) => {
+        obj[item] = false;
+        return obj;
+      }, {})
+    : {};
 
   const [selectedDataset, setSelectedDataset] = useState(
     initialSelectedDataset
@@ -59,6 +55,20 @@ const Admin = () => {
       [item]: !prevState[item],
     }));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await DatasetAPI();
+        console.log(response);
+        alert(response.data.message);
+        setDatasetList(response.data.data);
+      } catch (error) {
+        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <StyledLayout>
@@ -98,13 +108,14 @@ const Admin = () => {
       <StyledForm onSubmit={handleQuestionSubmit}>
         <Subtitle>Question</Subtitle>
         <StyledContainer>
-          {datasetList.map((item, index) => (
-            <Checkbox
-              key={index}
-              dataset={item}
-              onChange={() => handleCheckboxChange(item)}
-            />
-          ))}
+          {datasetList &&
+            datasetList.map((item, index) => (
+              <Checkbox
+                key={index}
+                dataset={item}
+                onChange={() => handleCheckboxChange(item)}
+              />
+            ))}
         </StyledContainer>
         <Input inputRef={questionRef} id="Question" />
       </StyledForm>
@@ -137,7 +148,7 @@ const StyledDropdownContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 15rem;
+  width: 18rem;
   box-sizing: border-box;
   margin-right: 1rem;
   padding: 0.6rem 1.1rem;
@@ -169,8 +180,10 @@ const StyledDropdownList = styled.ul`
   margin: 0;
   padding: 0;
   top: 100%;
-  width: 75%;
+  width: 80%;
+  height: 20rem;
   background: white;
   box-shadow: 0 4px 5px 0 #00000026;
+  overflow: auto;
   list-style-type: none;
 `;
