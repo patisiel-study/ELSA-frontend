@@ -9,11 +9,11 @@ import useDetectOpen from "../hooks/useDetectOpen";
 
 const Admin = () => {
   const datasetRef = useRef();
-  const dropdownRef = useRef();
   const keywordRef = useRef();
   const questionRef = useRef();
+  const dropdownRef = useRef();
 
-  const [dataset, setDataset] = useState("선택");
+  const [dataset, setDataset] = useState("Dataset");
   const datasetList = [
     "Human rights",
     "Privacy",
