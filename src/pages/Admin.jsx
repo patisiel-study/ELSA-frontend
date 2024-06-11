@@ -148,7 +148,7 @@ const StyledDropdownContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 15rem;
+  width: 18rem;
   box-sizing: border-box;
   margin-right: 1rem;
   padding: 0.6rem 1.1rem;
@@ -180,8 +180,10 @@ const StyledDropdownList = styled.ul`
   margin: 0;
   padding: 0;
   top: 100%;
-  width: 75%;
+  width: 80%;
+  height: 20rem;
   background: white;
   box-shadow: 0 4px 5px 0 #00000026;
+  overflow: auto;
   list-style-type: none;
 `;
