@@ -7,6 +7,7 @@ import DropdownItem from "../components/DropdownItem";
 import Checkbox from "../components/Checkbox";
 import useDetectOpen from "../hooks/useDetectOpen";
 import { DatasetAPI } from "../apis/DatasetAPI";
+import ExcelFileUploader from '../components/ExcelFileUploader';
 
 const Admin = () => {
   const datasetRef = useRef();
@@ -119,6 +120,12 @@ const Admin = () => {
         </StyledContainer>
         <Input inputRef={questionRef} id="Question" />
       </StyledForm>
+
+      <StyledForm>
+        <Subtitle>Excel File Upload</Subtitle>
+        <ExcelFileUploader/>
+      </StyledForm>
+
     </StyledLayout>
   );
 };

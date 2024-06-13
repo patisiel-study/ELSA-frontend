@@ -1,10 +1,13 @@
-version: '3'
+version: "3"
 
 services:
-  springboot:
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: astar5327/elsa:latest
     env_file:
       - .env
-    image: astar5327/elsa:latest
     container_name: springboot
     ports:
       - "8080:8080"
@@ -13,11 +16,11 @@ services:
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
-      - postgres
+      - postgres-db
     networks:
       - my-network
 
-  postgres:
+  postgres-db:
     image: postgres
     container_name: postgres
     environment:
