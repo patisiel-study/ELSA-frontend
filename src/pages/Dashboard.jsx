@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProjectTitle from "../components/ProjectTitle";
+import Back from "../components/Back";
 import {
   BarChart,
   Bar,
@@ -8,7 +9,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
 import { DashboardAPI } from "../apis/DashboardAPI";
@@ -52,6 +52,7 @@ function Dashboard() {
   return (
     <StyledLayout>
       <ProjectTitle />
+      <Back />
       <StyledIcon src="../../img/ChatGPT.svg" />
       <ResponsiveContainer width="100%" height={450}>
         <BarChart

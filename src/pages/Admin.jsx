@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ProjectTitle from "../components/ProjectTitle";
 import Subtitle from "../components/Subtitle";
+import Back from "../components/Back";
 import Input from "../components/Input";
 import DropdownItem from "../components/DropdownItem";
 import Checkbox from "../components/Checkbox";
@@ -74,6 +75,7 @@ const Admin = () => {
   return (
     <StyledLayout>
       <ProjectTitle />
+      <Back />
       <StyledForm onSubmit={handleDatasetSubmit}>
         <Subtitle>Dataset</Subtitle>
         <Input inputRef={datasetRef} id="Dataset" />
