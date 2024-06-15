@@ -6,6 +6,9 @@ const Main = () => {
   return (
     <div>
       <ProjectTitle />
+      <Link to="/Dashboard">
+        <button>대시보드</button>
+      </Link>
       <Link to="/Admin">
         <button>관리자</button>
       </Link>
