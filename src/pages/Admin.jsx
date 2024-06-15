@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ProjectTitle from "../components/ProjectTitle";
 import Subtitle from "../components/Subtitle";
+import Back from "../components/Back";
 import Input from "../components/Input";
 import DropdownItem from "../components/DropdownItem";
 import Checkbox from "../components/Checkbox";
 import useDetectOpen from "../hooks/useDetectOpen";
 import { DatasetAPI } from "../apis/DatasetAPI";
-import ExcelFileUploader from '../components/ExcelFileUploader';
+import { StandardAPI } from "../apis/StandardAPI";
+import ExcelFileUploader from "../components/ExcelFileUploader";
 
 const Admin = () => {
   const datasetRef = useRef();
@@ -17,6 +19,9 @@ const Admin = () => {
 
   const [dataset, setDataset] = useState("Dataset");
   const [datasetList, setDatasetList] = useState(null);
+  const [standardList, setStandardList] = useState(null);
+  const [selectedDataset, setSelectedDataset] = useState({});
+  const [isOpen, setIsOpen] = useDetectOpen(false, dropdownRef);
 
   const initialSelectedDataset = datasetList
     ? datasetList.reduce((obj, item) => {
@@ -24,12 +29,6 @@ const Admin = () => {
         return obj;
       }, {})
     : {};
-
-  const [selectedDataset, setSelectedDataset] = useState(
-    initialSelectedDataset
-  );
-
-  const [isOpen, setIsOpen] = useDetectOpen(false, dropdownRef);
 
   const handleDatasetSubmit = (e) => {
     e.preventDefault();
@@ -61,9 +60,19 @@ const Admin = () => {
     const fetchData = async () => {
       try {
         const response = await DatasetAPI();
-        console.log(response);
-        alert(response.data.message);
         setDatasetList(response.data.data);
+      } catch (error) {
+        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await StandardAPI();
+        setStandardList(response.data.data);
       } catch (error) {
         console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
       }
@@ -74,6 +83,7 @@ const Admin = () => {
   return (
     <StyledLayout>
       <ProjectTitle />
+      <Back />
       <StyledForm onSubmit={handleDatasetSubmit}>
         <Subtitle>Dataset</Subtitle>
         <Input inputRef={datasetRef} id="Dataset" />
@@ -109,11 +119,11 @@ const Admin = () => {
       <StyledForm onSubmit={handleQuestionSubmit}>
         <Subtitle>Question</Subtitle>
         <StyledContainer>
-          {datasetList &&
-            datasetList.map((item, index) => (
+          {standardList &&
+            standardList.map((item, index) => (
               <Checkbox
                 key={index}
-                dataset={item}
+                standard={item}
                 onChange={() => handleCheckboxChange(item)}
               />
             ))}
@@ -123,9 +133,8 @@ const Admin = () => {
 
       <StyledForm>
         <Subtitle>Excel File Upload</Subtitle>
-        <ExcelFileUploader/>
+        <ExcelFileUploader />
       </StyledForm>
-
     </StyledLayout>
   );
 };

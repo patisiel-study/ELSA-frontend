@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const Checkbox = ({ dataset, checked, onChange }) => {
+const Checkbox = ({ standard, checked, onChange }) => {
   return (
     <StyledCheckboxContainer>
       <StyledCheckbox
         type="checkbox"
-        id={dataset}
+        id={standard}
         checked={checked}
         onChange={onChange}
       />
-      <StyledLabel htmlFor={dataset}>{dataset}</StyledLabel>
+      <StyledLabel htmlFor={standard}>{standard}</StyledLabel>
     </StyledCheckboxContainer>
   );
 };
