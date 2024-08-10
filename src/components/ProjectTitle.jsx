@@ -11,5 +11,8 @@ const ProjectTitle = () => {
 export default ProjectTitle;
 
 const StyledProjectTitle = styled.h1`
-  margin: 4rem 0 2.5rem 0;
+  text-align: center; 
+  padding-top:30px;
+  padding-bottom: 70px;
+  width: 100%; 
 `;
