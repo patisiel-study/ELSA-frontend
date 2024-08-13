@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import ProjectTitle from "../components/ProjectTitle";
 import styled from "styled-components";
-import Dashboard from "../components/Dashboard"; 
+import Dashboard from "../components/Dashboard";
 import Sidebar from "../components/Sidebar";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -32,44 +33,63 @@ const Main = () => {
         <ProjectTitle />
         <LLMButtonContainer>
           <ImageContainer
-            onMouseEnter={() => handleMouseEnter('ChatGPT')}
+            onMouseEnter={() => handleMouseEnter("ChatGPT")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick('ChatGPT')}
+            onClick={() => handleClick("ChatGPT")}
           >
-            <StyledImage src="../img/ChatGpt-Img.png" alt="ChatGPT Logo" draggable="false" />
-            {hoveredImage === 'ChatGPT' && <OverlayText>ChatGPT</OverlayText>}
+            <StyledImage
+              src="../img/ChatGpt-Img.png"
+              alt="ChatGPT Logo"
+              draggable="false"
+            />
+            {hoveredImage === "ChatGPT" && <OverlayText>ChatGPT</OverlayText>}
           </ImageContainer>
 
           <ImageContainer
-            onMouseEnter={() => handleMouseEnter('Gemini')}
+            onMouseEnter={() => handleMouseEnter("Gemini")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick('Gemini')}
+            onClick={() => handleClick("Gemini")}
           >
-            <StyledImage src="../img/Gemini-Img.png" alt="Gemini Logo" draggable="false" />
-            {hoveredImage === 'Gemini' && <OverlayText>Gemini</OverlayText>}
+            <StyledImage
+              src="../img/Gemini-Img.png"
+              alt="Gemini Logo"
+              draggable="false"
+            />
+            {hoveredImage === "Gemini" && <OverlayText>Gemini</OverlayText>}
           </ImageContainer>
 
           <ImageContainer
-            onMouseEnter={() => handleMouseEnter('Pi')}
+            onMouseEnter={() => handleMouseEnter("Pi")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick('Pi')}
+            onClick={() => handleClick("Pi")}
           >
-            <StyledImage src="../img/Pi-Img.png" alt="Pi Logo" draggable="false" />
-            {hoveredImage === 'Pi' && <OverlayText>Pi</OverlayText>}
+            <StyledImage
+              src="../img/Pi-Img.png"
+              alt="Pi Logo"
+              draggable="false"
+            />
+            {hoveredImage === "Pi" && <OverlayText>Pi</OverlayText>}
           </ImageContainer>
 
           <ImageContainer
-            onMouseEnter={() => handleMouseEnter('LLaMA')}
+            onMouseEnter={() => handleMouseEnter("LLaMA")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick('LLaMA')}
+            onClick={() => handleClick("LLaMA")}
           >
-            <StyledImage src="../img/LLaMA-Img.png" alt="LLaMA Logo" draggable="false" />
-            {hoveredImage === 'LLaMA' && <OverlayText>LLaMA</OverlayText>}
+            <StyledImage
+              src="../img/LLaMA-Img.png"
+              alt="LLaMA Logo"
+              draggable="false"
+            />
+            {hoveredImage === "LLaMA" && <OverlayText>LLaMA</OverlayText>}
           </ImageContainer>
         </LLMButtonContainer>
 
-        {selectedImage && <Dashboard imageName={selectedImage} />} 
-        <LongButton>Evaluating Your LLM Ethics</LongButton>
+        {selectedImage && <Dashboard imageName={selectedImage} />}
+
+        <Link to="/result">
+          <LongButton>Evaluating Your LLM Ethics</LongButton>
+        </Link>
 
         <ButtonContainer>
           <BlueBorderButton>Self-diagnosis</BlueBorderButton>
@@ -83,7 +103,10 @@ const Main = () => {
 const MainContainer = styled.div`
   display: flex;
   overflow: auto;
-  margin-left: ${({ isSidebarOpen }) => (isSidebarOpen ? "350px" : "0")}; /* 사이드바가 열리면 MainContainer가 오른쪽으로 이동 */
+  margin-left: ${({ isSidebarOpen }) =>
+    isSidebarOpen
+      ? "350px"
+      : "0"}; /* 사이드바가 열리면 MainContainer가 오른쪽으로 이동 */
   transition: margin-left 0.3s ease;
 `;
 
@@ -107,8 +130,7 @@ const StyledImage = styled.img`
   width: 70px;
   height: auto;
   transition: transform 0.3s ease;
-
-  &:hover {
+  zz &:hover {
     transform: scale(1.1); /* 마우스를 올렸을 때 이미지 확대 */
   }
 `;
@@ -131,7 +153,7 @@ const LongButton = styled.button`
   height: 60px;
   padding: 10px 20px;
   margin-top: 70px;
-  background-color: #3333BB;
+  background-color: #3333bb;
   color: white;
   font-size: 20px;
   border: none;
@@ -156,7 +178,7 @@ const BlueBorderButton = styled.button`
   background-color: white;
   color: black;
   font-size: 20px;
-  border: 2px solid #3333BB;
+  border: 2px solid #3333bb;
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 100px;

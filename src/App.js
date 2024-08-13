@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import Main from './pages/Main';
-import Dashboard from './pages/Dashboard';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
+import Main from "./pages/Main";
+import Result from "./pages/Result";
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </BrowserRouter>
     </StyledApp>
