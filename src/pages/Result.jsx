@@ -4,6 +4,13 @@ import Sidebar from "../components/Sidebar";
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import StyledSubtitle from "../components/Subtitle";
+import {
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+} from "recharts";
 
 const Result = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 사이드바 열림 상태를 관리하는
@@ -18,6 +25,7 @@ const Result = () => {
       <ProjectTitle />
       <Dashboard />
       <DataTable />
+      <RadialChart />
     </MainContainer>
   );
 };
@@ -118,6 +126,53 @@ const DataTable = () => {
         </StyledTbody>
       </StyledTable>
     </div>
+  );
+};
+
+const RadialChart = () => {
+  const data = [
+    { requirement: "Human Rights", ChatGPT: 10, Average: 9, fullMark: 10 },
+    { requirement: "Privacy", ChatGPT: 9, Average: 9, fullMark: 10 },
+    { requirement: "Diversity", ChatGPT: 8, Average: 8, fullMark: 10 },
+    { requirement: "Infringement", ChatGPT: 9, Average: 6, fullMark: 10 },
+    { requirement: "Publicity", ChatGPT: 5, Average: 9, fullMark: 10 },
+    { requirement: "Solidarity", ChatGPT: 6, Average: 5, fullMark: 10 },
+    { requirement: "Data Management", ChatGPT: 5, Average: 5, fullMark: 10 },
+    { requirement: "Responsibility", ChatGPT: 6, Average: 5, fullMark: 10 },
+    { requirement: "Safety", ChatGPT: 6, Average: 6, fullMark: 10 },
+    { requirement: "Transparency", ChatGPT: 6, Average: 7, fullMark: 10 },
+  ];
+
+  return (
+    <RadarChart
+      cx={250}
+      cy={250}
+      outerRadius={150}
+      width={500}
+      height={500}
+      data={data}
+    >
+      <PolarGrid />
+      <PolarAngleAxis dataKey="requirement" />
+      <PolarRadiusAxis
+        tickCount={6} // 0부터 10까지 6개의 눈금을 만듭니다.
+        domain={[0, 10]} // 눈금 값의 범위를 0에서 10으로 설정
+      />
+      <Radar
+        name="ChatGPT"
+        dataKey="ChatGPT"
+        stroke="#3333bb"
+        fill="#3333bb"
+        fillOpacity={0.6}
+      />
+      <Radar
+        name="Average"
+        dataKey="Average"
+        stroke="gray"
+        fill="gray"
+        fillOpacity={0.6}
+      />
+    </RadarChart>
   );
 };
 
