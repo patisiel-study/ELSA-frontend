@@ -10,6 +10,7 @@ import {
   PolarGrid,
   PolarAngleAxis,
   PolarRadiusAxis,
+  Legend,
 } from "recharts";
 
 const Result = () => {
@@ -172,6 +173,7 @@ const RadialChart = () => {
         fill="gray"
         fillOpacity={0.6}
       />
+      <Legend />
     </RadarChart>
   );
 };
