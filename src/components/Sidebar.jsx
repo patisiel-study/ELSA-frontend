@@ -38,6 +38,7 @@ const AppContainer = styled.div`
   display: flex;
   transition: margin-left 0.3s ease;
   margin-left: ${(props) => (props.isOpen ? "350px" : "0")};
+  margin-left: ${(props) => (props.isOpen ? "350px" : "0")};
   padding: 0 20px;
 `;
 
@@ -46,17 +47,22 @@ const SidebarContainer = styled.div`
   top: 0;
   left: 0;
   width: ${(props) => (props.isOpen ? "350px" : "0")};
+  left: 0;
+  width: ${(props) => (props.isOpen ? "350px" : "0")};
   height: 100%;
+  background-color: #f1f1f1;
   background-color: #f1f1f1;
   overflow-x: hidden;
   transition: width 0.3s;
   color: black;
+  z-index: 10;
   z-index: 10;
 `;
 
 const SidebarContent = styled.div`
   margin-top: 80px;
   padding: 20px;
+  opacity: ${(props) => (props.isOpen ? "1" : "0")};
   opacity: ${(props) => (props.isOpen ? "1" : "0")};
   transition: opacity 0.3s ease;
 `;
@@ -67,6 +73,8 @@ const MenuItem = styled.div`
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  color: black;
+  white-space: nowrap;
   color: black;
   white-space: nowrap;
 
@@ -80,9 +88,11 @@ const ToggleButton = styled.button`
   top: 15px;
   left: 15px;
   background-color: transparent;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 15px;
+  z-index: 1000;
   z-index: 1000;
 
   img {

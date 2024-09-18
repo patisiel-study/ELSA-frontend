@@ -188,6 +188,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-items: center;
   margin-left: ${({ isSidebarOpen }) =>
     isSidebarOpen
       ? "350px"
