@@ -14,7 +14,7 @@ import {
   Legend,
 } from "recharts";
 
-const Result = () => {
+const SelfDiagnosisResult = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 사이드바 열림 상태를 관리하는
 
   const toggleSidebar = () => {
@@ -27,6 +27,7 @@ const Result = () => {
     <MainContainer isSidebarOpen={isSidebarOpen}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <ProjectTitle />
+      <Styledtitle>인공지능 윤리 자가 진단 결과</Styledtitle>
       <Dashboard />
       <DataTable />
       <RadialChart />
@@ -86,16 +87,16 @@ const DataTable = () => {
   const items = [
     {
       requirements: "문항수",
-      humanRights: "1/2",
-      privacy: "4/5",
+      humanRights: "3/5",
+      privacy: "4/2",
       diversity: "4/5",
-      infringement: "3/5",
-      publicity: "2/5",
-      solidarity: "5/5",
-      dataManagement: "4/5",
-      responsibility: "5/5",
-      safety: "4/5",
-      transparency: "5/5",
+      infringement: "3/4",
+      publicity: "2/3",
+      solidarity: "3/3",
+      dataManagement: "3/3",
+      responsibility: "4/4",
+      safety: "2/3",
+      transparency: "3/3",
     },
   ];
 
@@ -182,12 +183,11 @@ const RadialChart = () => {
   );
 };
 
-export default Result;
+export default SelfDiagnosisResult;
 
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   align-items: center;
   margin-left: ${({ isSidebarOpen }) =>
     isSidebarOpen
@@ -240,4 +240,8 @@ const StyledTd = styled.td`
   background-color: ${({ isFirstColumn }) =>
     isFirstColumn ? "#3333bb" : "white"};
   color: ${({ isFirstColumn }) => (isFirstColumn ? "white" : "black")};
+`;
+
+const Styledtitle = styled.h2`
+  font-size: 2rem;
 `;

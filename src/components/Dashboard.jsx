@@ -25,31 +25,31 @@ function Dashboard() {
     { name: "Transparency", ChatGPT: 0.28 },
   ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log("데이터 받아오는중..");
-        const response = await DashboardAPI();
-        console.log(response);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       console.log("데이터 받아오는중..");
+  //       const response = await DashboardAPI();
+  //       console.log(response);
 
-        const newData = Object.entries(response.data.data).map(
-          ([key, value]) => ({
-            name: key,
-            ChatGPT: value,
-          })
-        );
+  //       const newData = Object.entries(response.data.data).map(
+  //         ([key, value]) => ({
+  //           name: key,
+  //           ChatGPT: value,
+  //         })
+  //       );
 
-        setData(newData);
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
-      }
-    };
-    fetchData();
-  }, []);
+  //       setData(newData);
+  //     } catch (error) {
+  //       console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <StyledLayout>
-      <StyledIcon src="../../img/ChatGPT.svg" />
+      {/* <StyledIcon src="../../img/ChatGPT.svg" /> */}
       <ResponsiveContainer width="100%" height={450}>
         <BarChart
           data={data}
@@ -86,6 +86,7 @@ const StyledLayout = styled.div`
   justify-content: center;
   align-items: center;
   width: 50rem;
+  padding-top: 3rem;
 `;
 
 const StyledIcon = styled.img`

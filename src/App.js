@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Main from "./pages/Main";
 import Result from "./pages/Result";
+import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 
 function App() {
   return (
@@ -10,6 +11,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/result" element={<Result />} />
+          <Route
+            path="/selfDiagnosisResult"
+            element={<SelfDiagnosisResult />}
+          />
         </Routes>
       </BrowserRouter>
     </StyledApp>

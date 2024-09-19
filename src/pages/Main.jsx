@@ -91,10 +91,9 @@ const Main = () => {
           <LongButton>Evaluating Your LLM Ethics</LongButton>
         </Link>
 
-        <ButtonContainer>
-          <BlueBorderButton>Self-diagnosis</BlueBorderButton>
-          <BlueBorderButton>History</BlueBorderButton>
-        </ButtonContainer>
+        <Link to="/selfDiagnosisResult">
+          <LongButton>Self-diagnosis</LongButton>
+        </Link>
       </Content>
     </MainContainer>
   );
