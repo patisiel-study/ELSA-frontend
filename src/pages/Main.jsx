@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
+import BlueButton from "../components/BlueButton";
 
 const Main = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -86,15 +87,16 @@ const Main = () => {
         </LLMButtonContainer>
 
         {selectedImage && <Dashboard imageName={selectedImage} />}
+        <BlueButtonContainer>
+          <Link to="/result">
+            <BlueButton>Evaluating Your LLM Ethics</BlueButton>
+          </Link>
 
-        <Link to="/result">
-          <LongButton>Evaluating Your LLM Ethics</LongButton>
-        </Link>
-
-        <Link to="/selfDiagnosisResult">
-          <LongButton>Self-diagnosis</LongButton>
-        </Link>
-      </Content>
+          <Link to="/selfDiagnosis">
+            <BlueButton>Self-Diagnosis</BlueButton>
+          </Link>
+          </BlueButtonContainer>
+        </Content>
     </MainContainer>
   );
 };
@@ -147,44 +149,35 @@ const OverlayText = styled.div`
   font-size: 14px;
 `;
 
-const LongButton = styled.button`
-  width: 100%;
-  height: 60px;
-  padding: 10px 20px;
-  margin-top: 70px;
-  background-color: #3333bb;
-  color: white;
-  font-size: 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #6464d2;
-  }
-`;
-
+/*
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
 `;
+*/
 
-const BlueBorderButton = styled.button`
-  width: 48%; /* 버튼이 컨테이너 내에서 반반씩 차지하도록 설정 */
-  height: 60px;
-  padding: 10px 20px;
-  background-color: white;
-  color: black;
-  font-size: 20px;
-  border: 2px solid #3333bb;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 100px;
 
-  &:hover {
-    background-color: #eaeaea;
-  }
+// const BlueBorderButton = styled.button`
+//   width: 48%; /* 버튼이 컨테이너 내에서 반반씩 차지하도록 설정 */
+//   height: 60px;
+//   padding: 10px 20px;
+//   background-color: white;
+//   color: black;
+//   font-size: 20px;
+//   border: 2px solid #3333bb;
+//   border-radius: 10px;
+//   cursor: pointer;
+//   margin-bottom: 100px;
+
+//   &:hover {
+//     background-color: #eaeaea;
+//   }
+// `;
+
+const BlueButtonContainer = styled.div`
+  margin-top:150px;
 `;
+
 
 export default Main;
