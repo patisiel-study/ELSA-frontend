@@ -16,3 +16,7 @@ const StyledProjectTitle = styled.h1`
   padding-bottom: 70px;
   width: 100%; 
 `;
+const Content = styled.div`
+  flex: 1;
+  padding: 20px;
+`;
