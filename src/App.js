@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import Result from "./pages/Result";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
+import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
 
 function App() {
   return (
@@ -17,7 +18,9 @@ function App() {
             path="/selfDiagnosisResult"
             element={<SelfDiagnosisResult />}
           />
+          <Route path="/selfDiagnosisQuestion" element={<SelfDiagnosisQuestion/>}/>
         </Routes>
+        
       </BrowserRouter>
     </StyledApp>
   );
