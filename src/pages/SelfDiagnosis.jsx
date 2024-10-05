@@ -2,6 +2,7 @@ import React, { useState } from "react";
  import Sidebar from "../components/Sidebar";
  import styled from "styled-components";
  import BlueButton from "../components/BlueButton";
+ import { Link } from "react-router-dom";
 
  
  const SelfDiagnosis = () => {
@@ -39,8 +40,10 @@ import React, { useState } from "react";
         <h3>3. 구성</h3>
         <p> 본 자율점검표는 인공지능 윤리기준의 10대 핵심요건별로 v35개의 점검항목을 제시합니다.</p>
         <ChartImg src="img/SelfDiagnosis-chart.png" alt="점검항목 표"/> 
-            
+
+        <Link to="/selfDiagnosisQuestion">
         <BlueButton>START</BlueButton>
+        </Link>
 
         </Content>
       </StyledeLayout>

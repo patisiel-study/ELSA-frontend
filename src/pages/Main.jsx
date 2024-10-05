@@ -28,7 +28,7 @@ const Main = () => {
   };
 
   return (
-    <MainContainer isSidebarOpen={isSidebarOpen}>
+    <MainContainer isOpen={isSidebarOpen ? 1 : 0}>  {/* 숫자로 전달 */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Content>
         <ProjectTitle />
@@ -87,27 +87,26 @@ const Main = () => {
         </LLMButtonContainer>
 
         {selectedImage && <Dashboard imageName={selectedImage} />}
-        <BlueButtonContainer>
-          <Link to="/result">
-            <BlueButton>Evaluating Your LLM Ethics</BlueButton>
-          </Link>
 
-          <Link to="/selfDiagnosis">
-            <BlueButton>Self-Diagnosis</BlueButton>
-          </Link>
-          </BlueButtonContainer>
-        </Content>
+        <Link to="/result">
+          <BlueButton>Evaluating Your LLM Ethics</BlueButton>
+        </Link>
+
+        <Link to="/selfDiagnosis">
+          <BlueButton>Self-Diagnosis</BlueButton>
+        </Link>
+      </Content>
     </MainContainer>
   );
 };
 
-const MainContainer = styled.div`
+const MainContainer = styled.div.attrs((props) => ({
+  style: {
+    marginLeft: props.isOpen ? "350px" : "0", // isOpen prop으로 스타일만 제어
+  },
+}))`
   display: flex;
   overflow: auto;
-  margin-left: ${({ isSidebarOpen }) =>
-    isSidebarOpen
-      ? "350px"
-      : "0"}; /* 사이드바가 열리면 MainContainer가 오른쪽으로 이동 */
   transition: margin-left 0.3s ease;
 `;
 
@@ -131,7 +130,8 @@ const StyledImage = styled.img`
   width: 70px;
   height: auto;
   transition: transform 0.3s ease;
-  zz &:hover {
+
+  &:hover {
     transform: scale(1.1); /* 마우스를 올렸을 때 이미지 확대 */
   }
 `;
@@ -149,35 +149,8 @@ const OverlayText = styled.div`
   font-size: 14px;
 `;
 
-/*
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
-`;
-*/
-
-
-// const BlueBorderButton = styled.button`
-//   width: 48%; /* 버튼이 컨테이너 내에서 반반씩 차지하도록 설정 */
-//   height: 60px;
-//   padding: 10px 20px;
-//   background-color: white;
-//   color: black;
-//   font-size: 20px;
-//   border: 2px solid #3333bb;
-//   border-radius: 10px;
-//   cursor: pointer;
-//   margin-bottom: 100px;
-
-//   &:hover {
-//     background-color: #eaeaea;
-//   }
-// `;
-
 const BlueButtonContainer = styled.div`
-  margin-top:150px;
+  margin-top: 150px;
 `;
-
 
 export default Main;

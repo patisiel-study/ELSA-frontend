@@ -61,7 +61,7 @@ function Dashboard() {
             top: 5,
             right: 30,
             left: 20,
-            bottom: 50, // Increase bottom margin to make room for XAxis labels
+            bottom: 50, 
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
