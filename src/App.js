@@ -1,13 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Main from "./pages/Main";
-import Result from "./pages/Result";
+import EvaluateEthics from "./pages/EvaluateEthics";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
-
 
 function App() {
   return (
@@ -15,17 +14,19 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/result" element={<Result />} />
-          <Route path="/selfDiagnosis" element={<SelfDiagnosis/>}/>
+          <Route path="/evaluateEthics" element={<EvaluateEthics />} />
+          <Route path="/selfDiagnosis" element={<SelfDiagnosis />} />
           <Route
             path="/selfDiagnosisResult"
             element={<SelfDiagnosisResult />}
           />
-          <Route path="/selfDiagnosisQuestion" element={<SelfDiagnosisQuestion/>}/>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/signup" element={<SignUp/>} />
+          <Route
+            path="/selfDiagnosisQuestion"
+            element={<SelfDiagnosisQuestion />}
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
-        
       </BrowserRouter>
     </StyledApp>
   );
