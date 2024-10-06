@@ -1,18 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProjectTitle from "../components/ProjectTitle";
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import Sidebar from "../components/Sidebar";
 import { Link } from "react-router-dom";
 import BlueButton from "../components/BlueButton";
+import { LLMScoreAPI } from "../apis/LLMScoreAPI";
 
 const Main = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedLLM, setSelectedLLM] = useState(null);
   const [hoveredImage, setHoveredImage] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // 사이드바 열림 상태를 관리하는 state
+  const [LLMScore, setLLMScore] = useState(null);
 
   const handleClick = (imageName) => {
-    setSelectedImage(imageName);
+    switch (imageName) {
+      case "GPT3.5":
+        setSelectedLLM("GPT_3_5");
+        break;
+      case "GPT4":
+        setSelectedLLM("GPT_4");
+        break;
+      case "GPT4o":
+        setSelectedLLM("GPT_4o");
+        break;
+      case "Gemini":
+        setSelectedLLM("GEMINI");
+        break;
+      default:
+        console.log("정의되지 않은 값입니다.");
+    }
   };
 
   const handleMouseEnter = (imageName) => {
@@ -27,26 +44,88 @@ const Main = () => {
     setIsSidebarOpen(!isSidebarOpen); // 사이드바 열림 상태를 토글
   };
 
+  // 데이터 가져오기 함수
+  const fetchData = async () => {
+    try {
+      const response = await LLMScoreAPI();
+      return response.data.data;
+    } catch (error) {
+      console.error(
+        "LLM 점수 데이터를 가져오는 중 오류가 발생했습니다.",
+        error
+      );
+      throw error;
+    }
+  };
+
+  // 로컬 스토리지에서 데이터 가져오기 또는 API 호출
+  const getLLMScore = async () => {
+    const localStorageData = localStorage.getItem("LLMScore");
+
+    if (localStorageData) {
+      console.log("로컬 스토리지에서 데이터를 가져왔습니다.");
+      setLLMScore(JSON.parse(localStorageData));
+    } else {
+      try {
+        const apiData = await fetchData();
+        setLLMScore(apiData);
+        localStorage.setItem("LLMScore", JSON.stringify(apiData));
+      } catch (error) {
+        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getLLMScore();
+  }, []);
+
   return (
-    <MainContainer isOpen={isSidebarOpen ? 1 : 0}>  {/* 숫자로 전달 */}
+    <MainContainer isOpen={isSidebarOpen ? 1 : 0}>
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <Content>
         <ProjectTitle />
         <LLMButtonContainer>
           <ImageContainer
-            onMouseEnter={() => handleMouseEnter("ChatGPT")}
+            onMouseEnter={() => handleMouseEnter("GPT3.5")}
             onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick("ChatGPT")}
+            onClick={() => handleClick("GPT3.5")}
           >
             <StyledImage
               src="../img/ChatGpt-Img.png"
               alt="ChatGPT Logo"
               draggable="false"
             />
-            {hoveredImage === "ChatGPT" && <OverlayText>ChatGPT</OverlayText>}
+            {hoveredImage === "GPT3.5" && <OverlayText>GPT3.5</OverlayText>}
           </ImageContainer>
 
           <ImageContainer
+            onMouseEnter={() => handleMouseEnter("GPT4")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleClick("GPT4")}
+          >
+            <StyledImage
+              src="../img/ChatGpt-Img.png"
+              alt="ChatGPT Logo"
+              draggable="false"
+            />
+            {hoveredImage === "GPT4" && <OverlayText>GPT4</OverlayText>}
+          </ImageContainer>
+
+          <ImageContainer
+            onMouseEnter={() => handleMouseEnter("GPT4o")}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => handleClick("GPT4o")}
+          >
+            <StyledImage
+              src="../img/ChatGpt-Img.png"
+              alt="ChatGPT Logo"
+              draggable="false"
+            />
+            {hoveredImage === "GPT4o" && <OverlayText>GPT4o</OverlayText>}
+          </ImageContainer>
+
+          {/* <ImageContainer
             onMouseEnter={() => handleMouseEnter("Gemini")}
             onMouseLeave={handleMouseLeave}
             onClick={() => handleClick("Gemini")}
@@ -57,36 +136,15 @@ const Main = () => {
               draggable="false"
             />
             {hoveredImage === "Gemini" && <OverlayText>Gemini</OverlayText>}
-          </ImageContainer>
-
-          <ImageContainer
-            onMouseEnter={() => handleMouseEnter("Pi")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick("Pi")}
-          >
-            <StyledImage
-              src="../img/Pi-Img.png"
-              alt="Pi Logo"
-              draggable="false"
-            />
-            {hoveredImage === "Pi" && <OverlayText>Pi</OverlayText>}
-          </ImageContainer>
-
-          <ImageContainer
-            onMouseEnter={() => handleMouseEnter("LLaMA")}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => handleClick("LLaMA")}
-          >
-            <StyledImage
-              src="../img/LLaMA-Img.png"
-              alt="LLaMA Logo"
-              draggable="false"
-            />
-            {hoveredImage === "LLaMA" && <OverlayText>LLaMA</OverlayText>}
-          </ImageContainer>
+          </ImageContainer> */}
         </LLMButtonContainer>
 
-        {selectedImage && <Dashboard imageName={selectedImage} />}
+        {selectedLLM && LLMScore && (
+          <Dashboard
+            selectedLLM={selectedLLM}
+            llmScore={LLMScore[selectedLLM]}
+          />
+        )}
 
         <Link to="/result">
           <BlueButton>Evaluating Your LLM Ethics</BlueButton>
@@ -147,10 +205,6 @@ const OverlayText = styled.div`
   border-radius: 5px;
   pointer-events: none; /* 텍스트가 클릭되지 않도록 설정 */
   font-size: 14px;
-`;
-
-const BlueButtonContainer = styled.div`
-  margin-top: 150px;
 `;
 
 export default Main;
