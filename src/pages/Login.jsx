@@ -23,28 +23,31 @@ const Login = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-
+  
     try {
       console.log(email);
       console.log(password);
       const response = await LoginAPI(email, password);
       const { accessToken, refreshToken } = response.data;
-
+  
       console.log(accessToken);
-
+  
       sessionStorage.setItem("accessToken", accessToken);
       sessionStorage.setItem("refreshToken", refreshToken);
-
+  
       const testResponse = await TestAPI(accessToken);
       console.log(testResponse);
-
-
+  
       setEmail("");
       setPassword("");
       setIsLoggedIn(true);
     } catch (error) {
       alert(error.message);
       console.log(error);
+  
+      // Clear tokens from sessionStorage on error
+      sessionStorage.removeItem("accessToken");
+      sessionStorage.removeItem("refreshToken");
     }
   };
 

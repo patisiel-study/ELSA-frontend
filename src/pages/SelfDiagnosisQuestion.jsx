@@ -3,7 +3,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import BlueButton from "../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
 
 const SelfDiagnosisQuestion = () => {
   const [message, setMessage] = useState('');
@@ -14,11 +13,6 @@ const SelfDiagnosisQuestion = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const navigate = useNavigate();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen); // 사이드바 열림 상태를 토글
-  };
 
   useEffect(() => {
     fetchQuestions();
@@ -45,26 +39,87 @@ const SelfDiagnosisQuestion = () => {
     }));
   };
 
+  const refreshAccessToken = async () => {
+    try {
+      const refreshToken = localStorage.getItem('refreshToken');
+      const response = await axios.post('/api/member/refresh', {}, {
+        headers: { 'Authorization': `Bearer ${refreshToken}` }
+      });
+      const newAccessToken = response.data.accessToken;
+      localStorage.setItem('accessToken', newAccessToken);
+      return newAccessToken;
+    } catch (error) {
+      console.error('토큰 갱신에 실패하였습니다:', error);
+      setSubmitError('토큰 갱신에 실패하였습니다. 다시 로그인 해주세요.');
+      navigate('/login');
+      return null;
+    }
+  };
+  
   const handleSubmit = async () => {
     setSubmitLoading(true);
     setSubmitError(null);
+
+    let accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      console.error('인증 토큰이 없습니다. 다시 로그인 해주세요.');
+      setSubmitError('인증 토큰이 없습니다. 다시 로그인 해주세요.');
+      setSubmitLoading(false);
+      return;
+    }
+
+    const parseJwt = (token) => {
+      try {
+        return JSON.parse(atob(token.split('.')[1]));
+      } catch (error) {
+        return null;
+      }
+    };
+
+    let decodedToken = parseJwt(accessToken);
+
+    if (decodedToken && decodedToken.exp * 1000 < Date.now()) {
+      console.error('토큰이 만료되었습니다. 갱신을 시도합니다.');
+      
+      accessToken = await refreshAccessToken();
+      
+      if (!accessToken) {
+        console.error('토큰 갱신에 실패하였습니다. 다시 로그인 해주세요.');
+        setSubmitError('토큰 갱신에 실패하였습니다. 다시 로그인 해주세요.');
+        setSubmitLoading(false);
+        return;
+      }
+
+      decodedToken = parseJwt(accessToken); // 새로 받은 토큰 디코딩
+    }
+
+    if (!decodedToken) {
+      console.error('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');
+      setSubmitError('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');
+      navigate('/login');
+      return;
+    }
+
+    console.log('Token Expiry:', new Date(decodedToken.exp * 1000));
     
     const formattedAnswers = Object.entries(answers).map(([questionId, answer]) => ({
       questionId: parseInt(questionId),
       answer: answer.toUpperCase(),
     }));
-  
+
     console.log('Formatted Answers:', formattedAnswers);
-  
+
     try {
-      const response = await axios.post('/api/diagnosis/developer/submit', 
+      await axios.post('/api/diagnosis/developer/submit', 
         { answers: formattedAnswers },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
+
       console.log('답변이 성공적으로 제출되었습니다.');
       setSubmitLoading(false);
       navigate('/selfDiagnosisResult');
@@ -89,7 +144,6 @@ const SelfDiagnosisQuestion = () => {
 
   return (
     <Container>
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       {standards.map((standard) => (
         <Section key={standard.standardName}>
           <Header>{standard.standardName}</Header>
@@ -123,7 +177,6 @@ const SelfDiagnosisQuestion = () => {
         </Link>
         <BlueButton onClick={handleSubmit}>Submit</BlueButton>
       </StyledRowButton>
-
     </Container>
   );
 };
@@ -142,7 +195,7 @@ const Header = styled.h3`
   background-color: #3333BB;
   color: white;
   padding: 10px;
-  border-radius:5px;
+  border-radius: 5px;
 `;
 
 const Card = styled.div`
@@ -150,7 +203,7 @@ const Card = styled.div`
   border: 1px solid #ddd;
   margin-bottom: 10px;
   padding: 15px;
-  border-radius:5px;
+  border-radius: 5px;
 `;
 
 const QuestionRow = styled.div`
