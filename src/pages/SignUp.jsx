@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Sidebar from "../components/Sidebar";
 import { SignUpAPI } from "../apis/SignUpAPI";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const SignUp = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -16,10 +17,19 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      await SignUpAPI(newEmail, newPassword, newName, newRole);
+      const response = await SignUpAPI(newEmail, newPassword, newName, newRole);
+      
+      // 새로운 액세스 토큰 저장 및 Axios 헤더 업데이트
+      const { accessToken, refreshToken } = response.data; // API 응답에서 토큰 추출
+      
+      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('refresh_token', refreshToken);
+      
+      // Axios 기본 헤더 설정
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
       alert("회원가입이 완료되었습니다.");
-      navigate("/login");
+      navigate("/dashboard"); // 로그인 페이지 대신 대시보드로 이동
     } catch (error) {
       alert(error.message);
       console.error(error);
@@ -66,7 +76,7 @@ const SignUp = () => {
             />
             <ButtonRow>
 
-              <ActionButton type="submit">Confirm</ActionButton>
+              <ActionButton type="submit">Sign up</ActionButton>
             </ButtonRow>
           </Form>
         </SignUpForm>
