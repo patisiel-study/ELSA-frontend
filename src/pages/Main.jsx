@@ -146,7 +146,7 @@ const Main = () => {
           />
         )}
 
-        <Link to="/result">
+        <Link to="/evaluateEthics">
           <BlueButton>Evaluating Your LLM Ethics</BlueButton>
         </Link>
 

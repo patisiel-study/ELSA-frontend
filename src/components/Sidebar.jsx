@@ -13,23 +13,20 @@ const Sidebar = () => {
     <AppContainer isOpen={isOpen}>
       <SidebarContainer isOpen={isOpen}>
         <SidebarContent isOpen={isOpen}>
-
           <Link to="/" style={{ textDecoration: "none" }}>
             <MenuItem>Main</MenuItem>
-
           </Link>
-          <Link to="/result" style={{ textDecoration: "none" }}>
+          <Link to="/evaluateEthics" style={{ textDecoration: "none" }}>
             <MenuItem>Evaluating Your LLM Ethics</MenuItem>
           </Link>
-    
+
           <Link to="/selfDiagnosis" style={{ textDecoration: "none" }}>
             <MenuItem>Self-diagnosis</MenuItem>
           </Link>
 
-          <Link  to="/login" style={{ textDecoration: "none" }}>
+          <Link to="/login" style={{ textDecoration: "none" }}>
             <MenuItem MenuItem>Login</MenuItem>
           </Link>
-  
         </SidebarContent>
       </SidebarContainer>
       <ToggleButton onClick={toggleSidebar}>
