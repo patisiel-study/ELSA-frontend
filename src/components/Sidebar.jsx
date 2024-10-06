@@ -25,6 +25,10 @@ const Sidebar = () => {
           <Link to="/selfDiagnosis" style={{ textDecoration: "none" }}>
             <MenuItem>Self-diagnosis</MenuItem>
           </Link>
+
+          <Link  to="/login" style={{ textDecoration: "none" }}>
+            <MenuItem MenuItem>Login</MenuItem>
+          </Link>
   
         </SidebarContent>
       </SidebarContainer>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import BlueButton from "../components/BlueButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const SelfDiagnosisQuestion = () => {
   const [message, setMessage] = useState('');
@@ -10,6 +11,14 @@ const SelfDiagnosisQuestion = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState({});
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen); // 사이드바 열림 상태를 토글
+  };
 
   useEffect(() => {
     fetchQuestions();
@@ -37,16 +46,32 @@ const SelfDiagnosisQuestion = () => {
   };
 
   const handleSubmit = async () => {
+    setSubmitLoading(true);
+    setSubmitError(null);
+    
     const formattedAnswers = Object.entries(answers).map(([questionId, answer]) => ({
       questionId: parseInt(questionId),
       answer: answer.toUpperCase(),
     }));
-
+  
+    console.log('Formatted Answers:', formattedAnswers);
+  
     try {
-      await axios.post('/api/diagnosis/developer/submit', { answers: formattedAnswers });
+      const response = await axios.post('/api/diagnosis/developer/submit', 
+        { answers: formattedAnswers },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      );
       console.log('답변이 성공적으로 제출되었습니다.');
+      setSubmitLoading(false);
+      navigate('/selfDiagnosisResult');
     } catch (error) {
       console.error('답변 제출에 실패하였습니다:', error);
+      setSubmitError('답변 제출에 실패하였습니다. 다시 시도해주세요.');
+      setSubmitLoading(false);
     }
   };
 
@@ -64,6 +89,7 @@ const SelfDiagnosisQuestion = () => {
 
   return (
     <Container>
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       {standards.map((standard) => (
         <Section key={standard.standardName}>
           <Header>{standard.standardName}</Header>
@@ -95,9 +121,7 @@ const SelfDiagnosisQuestion = () => {
         <Link to="/selfDiagnosis">
           <BlueButton>Back</BlueButton>
         </Link>
-        <Link to="/selfDiagnosisResult">
         <BlueButton onClick={handleSubmit}>Submit</BlueButton>
-        </Link>
       </StyledRowButton>
 
     </Container>
