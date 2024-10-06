@@ -96,7 +96,9 @@ const Main = () => {
               alt="ChatGPT Logo"
               draggable="false"
             />
-            {hoveredImage === "GPT3.5" && <OverlayText>GPT3.5</OverlayText>}
+            {(selectedLLM === "GPT_3_5" || hoveredImage === "GPT3.5") && (
+              <OverlayText>GPT3.5</OverlayText>
+            )}
           </ImageContainer>
 
           <ImageContainer
@@ -109,7 +111,9 @@ const Main = () => {
               alt="ChatGPT Logo"
               draggable="false"
             />
-            {hoveredImage === "GPT4" && <OverlayText>GPT4</OverlayText>}
+            {(selectedLLM === "GPT_4" || hoveredImage === "GPT4") && (
+              <OverlayText>GPT4</OverlayText>
+            )}
           </ImageContainer>
 
           <ImageContainer
@@ -122,7 +126,9 @@ const Main = () => {
               alt="ChatGPT Logo"
               draggable="false"
             />
-            {hoveredImage === "GPT4o" && <OverlayText>GPT4o</OverlayText>}
+            {(selectedLLM === "GPT_4o" || hoveredImage === "GPT4o") && (
+              <OverlayText>GPT4o</OverlayText>
+            )}
           </ImageContainer>
 
           {/* <ImageContainer

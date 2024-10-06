@@ -11,11 +11,6 @@ import {
 } from "recharts";
 
 function Dashboard({ selectedLLM, llmScore }) {
-  useEffect(() => {
-    console.log("Dashboard has mounted or updated");
-    console.log("Selected LLM:", selectedLLM);
-  }, [selectedLLM]);
-
   // LLM 이름 변환 함수
   const formatLLMName = (key) => {
     switch (key) {
