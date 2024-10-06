@@ -5,6 +5,9 @@ import Result from "./pages/Result";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
+
 
 function App() {
   return (
@@ -19,6 +22,8 @@ function App() {
             element={<SelfDiagnosisResult />}
           />
           <Route path="/selfDiagnosisQuestion" element={<SelfDiagnosisQuestion/>}/>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<SignUp/>} />
         </Routes>
         
       </BrowserRouter>
