@@ -3,15 +3,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import BlueButton from "../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
+import RefreshTokenAPI from '../apis/RefreshTokenAPI';
 
 const SelfDiagnosisQuestion = () => {
-  const [message, setMessage] = useState('');
   const [standards, setStandards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState({});
-  const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitError, setSubmitError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +20,6 @@ const SelfDiagnosisQuestion = () => {
     try {
       const response = await axios.get('/api/diagnosis/list/questions');
       console.log('response:', response.data);
-      setMessage(response.data.message);
       setStandards(response.data.data);
       setLoading(false);
     } catch (error) {
@@ -32,101 +29,57 @@ const SelfDiagnosisQuestion = () => {
     }
   };
 
-  const handleChange = (questionId, answer) => {
+  const handleChange = (questionId, option) => {
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
-      [questionId]: answer,
+      [questionId]: option,
     }));
   };
 
-  const refreshAccessToken = async () => {
-    try {
-      const refreshToken = localStorage.getItem('refreshToken');
-      const response = await axios.post('/api/member/refresh', {}, {
-        headers: { 'Authorization': `Bearer ${refreshToken}` }
-      });
-      const newAccessToken = response.data.accessToken;
-      localStorage.setItem('accessToken', newAccessToken);
-      return newAccessToken;
-    } catch (error) {
-      console.error('토큰 갱신에 실패하였습니다:', error);
-      setSubmitError('토큰 갱신에 실패하였습니다. 다시 로그인 해주세요.');
-      navigate('/login');
-      return null;
+  const submitAnswers = async (formattedAnswers, accessToken) => {
+    return axios.post('/api/diagnosis/developer/submit', {  answers: formattedAnswers }, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+  };
+
+  const handleSubmitError = async (error, formattedAnswers) => {
+    if (error.response && error.response.status === 401) {
+      try {
+        const { accessToken, refreshToken } = await RefreshTokenAPI();
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        await submitAnswers(formattedAnswers, accessToken);
+        console.log('토큰 갱신 후 답변이 성공적으로 제출되었습니다.');
+        navigate('/selfDiagnosisResult');
+      } catch (refreshError) {
+        console.error('토큰 갱신 실패:', refreshError);
+        navigate('/login');
+      }
+    } else if (error.response && error.response.status === 403) {
+      console.error('권한이 없습니다. 관리자에게 문의하세요.')
+
+    } else {
+      console.error('알 수 없는 오류가 발생했습니다.');
+      alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     }
   };
-  
+
   const handleSubmit = async () => {
-    setSubmitLoading(true);
-    setSubmitError(null);
-
-    let accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-      console.error('인증 토큰이 없습니다. 다시 로그인 해주세요.');
-      setSubmitError('인증 토큰이 없습니다. 다시 로그인 해주세요.');
-      setSubmitLoading(false);
-      return;
-    }
-
-    const parseJwt = (token) => {
-      try {
-        return JSON.parse(atob(token.split('.')[1]));
-      } catch (error) {
-        return null;
-      }
-    };
-
-    let decodedToken = parseJwt(accessToken);
-
-    if (decodedToken && decodedToken.exp * 1000 < Date.now()) {
-      console.error('토큰이 만료되었습니다. 갱신을 시도합니다.');
-      
-      accessToken = await refreshAccessToken();
-      
-      if (!accessToken) {
-        console.error('토큰 갱신에 실패하였습니다. 다시 로그인 해주세요.');
-        setSubmitError('토큰 갱신에 실패하였습니다. 다시 로그인 해주세요.');
-        setSubmitLoading(false);
-        return;
-      }
-
-      decodedToken = parseJwt(accessToken); // 새로 받은 토큰 디코딩
-    }
-
-    if (!decodedToken) {
-      console.error('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');
-      setSubmitError('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');
-      navigate('/login');
-      return;
-    }
-
-    console.log('Token Expiry:', new Date(decodedToken.exp * 1000));
-    
+    const accessToken = localStorage.getItem('accessToken');
     const formattedAnswers = Object.entries(answers).map(([questionId, answer]) => ({
       questionId: parseInt(questionId),
       answer: answer.toUpperCase(),
     }));
 
-    console.log('Formatted Answers:', formattedAnswers);
+    console.log('answers:', formattedAnswers);
 
     try {
-      await axios.post('/api/diagnosis/developer/submit', 
-        { answers: formattedAnswers },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
+      await submitAnswers(formattedAnswers, accessToken);
       console.log('답변이 성공적으로 제출되었습니다.');
-      setSubmitLoading(false);
       navigate('/selfDiagnosisResult');
     } catch (error) {
       console.error('답변 제출에 실패하였습니다:', error);
-      setSubmitError('답변 제출에 실패하였습니다. 다시 시도해주세요.');
-      setSubmitLoading(false);
+      await handleSubmitError(error, formattedAnswers);
     }
   };
 
@@ -152,9 +105,9 @@ const SelfDiagnosisQuestion = () => {
               <QuestionRow>
                 <QuestionText>{q.question}</QuestionText>
                 <Options>
-                  {['yes', 'no', 'not-applicable'].map((option) => (
+                  {['YES', 'NO', 'NOT_APPLICABLE'].map((option) => (
                     <RadioLabel key={option}>
-                      {option === 'not-applicable' ? '미해당' : option.toUpperCase()}
+                      {option === 'NOT_APPLICABLE' ? '미해당' : option}
                       <input
                         type="radio"
                         name={`question-${q.questionId}`}
