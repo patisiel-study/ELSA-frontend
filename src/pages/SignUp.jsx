@@ -1,48 +1,30 @@
 import React, { useState } from "react";
 import styled from 'styled-components';
-import Sidebar from "../components/Sidebar";
 import { SignUpAPI } from "../apis/SignUpAPI";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
 
 const SignUp = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newName, setNewName] = useState("");
-  const [newRole, setNewRole] = useState("Developer");
+  const [newRole, setNewRole] = useState(""); 
   const navigate = useNavigate();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await SignUpAPI(newEmail, newPassword, newName, newRole);
-      
-      // 새로운 액세스 토큰 저장 및 Axios 헤더 업데이트
-      const { accessToken, refreshToken } = response.data; // API 응답에서 토큰 추출
-      
-      localStorage.setItem('access_token', accessToken);
-      localStorage.setItem('refresh_token', refreshToken);
-      
-      // Axios 기본 헤더 설정
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
+      await SignUpAPI(newEmail, newPassword, newName, newRole);
       alert("회원가입이 완료되었습니다.");
-      navigate("/dashboard"); // 로그인 페이지 대신 대시보드로 이동
+      navigate("/login");
     } catch (error) {
       alert(error.message);
       console.error(error);
     }
   };
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
-    <MainContainer isOpen={isSidebarOpen ? 1 : 0}>
-      <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+    <MainContainer>
       <Container>
         <Title>Artificial Intelligence Ethics Evaluation System</Title>
         <SignUpForm>
@@ -74,10 +56,7 @@ const SignUp = () => {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
             />
-            <ButtonRow>
-
-              <ActionButton type="submit">Sign up</ActionButton>
-            </ButtonRow>
+            <ActionButton type="submit">Sign up</ActionButton>
           </Form>
         </SignUpForm>
       </Container>
@@ -133,10 +112,6 @@ const Select = styled.select`
   border-radius: 4px;
 `;
 
-const ButtonRow = styled.div`
-  display: flex;
-`;
-
 const ActionButton = styled.button`
   width: 100px;
   padding: 10px;
@@ -152,17 +127,12 @@ const ActionButton = styled.button`
   }
 `;
 
-const MainContainer = styled.div.attrs((props) => ({
-  style: {
-    marginLeft: props.isOpen ? "350px" : "0",
-  },
-}))`
+const MainContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   overflow: auto;
-  transition: margin-left 0.3s ease;
 `;
 
 export default SignUp;
