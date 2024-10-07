@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; 
+import axios from 'axios';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +11,38 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  const navigate = useNavigate(); 
 
+    const logoutClick = async (event) => {
+    event.preventDefault(); 
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+  
+      const response = await axios.post('/api/member/logout', {}, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+      });
+  
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+  
+      alert(response.data.message || "You have been logged out.");
+  
+      navigate('/login');
+      
+    } catch (error) {
+      console.error('로그아웃 중 오류 발생:', error);
+      
+      if (error.response) {
+        alert(error.response.data.message || '로그아웃 중 오류가 발생했습니다.');
+      } else if (error.request) {
+        alert('서버와의 통신 중 오류가 발생했습니다.');
+      } else {
+        alert('로그아웃 요청 중 오류가 발생했습니다.');
+      }
+    }
+  }; 
   return (
     <AppContainer isOpen={isOpen}>
       <SidebarContainer isOpen={isOpen}>
@@ -16,6 +50,7 @@ const Sidebar = () => {
           <Link to="/" style={{ textDecoration: "none" }}>
             <MenuItem>Main</MenuItem>
           </Link>
+
           <Link to="/evaluateEthics" style={{ textDecoration: "none" }}>
             <MenuItem>Evaluating Your LLM Ethics</MenuItem>
           </Link>
@@ -25,8 +60,13 @@ const Sidebar = () => {
           </Link>
 
           <Link to="/login" style={{ textDecoration: "none" }}>
-            <MenuItem MenuItem>Login</MenuItem>
+            <MenuItem >Login</MenuItem>
           </Link>
+
+          <MenuItem onClick={logoutClick}>Logout</MenuItem>
+          
+
+
         </SidebarContent>
       </SidebarContainer>
       <ToggleButton onClick={toggleSidebar}>

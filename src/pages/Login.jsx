@@ -26,10 +26,7 @@ const Login = () => {
       const { accessToken, refreshToken } = response.data;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      console.log("accessToken:",accessToken);  // 나중에 지우기
-      console.log("refreshToken:",refreshToken);  // 나중에 지우기
-
-  
+      
       const testResponse = await TestAPI(accessToken);
       console.log(testResponse);
 
