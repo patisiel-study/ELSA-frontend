@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import BlueButton from "../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
 import RefreshTokenAPI from '../apis/RefreshTokenAPI';
 
@@ -11,6 +10,10 @@ const SelfDiagnosisQuestion = () => {
   const [error, setError] = useState(null);
   const [answers, setAnswers] = useState({});
   const navigate = useNavigate();
+  const [unansweredQuestions, setUnansweredQuestions] = useState([]);
+  const [showUnanswered, setShowUnanswered] = useState({});
+
+
 
   useEffect(() => {
     fetchQuestions();
@@ -29,13 +32,30 @@ const SelfDiagnosisQuestion = () => {
     }
   };
 
+  const checkUnansweredQuestions = () => {
+    const unanswered = standards.flatMap(standard => 
+      standard.questions.filter(q => !answers[q.questionId])
+    );
+    setUnansweredQuestions(unanswered);
+    return unanswered;
+  };
+  
+  const scrollToUnansweredQuestion = (questionId) => {
+    const element = document.getElementById(`question-${questionId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
   const handleChange = (questionId, option) => {
-    setAnswers((prevAnswers) => ({
+    setAnswers(prevAnswers => ({
       ...prevAnswers,
-      [questionId]: option,
+      [questionId]: option
+    }));
+    setShowUnanswered(prevShow => ({
+      ...prevShow,
+      [questionId]: false
     }));
   };
-
   const submitAnswers = async (formattedAnswers, accessToken) => {
     return axios.post('/api/diagnosis/developer/submit', {  answers: formattedAnswers }, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -65,14 +85,26 @@ const SelfDiagnosisQuestion = () => {
   };
 
   const handleSubmit = async () => {
+    const unanswered = checkUnansweredQuestions();
+    if (unanswered.length > 0) {
+      const newShowUnanswered = {};
+      unanswered.forEach(q => {
+        newShowUnanswered[q.questionId] = true;
+      });
+      setShowUnanswered(newShowUnanswered);
+      alert('모든 질문에 답변해주세요.');
+      scrollToUnansweredQuestion(unanswered[0].questionId);
+      return;
+    }
+  
     const accessToken = localStorage.getItem('accessToken');
     const formattedAnswers = Object.entries(answers).map(([questionId, answer]) => ({
       questionId: parseInt(questionId),
       answer: answer.toUpperCase(),
     }));
-
+  
     console.log('answers:', formattedAnswers);
-
+  
     try {
       await submitAnswers(formattedAnswers, accessToken);
       console.log('답변이 성공적으로 제출되었습니다.');
@@ -97,39 +129,43 @@ const SelfDiagnosisQuestion = () => {
 
   return (
     <Container>
-      {standards.map((standard) => (
-        <Section key={standard.standardName}>
-          <Header>{standard.standardName}</Header>
-          {standard.questions.map((q) => (
-            <Card key={q.questionId}>
-              <QuestionRow>
-                <QuestionText>{q.question}</QuestionText>
-                <Options>
-                  {['YES', 'NO', 'NOT_APPLICABLE'].map((option) => (
-                    <RadioLabel key={option}>
-                      {option === 'NOT_APPLICABLE' ? '미해당' : option}
-                      <input
-                        type="radio"
-                        name={`question-${q.questionId}`}
-                        value={option}
-                        checked={answers[q.questionId] === option}
-                        onChange={() => handleChange(q.questionId, option)}
-                      />
-                    </RadioLabel>
-                  ))}
-                </Options>
-              </QuestionRow>
-            </Card>
-          ))}
-        </Section>
-      ))}
-
+       {standards.map((standard) => (
+      <Section key={standard.standardName}>
+        <Header>{standard.standardName}</Header>
+        {standard.questions.map((q) => (
+          <Card 
+            key={q.questionId} 
+            id={`question-${q.questionId}`}
+            unanswered={!answers[q.questionId]}
+            showUnanswered={showUnanswered[q.questionId]}
+        >
+            <QuestionRow>
+              <QuestionText>{q.question}</QuestionText>
+              <Options>
+                {['YES', 'NO', 'NOT_APPLICABLE'].map((option) => (
+                  <RadioLabel key={option}>
+                    {option === 'NOT_APPLICABLE' ? '미해당' : option}
+                    <input
+                      type="radio"
+                      name={`question-${q.questionId}`}
+                      value={option}
+                      checked={answers[q.questionId] === option}
+                      onChange={() => handleChange(q.questionId, option)}
+                    />
+                  </RadioLabel>
+                ))}
+              </Options>
+            </QuestionRow>
+          </Card>
+        ))}
+      </Section>
+    ))}
       <StyledRowButton>
-        <Link to="/selfDiagnosis">
-          <BlueButton>Back</BlueButton>
-        </Link>
-        <BlueButton onClick={handleSubmit}>Submit</BlueButton>
-      </StyledRowButton>
+  <Link to="/selfDiagnosis">
+    <StyledButton>Back</StyledButton>
+  </Link>
+  <StyledButton onClick={handleSubmit}>Submit</StyledButton>
+</StyledRowButton>
     </Container>
   );
 };
@@ -157,6 +193,9 @@ const Card = styled.div`
   margin-bottom: 10px;
   padding: 15px;
   border-radius: 5px;
+  ${props => props.showUnanswered && props.unanswered && `
+    border: 2px solid #e64141;
+  `}
 `;
 
 const QuestionRow = styled.div`
@@ -179,6 +218,26 @@ const RadioLabel = styled.label`
 const StyledRowButton = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
 `;
 
+const StyledButton = styled.button`
+  width: 200px; 
+  height: 60px;
+  padding: 10px 20px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  background-color: #3333bb;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #6464d2;
+  }
+`;
 export default SelfDiagnosisQuestion;
