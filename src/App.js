@@ -10,8 +10,9 @@ import EvaluateEthics from "./pages/EvaluateEthics";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
+import AICheckQuestion from "./pages/AICheckQuestion.jsx";
 
-import Main from "./pages/Main";
+// import Main from "./pages/Main";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             path="/selfDiagnosisQuestion"
             element={<SelfDiagnosisQuestion />}
           />
+          <Route path="/aiCheckQuestion" element={<AICheckQuestion />} />
         </Routes>
       </BrowserRouter>
     </StyledApp>
