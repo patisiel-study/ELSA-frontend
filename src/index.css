@@ -14,6 +14,10 @@ code {
     monospace;
 }
 
+button {
+  border: none;
+}
+
 a {
   color: #333;
   text-decoration: none;

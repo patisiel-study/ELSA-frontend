@@ -1,7 +1,7 @@
 import React from "react";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
-import OrangeButton from "../components/OrangeButton";
+import OrangeLinkButton from "../components/OrangeLinkButton";
 import Footer from "../components/Footer";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
@@ -23,7 +23,7 @@ const Home = () => {
             사용하거나 개발하는 AI가 윤리적 기준을 충족하는지 간단하고 빠르게
             진단해 드립니다.
           </MainVisualContent>
-          <OrangeButton href="/test">테스트하기</OrangeButton>
+          <OrangeLinkButton href="/test">테스트하기</OrangeLinkButton>
         </MainVisualLeft>
         <MainVisualRight></MainVisualRight>
       </MainVisual>
@@ -91,7 +91,7 @@ const Home = () => {
         <BannerText>
           지금 바로 윤리적인 AI 활용을 위한 첫 걸음을 내딛어보세요!
         </BannerText>
-        <OrangeButton href={"/test"}>테스트하기</OrangeButton>
+        <OrangeLinkButton href={"/test"}>테스트하기</OrangeLinkButton>
       </BottomBanner>
     </HomepageLayout>
   );
