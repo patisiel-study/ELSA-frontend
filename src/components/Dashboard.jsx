@@ -28,10 +28,12 @@ function Dashboard({ selectedLLM, llmScore }) {
   };
 
   // 차트에 표시할 데이터 준비
-  const dataWithLabels = Object.keys(llmScore).map((key) => ({
-    name: formatLLMName(key), // 변경된 이름 사용
-    score: llmScore[key].score, // 선택된 LLM의 점수 접근
-  }));
+  const dataWithLabels = llmScore
+    ? Object.keys(llmScore).map((key) => ({
+        name: formatLLMName(key), // 변경된 이름 사용
+        score: llmScore[key]?.score || 0, // 선택된 LLM의 점수 접근, 없는 경우 0으로 대체
+      }))
+    : [];
 
   // 선택된 LLM의 포맷된 이름
   const formattedSelectedLLM = formatLLMName(selectedLLM);

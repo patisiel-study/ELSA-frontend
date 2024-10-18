@@ -248,6 +248,6 @@ const BottomBanner = styled.div`
 const BannerText = styled.p`
   color: white;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: bold;
   word-break: keep-all;
 `;

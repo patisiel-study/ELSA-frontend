@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import RefreshTokenAPI from "../apis/RefreshTokenAPI";
-import Menu from "../components/Menu";
 import HomepageLayout from "../components/HomepageLayout";
+import Menu from "../components/Menu";
+import { Header, Title, Content } from "../components/Header";
 import ProgressBar from "../components/ProgressBar";
+import Footer from "../components/Footer";
+import styled from "styled-components";
+import { color } from "../color";
 
-const SelfDiagnosisQuestion = () => {
+const AITestQuestion = () => {
   const [standards, setStandards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,7 +54,7 @@ const SelfDiagnosisQuestion = () => {
     }));
   };
 
-  const checkUnansweredQuestions = () => {
+  const testUnansweredQuestions = () => {
     const unanswered = standards.flatMap((standard) =>
       standard.questions.filter((q) => !answers[q.questionId])
     );
@@ -84,7 +87,7 @@ const SelfDiagnosisQuestion = () => {
         localStorage.setItem("refreshToken", refreshToken);
         await submitAnswers(formattedAnswers, accessToken);
         console.log("토큰 갱신 후 답변이 성공적으로 제출되었습니다.");
-        navigate("/selfDiagnosisResult");
+        navigate("/AITestResult");
       } catch (refreshError) {
         console.error("토큰 갱신 실패:", refreshError);
         navigate("/login");
@@ -130,7 +133,7 @@ const SelfDiagnosisQuestion = () => {
       return;
     }
 
-    const unanswered = checkUnansweredQuestions();
+    const unanswered = testUnansweredQuestions();
     if (unanswered.length > 0) {
       const newShowUnanswered = {};
       unanswered.forEach((q) => {
@@ -155,7 +158,7 @@ const SelfDiagnosisQuestion = () => {
     try {
       await submitAnswers(formattedAnswers, accessToken);
       console.log("답변이 성공적으로 제출되었습니다.");
-      navigate("/selfDiagnosisResult");
+      navigate("/AITestResult");
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
       await handleSubmitError(error, formattedAnswers);
@@ -177,77 +180,76 @@ const SelfDiagnosisQuestion = () => {
   return (
     <HomepageLayout>
       <Menu />
-      <StyledContentLayout>
-        <StyledTitle>인공지능 개발 윤리 검사</StyledTitle>
-        <StyledExplanation>
-          <div>
-            아래 질문은 인공지능 윤리 기준의 10대 핵심요건에 대한 각각의 설명과
-            그에 해당하는 점검항목입니다.
-            <br />각 문항을 읽고 자신의 생각과 가장 일치하는 답변을 선택해
-            주십시오.
-          </div>
-        </StyledExplanation>
-        <Container>
-          {standards
-            .slice(currentStandardIndex, currentStandardIndex + 1)
-            .map((standard) => (
-              <Section key={standard.standardName}>
-                <Header>
-                  <span>{standard.standardName}</span>
-                  <ProgressBar progress={calculateProgress()} />
-                </Header>
-                {standard.questions.map((q) => (
-                  <Card
-                    key={q.questionId}
-                    id={`question-${q.questionId}`}
-                    $showUnanswered={showUnanswered[q.questionId]}
-                  >
-                    <QuestionRow>
-                      <QuestionText>{q.question}</QuestionText>
-                      <Options>
-                        {[
-                          { display: "네", value: "YES" },
-                          { display: "아니오", value: "NO" },
-                          { display: "해당없음", value: "NOT_APPLICABLE" },
-                        ].map((option) => (
-                          <RadioLabel key={option.value}>
-                            {option.display}
-                            <input
-                              type="radio"
-                              name={`question-${q.questionId}`}
-                              value={option.value}
-                              checked={answers[q.questionId] === option.value}
-                              onChange={() =>
-                                handleChange(q.questionId, option.value)
-                              }
-                            />
-                          </RadioLabel>
-                        ))}
-                      </Options>
-                    </QuestionRow>
-                  </Card>
-                ))}
-              </Section>
-            ))}
-          <StyledRowButton>
-            {currentStandardIndex > 0 && (
-              <StyledButton onClick={handlePrevious}>이전</StyledButton>
-            )}
-            <StyledButton onClick={handleSubmit}>
-              {currentStandardIndex === standards.length - 1 ? "제출" : "다음"}
-            </StyledButton>
-          </StyledRowButton>
-        </Container>
-      </StyledContentLayout>
+      <Header>
+        <Title>인공지능 개발 윤리 검사</Title>
+        <Content>
+          아래 질문은 인공지능 윤리 기준의 10대 핵심요건에 대한 각각의 설명과
+          그에 해당하는 점검항목입니다.
+          <br />각 문항을 읽고 자신의 생각과 가장 일치하는 답변을 선택해
+          주십시오.
+        </Content>
+      </Header>
+      <Container>
+        {standards
+          .slice(currentStandardIndex, currentStandardIndex + 1)
+          .map((standard) => (
+            <Section key={standard.standardName}>
+              <Standard>
+                <span>{standard.standardName}</span>
+                <ProgressBar progress={calculateProgress()} />
+              </Standard>
+              {standard.questions.map((q) => (
+                <Card
+                  key={q.questionId}
+                  id={`question-${q.questionId}`}
+                  $showUnanswered={showUnanswered[q.questionId]}
+                >
+                  <QuestionRow>
+                    <QuestionText>{q.question}</QuestionText>
+                    <Options>
+                      {[
+                        { display: "네", value: "YES" },
+                        { display: "아니오", value: "NO" },
+                        { display: "해당없음", value: "NOT_APPLICABLE" },
+                      ].map((option) => (
+                        <RadioLabel key={option.value}>
+                          {option.display}
+                          <input
+                            type="radio"
+                            name={`question-${q.questionId}`}
+                            value={option.value}
+                            checked={answers[q.questionId] === option.value}
+                            onChange={() =>
+                              handleChange(q.questionId, option.value)
+                            }
+                          />
+                        </RadioLabel>
+                      ))}
+                    </Options>
+                  </QuestionRow>
+                </Card>
+              ))}
+            </Section>
+          ))}
+        <StyledRowButton>
+          {currentStandardIndex > 0 && (
+            <StyledButton onClick={handlePrevious}>이전</StyledButton>
+          )}
+          <StyledButton onClick={handleSubmit}>
+            {currentStandardIndex === standards.length - 1 ? "제출" : "다음"}
+          </StyledButton>
+        </StyledRowButton>
+      </Container>
+      <Footer />
     </HomepageLayout>
   );
 };
 
 const Container = styled.div`
   max-width: 800px;
-  margin: 0 auto;
+  margin-bottom: 3rem;
   padding: 20px;
-  border: 2px solid #2f5fc6;
+  border: 2px solid ${color.primary};
   border-radius: 30px;
 `;
 
@@ -255,11 +257,11 @@ const Section = styled.div`
   margin-bottom: 30px;
 `;
 
-const Header = styled.div`
+const Standard = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #2f5fc6;
+  background-color: ${color.primary};
   color: white;
   height: 120px;
   padding: 40px;
@@ -269,7 +271,7 @@ const Header = styled.div`
 `;
 
 const Card = styled.div`
-  background-color: #ffffff;
+  background-color: white;
   border: none;
   margin-bottom: 10px;
   padding: 20px;
@@ -309,12 +311,11 @@ const RadioLabel = styled.label`
     height: 16px;
     border-radius: 50%;
     background-color: #d9d9d9;
-    border: none;
     position: relative;
 
     &:checked {
-      background-color: #2f5fc6;
-      border-color: #2f5fc6;
+      background-color: ${color.primary};
+      border-color: ${color.primary};
     }
   }
 `;
@@ -329,7 +330,7 @@ const StyledButton = styled.button`
   width: 25%;
   height: 50px;
   padding: 10px;
-  background-color: #ff8345;
+  background-color: ${color.accent};
   color: white;
   font-size: large;
   font-weight: bold;
@@ -338,20 +339,8 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #fc6a20;
+    background-color: ${color.accent};
   }
 `;
 
-const StyledTitle = styled.h1`
-  margin: 30px 0;
-`;
-
-const StyledContentLayout = styled.div`
-  margin-top: 60px;
-`;
-
-const StyledExplanation = styled.p`
-  margin-bottom: 80px;
-`;
-
-export default SelfDiagnosisQuestion;
+export default AITestQuestion;

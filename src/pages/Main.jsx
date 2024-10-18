@@ -92,10 +92,11 @@ const Main = () => {
             onClick={() => handleClick("GPT3.5")}
           >
             <StyledImage
-              src="../img/ChatGpt-Img.png"
+              src="../img/gptLogo.png"
               alt="ChatGPT Logo"
               draggable="false"
             />
+            <LLMName>GPT3.5</LLMName>
             {(selectedLLM === "GPT_3_5" || hoveredImage === "GPT3.5") && (
               <OverlayText>GPT3.5</OverlayText>
             )}
@@ -107,10 +108,11 @@ const Main = () => {
             onClick={() => handleClick("GPT4")}
           >
             <StyledImage
-              src="../img/ChatGpt-Img.png"
+              src="../img/gptLogo.png"
               alt="ChatGPT Logo"
               draggable="false"
             />
+            <LLMName>GPT4</LLMName>
             {(selectedLLM === "GPT_4" || hoveredImage === "GPT4") && (
               <OverlayText>GPT4</OverlayText>
             )}
@@ -122,10 +124,11 @@ const Main = () => {
             onClick={() => handleClick("GPT4o")}
           >
             <StyledImage
-              src="../img/ChatGpt-Img.png"
+              src="../img/gptLogo.png"
               alt="ChatGPT Logo"
               draggable="false"
             />
+            <LLMName>GPT4o</LLMName>
             {(selectedLLM === "GPT_4o" || hoveredImage === "GPT4o") && (
               <OverlayText>GPT4o</OverlayText>
             )}
@@ -176,17 +179,24 @@ const MainContainer = styled.div.attrs((props) => ({
 
 const Content = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 `;
 
 const LLMButtonContainer = styled.div`
   display: flex;
+  width: 40rem;
   justify-content: space-between;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
 `;
 
@@ -211,6 +221,11 @@ const OverlayText = styled.div`
   border-radius: 5px;
   pointer-events: none; /* 텍스트가 클릭되지 않도록 설정 */
   font-size: 14px;
+`;
+
+const LLMName = styled.div`
+  font-weight: 500;
+  margin: 0.5rem;
 `;
 
 export default Main;

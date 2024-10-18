@@ -5,14 +5,13 @@ import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Introduction from "./pages/Introduction.jsx";
 import Test from "./pages/Test.jsx";
+import AITestIntro from "./pages/AITestIntro.jsx";
+import AITestQuestion from "./pages/AITestQuestion.jsx";
 import Evaluation from "./pages/Evaluation.jsx";
 import EvaluateEthics from "./pages/EvaluateEthics";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
-import AICheckQuestion from "./pages/AICheckQuestion.jsx";
-
-// import Main from "./pages/Main";
 
 function App() {
   return (
@@ -24,6 +23,8 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/introduction" element={<Introduction />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/aiTestIntro" element={<AITestIntro />} />
+          <Route path="/aiTestQuestion" element={<AITestQuestion />} />
           <Route path="/evaluation" element={<Evaluation />} />
           <Route path="/evaluateEthics" element={<EvaluateEthics />} />
           <Route path="/selfDiagnosis" element={<SelfDiagnosis />} />
@@ -35,7 +36,7 @@ function App() {
             path="/selfDiagnosisQuestion"
             element={<SelfDiagnosisQuestion />}
           />
-          <Route path="/aiCheckQuestion" element={<AICheckQuestion />} />
+          <Route path="/aiTestQuestion" element={<AITestQuestion />} />
         </Routes>
       </BrowserRouter>
     </StyledApp>
