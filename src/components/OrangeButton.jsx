@@ -33,7 +33,7 @@ const StyledOrangeButton = styled.a`
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: bold;
   border-radius: 2rem;
   background-color: ${color.accent};
 
