@@ -35,12 +35,31 @@ const Test = () => {
             onMouseLeave={() => setHoveredButton("")}
             onClick={handleDeveloperClick}
           >
+            <ButtonIcon
+              src={
+                hoveredButton === "developer"
+                  ? "../img/robotWhite.svg"
+                  : "../img/robotPrimary.svg"
+              }
+              alt="로봇 아이콘"
+              draggable="false"
+            />
             <ButtonText>개발 윤리 검사</ButtonText>
           </AIorUserButton>
+
           <AIorUserButton
             onMouseEnter={() => setHoveredButton("user")}
             onMouseLeave={() => setHoveredButton("")}
           >
+            <ButtonIcon
+              src={
+                hoveredButton === "user"
+                  ? "../img/humanWhite.svg"
+                  : "../img/humanPrimary.svg"
+              }
+              alt="인간 아이콘"
+              draggable="false"
+            />
             <ButtonText>사용자 윤리 검사</ButtonText>
           </AIorUserButton>
         </ButtonContainer>
@@ -116,6 +135,12 @@ const TestMainContent = styled.main`
 
 const ButtonContainer = styled.div`
   display: flex;
+`;
+
+const ButtonIcon = styled.img`
+  height: 5rem;
+  width: 5rem;
+  margin-top: 1rem;
 `;
 
 const ButtonText = styled.p`
