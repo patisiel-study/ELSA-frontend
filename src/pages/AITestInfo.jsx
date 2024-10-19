@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import RefreshTokenAPI from "../apis/RefreshTokenAPI";
+import CareersAPI from "../apis/CareersAPI";
+import CountriesAPI from "../apis/CountriesAPI";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
 import { Header, Title, Content } from "../components/Header";
-import OrangeButton from "../components/OrangeButton";
+import OrangeLinkButton from "../components/OrangeLinkButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
@@ -66,7 +67,7 @@ const AITestInfo = () => {
             />
           </FormGroup>
         </FormContainer>
-        <OrangeButton>다음</OrangeButton>
+        <OrangeLinkButton href={"/aiTestQuestion"}>다음</OrangeLinkButton>
       </Container>
       <Footer />
     </HomepageLayout>

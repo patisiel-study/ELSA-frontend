@@ -6,6 +6,7 @@ import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
 import { Header, Title, Content } from "../components/Header";
 import ProgressBar from "../components/ProgressBar";
+import OrangeButton from "../components/OrangeButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";

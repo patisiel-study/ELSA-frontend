@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Bar } from "react-chartjs-2";
 import LLMScoreAPI from "../apis/LLMScoreAPI";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
@@ -9,7 +8,7 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
 
-// Chart.js 등록
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,7 +30,7 @@ ChartJS.register(
 
 const Dashboard = () => {
   const [LLMScore, setLLMScore] = useState(null);
-  const [selectedLLM, setSelectedLLM] = useState(null); // 선택된 LLM 상태
+  const [selectedLLM, setSelectedLLM] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -69,27 +68,48 @@ const Dashboard = () => {
 
   // LLM 데이터 선택 시 차트를 표시하는 함수
   const handleLLMClick = (llm) => {
-    setSelectedLLM(LLMScore[llm]);
+    setSelectedLLM({ data: LLMScore[llm], llm });
   };
 
   // 선택된 LLM 데이터를 차트 형식으로 변환하는 함수
-  const getChartData = (llmData) => {
+  const getChartData = (llmData, llm) => {
     if (!llmData) return null;
 
     const labels = Object.keys(llmData); // 항목 이름들
     const scores = labels.map((key) => llmData[key].score); // 점수들
 
+    const backgroundColor =
+      llm === "GPT_3_5" || "GPT_4" || "GPT_4o"
+        ? "#74AA9C"
+        : llm === "GEMINI"
+        ? "#4E88D4"
+        : "rgba(75, 192, 192, 0.2)";
+
     return {
       labels,
       datasets: [
         {
-          label: "Score",
+          label: llm,
           data: scores,
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 1,
+          backgroundColor: backgroundColor,
+          borderWidth: 0,
         },
       ],
+    };
+  };
+
+  const getChartOptions = () => {
+    return {
+      responsive: true,
+      animation: {
+        duration: 1000, // 애니메이션의 시간(밀리초)
+        easing: "easeInOutQuad", // 애니메이션의 easing 방식
+      },
+      plugins: {
+        legend: {
+          position: "top",
+        },
+      },
     };
   };
 
@@ -107,7 +127,10 @@ const Dashboard = () => {
       <MainContent>
         <DashboardContainer>
           <LLMs>
-            <LLM onClick={() => handleLLMClick("GPT_3_5")}>
+            <LLM
+              onClick={() => handleLLMClick("GPT_3_5")}
+              isSelected={selectedLLM && selectedLLM.llm === "GPT_3_5"}
+            >
               <LLMLogo
                 src="../img/logoChatGPT.svg"
                 alt="ChatGPT Logo"
@@ -115,7 +138,10 @@ const Dashboard = () => {
               />
               <LLMName>GPT-3.5</LLMName>
             </LLM>
-            <LLM onClick={() => handleLLMClick("GPT_4")}>
+            <LLM
+              onClick={() => handleLLMClick("GPT_4")}
+              isSelected={selectedLLM && selectedLLM.llm === "GPT_4"}
+            >
               <LLMLogo
                 src="../img/logoChatGPT.svg"
                 alt="ChatGPT Logo"
@@ -123,7 +149,10 @@ const Dashboard = () => {
               />
               <LLMName>GPT-4</LLMName>
             </LLM>
-            <LLM onClick={() => handleLLMClick("GPT_4o")}>
+            <LLM
+              onClick={() => handleLLMClick("GPT_4o")}
+              isSelected={selectedLLM && selectedLLM.llm === "GPT_4o"}
+            >
               <LLMLogo
                 src="../img/logoChatGPT.svg"
                 alt="ChatGPT Logo"
@@ -131,7 +160,10 @@ const Dashboard = () => {
               />
               <LLMName>GPT-4o</LLMName>
             </LLM>
-            <LLM onClick={() => handleLLMClick("GEMINI")}>
+            <LLM
+              onClick={() => handleLLMClick("GEMINI")}
+              isSelected={selectedLLM && selectedLLM.llm === "GEMINI"}
+            >
               <LLMLogo
                 src="../img/logoGemini.svg"
                 alt="Gemini Logo"
@@ -145,8 +177,8 @@ const Dashboard = () => {
           {selectedLLM && (
             <BarChartContainer>
               <Bar
-                data={getChartData(selectedLLM)}
-                options={{ responsive: true }}
+                data={getChartData(selectedLLM.data, selectedLLM.llm)}
+                options={getChartOptions()}
               />
             </BarChartContainer>
           )}
@@ -164,15 +196,14 @@ const MainContent = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 60rem;
+  padding: 4rem 0;
   background-color: ${color.primary};
 `;
 
 const DashboardContainer = styled.div`
   width: 70%;
   height: auto;
-  margin-top: 3rem;
-  padding: 3rem 4rem;
+  padding: 4rem;
   box-sizing: border-box;
   background-color: white;
   border-radius: 3rem;
@@ -181,14 +212,32 @@ const DashboardContainer = styled.div`
 const LLMs = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 const LLM = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+    ::after {
+      content: "";
+      position: absolute;
+      top: -0.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 0.4rem;
+      width: 0.4rem;
+      background-color: ${color.accent};
+      border-radius: 50%;
+      transition: background-color 0.2s ease;
+    }
+  `}
 `;
 
 const LLMLogo = styled.img`
@@ -207,7 +256,10 @@ const LLMName = styled.p`
 `;
 
 const BarChartContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 2rem;
   width: 100%;
-  height: auto;
+  height: 25rem;
 `;

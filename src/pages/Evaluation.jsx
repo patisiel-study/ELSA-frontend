@@ -42,7 +42,7 @@ const Evaluation = () => {
               답변을 분석하여 LLM의 윤리성을 종합적으로 판단하는 과정을
               진행합니다.
             </TextWhite>
-            <OrangeLinkButton href={"/#"}>평가하기</OrangeLinkButton>
+            <OrangeLinkButton href={"#"}>평가하기</OrangeLinkButton>
           </LeftContainer>
         </InnerContainer>
       </BlueContainer>
@@ -76,7 +76,7 @@ const Evaluation = () => {
               Humaind 만의 평가 시스템에서 평가를 완료 하신다면 상세한 결과
               보고서와 인증서를 받아 보실 수 있습니다.
             </TextWhite>
-            <OrangeLinkButton href={"/#"}>문의하기</OrangeLinkButton>
+            <OrangeLinkButton href={"#"}>문의하기</OrangeLinkButton>
           </LeftContainer>
         </InnerContainer>
       </BlueContainer>

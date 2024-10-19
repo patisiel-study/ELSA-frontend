@@ -88,12 +88,13 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 80%;
+  margin-top: 1.5rem;
 `;
 
 const Input = styled.input`
   width: 100%;
   padding: 0.8rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   border: 1px solid #ddd;
   border-radius: 0.3rem;
 `;
