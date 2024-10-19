@@ -99,7 +99,7 @@ const BlueContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 0;
   background-color: ${color.primary};
 `;
 
@@ -126,7 +126,7 @@ const WhiteContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 0;
 `;
 
 const TextBlack = styled.p`

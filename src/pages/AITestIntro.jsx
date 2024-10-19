@@ -160,6 +160,7 @@ const TableHeader = styled.th`
 `;
 
 const TableData = styled.td`
+  background-color: white;
   border: 0.1rem solid #ddd;
   padding: 0.8rem;
   text-align: center;

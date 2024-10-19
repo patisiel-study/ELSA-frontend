@@ -37,7 +37,7 @@ const Menu = () => {
       </Logo>
       <NavBar>
         <Nav
-          href="/introduction"
+          href="/aiTestResult"
           isActive={activeItem === "소개"}
           onClick={() => setActiveItem("소개")}
         >
