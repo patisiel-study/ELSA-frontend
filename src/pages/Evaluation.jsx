@@ -44,29 +44,32 @@ const Evaluation = () => {
             </TextWhite>
             <OrangeLinkButton href={"#"}>평가하기</OrangeLinkButton>
           </LeftContainer>
+          <Img
+            src="../img/humanAndAI.jpg"
+            alt="인간과 인공지능"
+            draggable="false"
+          />
         </InnerContainer>
       </BlueContainer>
       <BlueCurveReverse />
       <WhiteContainer>
-        <InnerContainer>
-          <TextBlack>
-            인공지능 윤리 평가는 다음과 같은 단계로 진행됩니다.
-          </TextBlack>
-          {[
-            "윤리성 질문 분석: 보편적 윤리관에 기반한 질문을 LLM에 제시합니다.",
-            "답변 평가: 답변의 논리성, 일관성, 그리고 윤리적 기준 준수 여부를 세밀하게 분석합니다.",
-            "결과 제공: 평가가 완료되면 LLM의 윤리성에 대한 평가 결과를 제공해드립니다.",
-          ].map((text, index) => (
-            <NumAndText
-              key={index}
-              ref={(el) => (numAndTextRefs.current[index] = el)}
-              className={visibleItems[index] ? "visible" : ""}
-            >
-              <Num>{index + 1}</Num>
-              <TextBlack>{text}</TextBlack>
-            </NumAndText>
-          ))}
-        </InnerContainer>
+        <TextBlack>
+          인공지능 윤리 평가는 다음과 같은 단계로 진행됩니다.
+        </TextBlack>
+        {[
+          "윤리성 질문 분석: 보편적 윤리관에 기반한 질문을 LLM에 제시합니다.",
+          "답변 평가: 답변의 논리성, 일관성, 그리고 윤리적 기준 준수 여부를 세밀하게 분석합니다.",
+          "결과 제공: 평가가 완료되면 LLM의 윤리성에 대한 평가 결과를 제공해드립니다.",
+        ].map((text, index) => (
+          <NumAndText
+            key={index}
+            ref={(el) => (numAndTextRefs.current[index] = el)}
+            className={visibleItems[index] ? "visible" : ""}
+          >
+            <Num>{index + 1}</Num>
+            <TextBlack>{text}</TextBlack>
+          </NumAndText>
+        ))}
       </WhiteContainer>
       <BlueCurve />
       <BlueContainer>
@@ -78,6 +81,7 @@ const Evaluation = () => {
             </TextWhite>
             <OrangeLinkButton href={"#"}>문의하기</OrangeLinkButton>
           </LeftContainer>
+          <Img src="../img/certificate.svg" alt="인증서" draggable="false" />
         </InnerContainer>
       </BlueContainer>
       <Footer />
@@ -104,6 +108,9 @@ const BlueContainer = styled.div`
 `;
 
 const InnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 70%;
 `;
 
@@ -123,9 +130,9 @@ const TextWhite = styled.p`
 
 const WhiteContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
+  width: 70%;
   padding: 2rem 0;
 `;
 
@@ -158,4 +165,9 @@ const Num = styled.div`
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
+`;
+
+const Img = styled.img`
+  width: 22rem;
+  border-radius: 1rem;
 `;
