@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import RefreshTokenAPI from "../apis/RefreshTokenAPI";
+import React from "react";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
 import { Header, Title, Content } from "../components/Header";
 import BlueCurve from "../components/BlueCurve";
-import OrangeButton from "../components/OrangeButton";
+import OrangeLinkButton from "../components/OrangeLinkButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
@@ -89,7 +86,7 @@ const AITestIntro = () => {
             </TableRow>
           </Table>
         </ChecklistContainer>
-        <OrangeButton href="/aiTestQuestion">테스트 시작하기</OrangeButton>
+        <OrangeLinkButton href="/aiTestInfo">테스트 시작하기</OrangeLinkButton>
       </TestMainContent>
       <Footer />
     </HomepageLayout>
@@ -163,6 +160,7 @@ const TableHeader = styled.th`
 `;
 
 const TableData = styled.td`
+  background-color: white;
   border: 0.1rem solid #ddd;
   padding: 0.8rem;
   text-align: center;
