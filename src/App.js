@@ -12,6 +12,7 @@ import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
 import AICheckQuestion from "./pages/AICheckQuestion.jsx";
 
+
 // import Main from "./pages/Main";
 
 function App() {
