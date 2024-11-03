@@ -6,7 +6,6 @@ import OrangeButton from "../components/OrangeButton";
 import { useNavigate } from "react-router-dom";
 import Menu from "../components/Menu";
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,7 +68,7 @@ const Login = () => {
     </FooterContainer>
         </LoginForm>
       </Container>
- 
+
   );
 };
 
@@ -91,6 +90,7 @@ const LoginForm = styled.div`
   background-color: white;
   padding: 40px;
   border-radius: 30px;
+
   border: 1.2px  solid #D9D9D9;
 `;
 
@@ -125,7 +125,6 @@ const StyledLink = styled(Link)`
   text-decoration: none;
    margin:  0.3rem; 
    font-size: 0.9rem; 
-
   &:hover {
     text-decoration: underline;
   }

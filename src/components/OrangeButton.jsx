@@ -38,6 +38,9 @@ const StyledOrangeButton = styled.button`
   z-index: 1;
   height: ${({ height }) => height || 'min-content'};
   width: ${({ width }) => width || 'max-content'};
+
+
+
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
@@ -53,6 +56,6 @@ const StyledOrangeButton = styled.button`
   }
 
   &:not(:hover) {
-    animation: ${buttonShrink} 0.3s forwards; /* hover에서 벗어나면 축소 애니메이션 */
+    animation: ${buttonShrink} 0.3s forwards;
   }
 `;
