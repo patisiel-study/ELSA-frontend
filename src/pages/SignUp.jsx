@@ -66,7 +66,7 @@ const SignUp = () => {
   return (
     <MainContainer>
       <Container>
-      <Menu/>
+        <Menu />
         <SignUpForm>
           <SignUpHeader>회원가입</SignUpHeader>
           <Form onSubmit={onSubmitHandler}>
@@ -101,7 +101,7 @@ const SignUp = () => {
                 control: (provided) => ({
                   ...provided,
                   width: "320px",
-                  borderRadius: "10px"
+                  borderRadius: "10px",
                 }),
                 menu: (provided) => ({
                   ...provided,
@@ -122,7 +122,7 @@ const SignUp = () => {
               styles={{
                 container: (provided) => ({
                   ...provided,
-                  marginBottom: "30px", 
+                  marginBottom: "30px",
                 }),
                 control: (provided) => ({
                   ...provided,
@@ -142,7 +142,7 @@ const SignUp = () => {
               }}
             />
 
-            <OrangeButton type="submit" width="160px" height="15px">
+            <OrangeButton type="submit" width="100%">
               회원가입
             </OrangeButton>
           </Form>
