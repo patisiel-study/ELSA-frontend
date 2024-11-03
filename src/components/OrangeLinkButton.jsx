@@ -1,17 +1,14 @@
-
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
 
-const OrangeButton = ({ href, children, width, height }) => {
+const OrangeLinkButton = ({ href, children }) => {
   return (
-    <StyledOrangeButton href={href} width={width} height={height}>
-      {children}
-    </StyledOrangeButton>
+    <StyledOrangeLinkButton href={href}>{children}</StyledOrangeLinkButton>
   );
 };
 
-export default OrangeButton;
+export default OrangeLinkButton;
 
 const buttonHover = keyframes`
   0% {
@@ -31,13 +28,10 @@ const buttonShrink = keyframes`
   }
 `;
 
-const StyledOrangeButton = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const StyledOrangeLinkButton = styled.a`
   z-index: 1;
-  height: ${({ height }) => height || 'min-content'};
-  width: ${({ width }) => width || 'max-content'};
+  height: min-content;
+  width: max-content;
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
@@ -45,7 +39,7 @@ const StyledOrangeButton = styled.a`
   border-radius: 2rem;
   background-color: ${color.accent};
 
-  &:hover {
+  &: hover {
     color: ${color.black};
     background-color: white;
     box-shadow: inset 0 0 0.2rem rgba(200, 200, 200, 1);

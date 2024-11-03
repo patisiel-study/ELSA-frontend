@@ -1,7 +1,7 @@
 import React from "react";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
-import OrangeButton from "../components/OrangeButton";
+import OrangeLinkButton from "../components/OrangeLinkButton";
 import Footer from "../components/Footer";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
@@ -23,18 +23,22 @@ const Home = () => {
             사용하거나 개발하는 AI가 윤리적 기준을 충족하는지 간단하고 빠르게
             진단해 드립니다.
           </MainVisualContent>
-          <OrangeButton href="/test">테스트하기</OrangeButton>
+          <OrangeLinkButton href="/test">테스트하기</OrangeLinkButton>
         </MainVisualLeft>
-        <MainVisualRight></MainVisualRight>
+        <MainVisualRight>
+          <Circle1 />
+          <Circle2 />
+          <Circle3>
+            <RobotIcon
+              src="../img/robotWhite.svg"
+              alt="로봇 아이콘"
+              draggable="false"
+            />
+          </Circle3>
+          <Laptop src="../img/laptop.png" alt="노트북" draggable="false" />
+        </MainVisualRight>
       </MainVisual>
       <Sections>
-        <Section>
-          <SectionLeft>
-            <SectionTitle>AI 윤리 검사</SectionTitle>
-            <SectionContent>AI 윤리 검사</SectionContent>
-          </SectionLeft>
-          <SectionRight></SectionRight>
-        </Section>
         <Section>
           <SectionLeft>
             <SectionTitle>인간성을 위한 인공지능</SectionTitle>
@@ -44,7 +48,11 @@ const Home = () => {
             </SectionContent>
             <DetailsLink href="/introduction">자세히 보기 →</DetailsLink>
           </SectionLeft>
-          <SectionRight></SectionRight>
+          <SectionImg
+            src="../img/AI3ethics.png"
+            alt="인공지능 3대 윤리기준과 10대 핵심요건"
+            draggable="false"
+          />
         </Section>
         <Section>
           <SectionLeft>
@@ -55,28 +63,54 @@ const Home = () => {
             </SectionContent>
             <DetailsLink href="/evaluation">자세히 보기 →</DetailsLink>
           </SectionLeft>
-          <SectionRight></SectionRight>
+          <SectionImg
+            src="../img/certificate.svg"
+            alt="증명서"
+            draggable="false"
+          />
         </Section>
         <Section>
           <SectionTitle>HUMAIND의 차별점</SectionTitle>
+        </Section>
+        <Section>
           <Articles>
             <Article>
+              <ArticleIcon
+                src="../img/first.svg"
+                alt="국내 최초"
+                draggable="false"
+              />
               <ArticleTitle>국내 최초</ArticleTitle>
               <ArticleContent>
                 국내 최초 인공지능 윤리 평가 시스템
               </ArticleContent>
             </Article>
             <Article>
+              <ArticleIcon
+                src="../img/easy.svg"
+                alt="쉽고 간단"
+                draggable="false"
+              />
               <ArticleTitle>쉽고 간단</ArticleTitle>
               <ArticleContent>약 10분 정도의 쉽고 간단한 진단</ArticleContent>
             </Article>
             <Article>
+              <ArticleIcon
+                src="../img/result.svg"
+                alt="정확한 결과"
+                draggable="false"
+              />
               <ArticleTitle>정확한 결과</ArticleTitle>
               <ArticleContent>
                 데이터 과학자들과 함께 해 정확한 결과
               </ArticleContent>
             </Article>
             <Article>
+              <ArticleIcon
+                src="../img/badge.svg"
+                alt="AI 윤리 인증서"
+                draggable="false"
+              />
               <ArticleTitle>AI 윤리 인증서</ArticleTitle>
               <ArticleContent>
                 국내 유일 AI 윤리 검증 인증서 발급
@@ -91,7 +125,7 @@ const Home = () => {
         <BannerText>
           지금 바로 윤리적인 AI 활용을 위한 첫 걸음을 내딛어보세요!
         </BannerText>
-        <OrangeButton href={"/test"}>테스트하기</OrangeButton>
+        <OrangeLinkButton href={"/test"}>테스트하기</OrangeLinkButton>
       </BottomBanner>
     </HomepageLayout>
   );
@@ -121,6 +155,17 @@ const fadeIn = keyframes`
   }
 `;
 
+const scaleUp = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
 const MainVisual = styled.header`
   display: flex;
   z-index: 1;
@@ -141,8 +186,8 @@ const MainVisualLeft = styled.div`
 `;
 
 const MainVisualRight = styled.div`
+  position: relative;
   width: 40%;
-  background-color: gray;
 `;
 
 const MainVisualTitle = styled.h1`
@@ -154,6 +199,62 @@ const MainVisualContent = styled.p`
   margin: 1.2rem 2.6rem 4rem 0;
   font-size: 1.2rem;
   word-break: keep-all;
+`;
+
+const Circle1 = styled.div`
+  position: absolute;
+  top: -10rem;
+  left: 7rem;
+  width: 18rem;
+  height: 18rem;
+  background-color: ${color.primary};
+  border-radius: 100%;
+  animation: ${scaleUp} 0.8s ease-out;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+`;
+
+const Circle2 = styled.div`
+  position: absolute;
+  top: 1rem;
+  width: 14rem;
+  height: 14rem;
+  background-color: ${color.accent};
+  border-radius: 100%;
+  animation: ${scaleUp} 0.8s ease-out;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+`;
+
+const Circle3 = styled.div`
+  position: absolute;
+  top: -12rem;
+  left: -3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  background-color: ${color.primary};
+  border-radius: 100%;
+  animation: ${scaleUp} 0.8s ease-out;
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
+`;
+
+const RobotIcon = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
+
+const Laptop = styled.img`
+  position: absolute;
+  width: 20rem;
+  top: -4rem;
+  left: 2rem;
+  animation: ${scaleUp} 0.8s ease-out;
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
 `;
 
 const Curve = styled.div`
@@ -175,19 +276,16 @@ const Sections = styled.main`
 `;
 
 const Section = styled.section`
+  display: flex;
+  justify-content: space-between;
   width: 70%;
   max-width: 70rem;
   min-width: 30rem;
-  margin: 3rem 0;
+  margin: 2rem 0;
 `;
 
 const SectionLeft = styled.div`
   width: 60%;
-`;
-
-const SectionRight = styled.div`
-  width: 40%;
-  background-color: gray;
 `;
 
 const SectionTitle = styled.h2`
@@ -198,6 +296,13 @@ const SectionTitle = styled.h2`
 const SectionContent = styled.p`
   color: white;
   word-break: keep-all;
+`;
+
+const SectionImg = styled.img`
+  width: 20rem;
+  background-color: white;
+  border: solid 1rem white;
+  border-radius: 1rem;
 `;
 
 const Articles = styled.div`
@@ -212,6 +317,12 @@ const Article = styled.article`
   align-items: center;
   width: 20%;
   text-align: center;
+`;
+
+const ArticleIcon = styled.img`
+  width: 8rem;
+  height: 8rem;
+  margin: 0 0 1rem 0;
 `;
 
 const ArticleTitle = styled.h3`
@@ -248,6 +359,6 @@ const BottomBanner = styled.div`
 const BannerText = styled.p`
   color: white;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: bold;
   word-break: keep-all;
 `;

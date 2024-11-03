@@ -13,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
 
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -21,22 +22,24 @@ const Login = () => {
       console.log(password);
       const response = await LoginAPI(email, password);
       const { accessToken, refreshToken } = response.data;
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
       const testResponse = await TestAPI(accessToken);
       console.log(testResponse);
 
       setEmail("");
       setPassword("");
 
-     
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       alert(error.message);
       console.log(error);
-
     }
+  };
+
+  const onLoginClick = () => {
+    onSubmitHandler();
   };
 
   return (
@@ -57,7 +60,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <OrangeButton type="submit"  width="165px" height="15px">로그인</OrangeButton>
+            <OrangeButton type="submit"  width="140px" height="15px">로그인</OrangeButton>
           </Form>
           <FooterContainer>
           <StyledLink to="/signup">회원가입</StyledLink>|
@@ -82,6 +85,9 @@ const LoginForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 20rem;
+  margin: 11rem 0 8.5rem 0;
+  padding: 3rem;
   background-color: white;
   padding: 40px;
   border-radius: 30px;
@@ -96,6 +102,8 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 80%;
+  margin-top: 1.5rem;
 `;
 
 const Input = styled.input`

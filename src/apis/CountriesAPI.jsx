@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const LLMScoreAPI = async () => {
+const CountriesAPI = async () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   if (!SERVER_URL) {
     throw new Error("SERVER_URL이 정의되지 않았습니다.");
   }
   try {
-    const response = await axios.get(`${SERVER_URL}/api/standard/all-scores`);
+    const response = await axios.get(`${SERVER_URL}/api/countries`);
     return response;
   } catch (error) {
     if (error.response && error.response.data) {
@@ -24,4 +24,4 @@ const LLMScoreAPI = async () => {
   }
 };
 
-export default LLMScoreAPI;
+export default CountriesAPI;
