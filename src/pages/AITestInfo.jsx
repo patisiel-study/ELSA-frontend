@@ -1,30 +1,56 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import CareersAPI from "../apis/CareersAPI";
 import CountriesAPI from "../apis/CountriesAPI";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
 import { Header, Title, Content } from "../components/Header";
-import OrangeLinkButton from "../components/OrangeLinkButton";
+import OrangeButton from "../components/OrangeButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
 
 const AITestInfo = () => {
-  const [occupation, setOccupation] = useState("개발자");
-  const [country, setCountry] = useState("대한민국");
+  const [carrer, setCarrer] = useState("직업을 선택하세요");
+  const [country, setCountry] = useState("국가를 선택하세요");
   const [llmName, setLlmName] = useState("");
+  const [careersList, setCareersList] = useState([]);
+  const [countriesList, setCountriesList] = useState([]);
+  const [error, setError] = useState("");
 
-  const handleOccupationChange = (e) => {
-    setOccupation(e.target.value);
+  const fetchData = async () => {
+    try {
+      const [careers, countries] = await Promise.all([
+        CareersAPI(),
+        CountriesAPI(),
+      ]);
+      setCareersList(careers.data.data);
+      setCountriesList(countries.data.data);
+    } catch (error) {
+      console.error(
+        "직업 및 국가 목록을 가져오는 중 오류가 발생했습니다.",
+        error
+      );
+    }
   };
 
-  const handleCountryChange = (e) => {
-    setCountry(e.target.value);
-  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const handleLlmNameChange = (e) => {
-    setLlmName(e.target.value);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (carrer === "직업을 선택하세요" || country === "국가를 선택하세요") {
+      setError("직업과 국가를 선택해주세요.");
+      return;
+    }
+
+    localStorage.setItem(
+      "dignosisInfo",
+      JSON.stringify({ carrer, country, llmName })
+    );
+
+    window.location.href = "/aiTestQuestion";
   };
 
   return (
@@ -39,40 +65,50 @@ const AITestInfo = () => {
       </Header>
       <Container>
         <FormContainer>
-          <FormGroup>
-            <Label>직업</Label>
-            <Select value={occupation} onChange={handleOccupationChange}>
-              <option value="개발자">개발자</option>
-              <option value="디자이너">디자이너</option>
-              <option value="데이터 과학자">데이터 과학자</option>
-            </Select>
-          </FormGroup>
-
-          <FormGroup>
-            <Label>국가</Label>
-            <Select value={country} onChange={handleCountryChange}>
-              <option value="대한민국">대한민국</option>
-              <option value="미국">미국</option>
-              <option value="일본">일본</option>
-            </Select>
-          </FormGroup>
-
-          <FormGroup>
-            <Label>LLM 이름</Label>
-            <Input
-              type="text"
-              value={llmName}
-              onChange={handleLlmNameChange}
-              placeholder="LLM 이름을 입력하세요"
+          <form onSubmit={handleSubmit}>
+            <Dropdown
+              label="직업"
+              value={carrer}
+              onChange={setCarrer}
+              options={careersList}
             />
-          </FormGroup>
+            <Dropdown
+              label="국가"
+              value={country}
+              onChange={setCountry}
+              options={countriesList}
+            />
+            <FormGroup>
+              <Label>LLM 이름</Label>
+              <Input
+                type="text"
+                value={llmName}
+                onChange={(e) => setLlmName(e.target.value)}
+                placeholder="LLM 이름을 입력하세요"
+              />
+            </FormGroup>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+            <OrangeButton type="submit">다음</OrangeButton>
+          </form>
         </FormContainer>
-        <OrangeLinkButton href={"/aiTestQuestion"}>다음</OrangeLinkButton>
       </Container>
       <Footer />
     </HomepageLayout>
   );
 };
+
+const Dropdown = ({ label, value, onChange, options }) => (
+  <FormGroup>
+    <Label>{label}</Label>
+    <Select value={value} onChange={(e) => onChange(e.target.value)}>
+      {options.map((option, index) => (
+        <option key={index} value={option}>
+          {option}
+        </option>
+      ))}
+    </Select>
+  </FormGroup>
+);
 
 export default AITestInfo;
 
@@ -120,4 +156,10 @@ const Input = styled.input`
   font-size: 16px;
   outline: none;
   box-sizing: border-box;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 `;

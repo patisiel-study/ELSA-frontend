@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import NonmemberResult from "../apis/NonmemberResult";
+import NonmemberResultAPI from "../apis/NonmemberResultAPI";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
 import { Header, Title, Content } from "../components/Header";
@@ -162,7 +162,7 @@ const AITestResult = () => {
 
   const fetchData = async () => {
     try {
-      const response = await NonmemberResult();
+      const response = await NonmemberResultAPI();
       return response.data.data;
     } catch (error) {
       console.error(
