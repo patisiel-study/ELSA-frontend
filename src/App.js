@@ -18,6 +18,8 @@ import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
 import styled from "styled-components";
 
+// import Main from "./pages/Main";
+
 function App() {
   return (
     <StyledApp>

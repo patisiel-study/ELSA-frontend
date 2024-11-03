@@ -103,7 +103,7 @@ const Menu = () => {
           {showMemberBox && (
             <SubMenu>
               <SubNav href="#">회원 정보</SubNav>
-              <SubNav href="/testHistory">자가진단 내역</SubNav>
+              <SubNav href="/testHistory">AI 윤리 검사 내역</SubNav>
               <Line />
               <SubNav onClick={handleLogout}>로그아웃</SubNav>
             </SubMenu>

@@ -2,8 +2,12 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
 
-const OrangeButton = ({ href, children }) => {
-  return <StyledOrangeButton href={href}>{children}</StyledOrangeButton>;
+const OrangeButton = ({ href, children, width, height }) => {
+  return (
+    <StyledOrangeButton href={href} width={width} height={height}>
+      {children}
+    </StyledOrangeButton>
+  );
 };
 
 export default OrangeButton;
@@ -28,8 +32,8 @@ const buttonShrink = keyframes`
 
 const StyledOrangeButton = styled.button`
   z-index: 1;
-  height: min-content;
-  width: max-content;
+  height: ${({ height }) => height || "min-content"};
+  width: ${({ width }) => width || "max-content"};
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
@@ -37,7 +41,7 @@ const StyledOrangeButton = styled.button`
   border-radius: 2rem;
   background-color: ${color.accent};
 
-  &: hover {
+  &:hover {
     color: ${color.black};
     background-color: white;
     box-shadow: inset 0 0 0.2rem rgba(200, 200, 200, 1);
@@ -45,6 +49,6 @@ const StyledOrangeButton = styled.button`
   }
 
   &:not(:hover) {
-    animation: ${buttonShrink} 0.3s forwards; /* hover에서 벗어나면 축소 애니메이션 */
+    animation: ${buttonShrink} 0.3s forwards;
   }
 `;
