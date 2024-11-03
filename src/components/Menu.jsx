@@ -17,6 +17,9 @@ const Menu = () => {
       case "/evaluation":
         setActiveItem("AI 윤리 평가");
         break;
+      case "/dashboard":
+        setActiveItem("평가 데이터");
+        break;
       default:
         setActiveItem("");
         break;
@@ -34,7 +37,7 @@ const Menu = () => {
       </Logo>
       <NavBar>
         <Nav
-          href="/introduction"
+          href="/aiTestResult"
           isActive={activeItem === "소개"}
           onClick={() => setActiveItem("소개")}
         >
@@ -55,11 +58,11 @@ const Menu = () => {
           AI 윤리 평가
         </Nav>
         <Nav
-          href="#"
-          isActive={activeItem === "업적"}
-          onClick={() => setActiveItem("업적")}
+          href="/dashboard"
+          isActive={activeItem === "평가 데이터"}
+          onClick={() => setActiveItem("평가 데이터")}
         >
-          업적
+          평가 데이터
         </Nav>
       </NavBar>
       <Login href="/login">Login</Login>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import OrangeButton from "../components/OrangeButton";
 import axios from "axios";
 import ReactSelect from "react-select";
+import Menu from "../components/Menu";
 
 const SignUp = () => {
   const [newEmail, setNewEmail] = useState("");
@@ -65,6 +66,7 @@ const SignUp = () => {
   return (
     <MainContainer>
       <Container>
+      <Menu/>
         <SignUpForm>
           <SignUpHeader>회원가입</SignUpHeader>
           <Form onSubmit={onSubmitHandler}>
@@ -140,7 +142,7 @@ const SignUp = () => {
               }}
             />
 
-            <OrangeButton type="submit" width="130px" height="15px">
+            <OrangeButton type="submit" width="160px" height="15px">
               회원가입
             </OrangeButton>
           </Form>
