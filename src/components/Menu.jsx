@@ -5,6 +5,7 @@ import { color } from "../color";
 
 const Menu = () => {
   const [activeItem, setActiveItem] = useState("");
+  const [showIntroductionBox, setShowIntroductionBox] = useState(false);
   const [showMemberBox, setShowMemberBox] = useState(false);
 
   useEffect(() => {
@@ -50,13 +51,24 @@ const Menu = () => {
         HUMAIND
       </Logo>
       <NavBar>
-        <Nav
-          href="/aiTestResult"
-          isActive={activeItem === "소개"}
-          onClick={() => setActiveItem("소개")}
+        <RelativeContainer
+          onMouseEnter={() => setShowIntroductionBox(true)}
+          onMouseLeave={() => setShowIntroductionBox(false)}
         >
-          소개
-        </Nav>
+          <Nav
+            href="/aiTestResult"
+            isActive={activeItem === "소개"}
+            onClick={() => setActiveItem("소개")}
+          >
+            소개
+          </Nav>
+          {showIntroductionBox && (
+            <SubMenu>
+              <SubNav href="#">HUMAIND 소개</SubNav>
+              <SubNav href="#">윤리 기준 소개</SubNav>
+            </SubMenu>
+          )}
+        </RelativeContainer>
         <Nav
           href="/test"
           isActive={activeItem === "AI 윤리 검사"}
@@ -83,20 +95,20 @@ const Menu = () => {
         <Login href="/login">Login</Login>
       )}
       {localStorage.getItem("accessToken") && (
-        <ProfileContainer
+        <RelativeContainer
           onMouseEnter={() => setShowMemberBox(true)}
           onMouseLeave={() => setShowMemberBox(false)}
         >
           <Profile src="../img/profile.svg" draggable="false" />
           {showMemberBox && (
-            <MemberBox>
-              <MemberNav href="#">회원 정보</MemberNav>
-              <MemberNav href="/testHistory">자가진단 내역</MemberNav>
+            <SubMenu>
+              <SubNav href="#">회원 정보</SubNav>
+              <SubNav href="/testHistory">자가진단 내역</SubNav>
               <Line />
-              <MemberNav onClick={handleLogout}>로그아웃</MemberNav>
-            </MemberBox>
+              <SubNav onClick={handleLogout}>로그아웃</SubNav>
+            </SubMenu>
           )}
-        </ProfileContainer>
+        </RelativeContainer>
       )}
     </StyledMenu>
   );
@@ -170,7 +182,7 @@ const Login = styled.a`
   }
 `;
 
-const ProfileContainer = styled.div`
+const RelativeContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
@@ -181,12 +193,12 @@ const ProfileContainer = styled.div`
 const Profile = styled.img`
   width: 1.5rem;
   height: 1.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
 `;
 
-const MemberBox = styled.div`
+const SubMenu = styled.div`
   position: absolute;
-  top: 2.8rem;
+  top: 3.2rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -213,12 +225,12 @@ const MemberBox = styled.div`
   }
 `;
 
-const MemberNav = styled.a`
+const SubNav = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 7rem;
-  padding: 0.2rem;
+  padding: 0.3rem 0.4rem;
+  white-space: nowrap;
   &:hover {
     text-decoration: underline;
     text-decoration-color: gray;
