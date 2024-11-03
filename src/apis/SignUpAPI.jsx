@@ -1,18 +1,22 @@
 import axios from "axios";
 
-export const SignUpAPI = async (newEmail, newPassword, newName, newRole) => {
+export const SignUpAPI = async (newEmail, newPassword, newName, newCareer, newCountry) => {
   try {
     console.log({
         email: newEmail,
         password: newPassword,
         name: newName,
-        role: newRole
+        role:"DEVELOPER",
+        career:newCareer,
+        country:newCountry
       });
     const response = await axios.post(`/api/signup`, {
-        email: newEmail,
-        password: newPassword,
-        name: newName,
-        role: newRole
+      email: newEmail,
+      password: newPassword,
+      name: newName,
+      role:"DEVELOPER",
+      career:newCareer,
+      country:newCountry
     });
       return response.data;
   } catch (error) {

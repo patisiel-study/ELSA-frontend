@@ -11,12 +11,14 @@ import AITestResult from "./pages/AITestResult.jsx";
 import Evaluation from "./pages/Evaluation.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import TestHistory from "./pages/TestHistory.jsx";
-
+import styled from "styled-components";
 import EvaluateEthics from "./pages/EvaluateEthics";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
-import styled from "styled-components";
+
+
+// import Main from "./pages/Main";
 
 // import Main from "./pages/Main";
 

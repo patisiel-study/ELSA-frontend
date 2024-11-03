@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled from 'styled-components';
 import { LoginAPI, TestAPI } from "../apis/LoginAPI";
 import { Link } from "react-router-dom";
 import OrangeButton from "../components/OrangeButton";
@@ -10,6 +10,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -40,34 +42,33 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <Menu />
-      <LoginForm>
-        <LoginHeader>로그인</LoginHeader>
-        <Form onSubmit={onSubmitHandler}>
-          <Input
-            type="text"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            placeholder="비밀번호"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <OrangeButton type="submit" width="100%">
-            로그인
-          </OrangeButton>
-        </Form>
-        <FooterContainer>
+      <Container>
+        <Menu/>
+        <LoginForm>
+          <LoginHeader>로그인</LoginHeader>
+          <Form onSubmit={onSubmitHandler}>
+            <Input
+              type="text"
+              placeholder="이메일"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <OrangeButton type="submit"  width="300px" height="50px">로그인</OrangeButton>
+          </Form>
+          <FooterContainer>
           <StyledLink to="/signup">회원가입</StyledLink>|
           <StyledLink to="/find-id">아이디 찾기</StyledLink>|
           <StyledLink to="/find-password">비밀번호 찾기</StyledLink>
-        </FooterContainer>
-      </LoginForm>
-    </Container>
+    </FooterContainer>
+        </LoginForm>
+      </Container>
+
   );
 };
 
@@ -89,7 +90,8 @@ const LoginForm = styled.div`
   background-color: white;
   padding: 40px;
   border-radius: 30px;
-  border: 1.2px solid #d9d9d9;
+
+  border: 1.2px  solid #D9D9D9;
 `;
 
 const LoginHeader = styled.h2`
@@ -106,7 +108,7 @@ const Form = styled.form`
 
 const Input = styled.input`
   width: 300px;
-  height: 25px;
+  height:25px;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
@@ -121,9 +123,8 @@ const FooterContainer = styled.footer`
 const StyledLink = styled(Link)`
   color: #777777;
   text-decoration: none;
-  margin: 0.3rem;
-  font-size: 0.9rem;
-
+   margin:  0.3rem; 
+   font-size: 0.9rem; 
   &:hover {
     text-decoration: underline;
   }

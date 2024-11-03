@@ -1,3 +1,4 @@
+
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
@@ -31,9 +32,15 @@ const buttonShrink = keyframes`
 `;
 
 const StyledOrangeButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
-  height: ${({ height }) => height || "min-content"};
-  width: ${({ width }) => width || "max-content"};
+  height: ${({ height }) => height || 'min-content'};
+  width: ${({ width }) => width || 'max-content'};
+
+
+
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
