@@ -66,18 +66,22 @@ const AITestInfo = () => {
       <Container>
         <FormContainer>
           <form onSubmit={handleSubmit}>
-            <Dropdown
-              label="직업"
-              value={carrer}
-              onChange={setCarrer}
-              options={careersList}
-            />
-            <Dropdown
-              label="국가"
-              value={country}
-              onChange={setCountry}
-              options={countriesList}
-            />
+            {localStorage.getItem("accessToken") && (
+              <>
+                <Dropdown
+                  label="직업"
+                  value={carrer}
+                  onChange={setCarrer}
+                  options={careersList}
+                />
+                <Dropdown
+                  label="국가"
+                  value={country}
+                  onChange={setCountry}
+                  options={countriesList}
+                />
+              </>
+            )}
             <FormGroup>
               <Label>LLM 이름</Label>
               <Input
@@ -87,10 +91,27 @@ const AITestInfo = () => {
                 placeholder="LLM 이름을 입력하세요"
               />
             </FormGroup>
+            <br />
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <OrangeButton type="submit">다음</OrangeButton>
+            <OrangeButton type="submit" width={"100%"}>
+              다음
+            </OrangeButton>
           </form>
         </FormContainer>
+        <IconContainer>
+          <Circle1 />
+          <Circle2 />
+          <RobotIcon
+            src="../img/robotWhite.svg"
+            alt="로봇 아이콘"
+            draggable="false"
+          />
+          <MagnifierIcon
+            src="../img/magnifier.svg"
+            alt="돋보기 아이콘"
+            draggable="false"
+          />
+        </IconContainer>
       </Container>
       <Footer />
     </HomepageLayout>
@@ -114,7 +135,7 @@ export default AITestInfo;
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 70%;
   margin-bottom: 3rem;
@@ -123,14 +144,61 @@ const Container = styled.div`
   border-radius: 3rem;
 `;
 
+const IconContainer = styled.div`
+  position: relative;
+  width: 40%;
+`;
+
+const Circle1 = styled.div`
+  position: absolute;
+  top: -6rem;
+  left: 7rem;
+  width: 9rem;
+  height: 9rem;
+  background-color: ${color.accent};
+  border-radius: 100%;
+`;
+
+const Circle2 = styled.div`
+  position: absolute;
+  top: 2rem;
+  left: 5.5rem;
+  width: 6rem;
+  height: 6rem;
+  background-color: #2acad3;
+  border-radius: 100%;
+`;
+
+const RobotIcon = styled.img`
+  position: absolute;
+  top: -6rem;
+  left: -2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  height: 12rem;
+`;
+
+const MagnifierIcon = styled.img`
+  position: absolute;
+  top: 1rem;
+  left: 11.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+`;
+
 const FormContainer = styled.div`
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 300px;
+  padding: 2rem;
+  margin-left: 5rem;
+  max-width: 20rem;
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 `;
 
 const Label = styled.label`
