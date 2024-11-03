@@ -31,7 +31,7 @@ const buttonShrink = keyframes`
   }
 `;
 
-const StyledOrangeButton = styled.a`
+const StyledOrangeButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;

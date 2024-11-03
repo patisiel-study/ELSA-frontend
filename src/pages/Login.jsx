@@ -60,7 +60,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <OrangeButton type="submit"  width="140px" height="15px">로그인</OrangeButton>
+            <OrangeButton type="submit"  width="300px" height="50px">로그인</OrangeButton>
           </Form>
           <FooterContainer>
           <StyledLink to="/signup">회원가입</StyledLink>|

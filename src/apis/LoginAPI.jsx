@@ -12,16 +12,30 @@ export const LoginAPI = async (email, password) => {
   }
 };
 
+export const LogoutAPI = async (accessToken) => {
+  try {
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const response = await axios.post(`/api/member/logout`, {}, axiosConfig);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const TestAPI = async (accessToken) => {
-    try {
-      const axiosConfig = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      };
-      const response = await axios.get(`/api/test`, axiosConfig);
-      return response.data;
-    } catch (error) {
-      throw error.response.data;
-    }
-  };
+  try {
+    const axiosConfig = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const response = await axios.get(`/api/test`, axiosConfig);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

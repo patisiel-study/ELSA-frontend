@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const NonmemberResult = async () => {
+const NonmemberResultAPI = async () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   if (!SERVER_URL) {
@@ -26,4 +26,4 @@ const NonmemberResult = async () => {
   }
 };
 
-export default NonmemberResult;
+export default NonmemberResultAPI;

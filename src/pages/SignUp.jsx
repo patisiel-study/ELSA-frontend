@@ -11,10 +11,10 @@ const SignUp = () => {
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState(""); // 비밀번호 상태 추가
   const [newName, setNewName] = useState("");
-  const [newRole, setNewRole] = useState("");
+  const [newCareer, setNewCareer] = useState("");
   const [newCountry, setNewCountry] = useState("");
   const [newCountryOptions, setNewCountryOptions] = useState([]);
-  const [newRoleOptions, setNewRoleOptions] = useState([]);
+  const [newCareerOptions, setNewCareerOptions] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,26 +35,26 @@ const SignUp = () => {
   }, []);
 
   useEffect(() => {
-    const fetchRoleOptions = async () => {
+    const fetchCareerOptions = async () => {
       try {
         const response = await axios.get("/api/careers");
-        setNewRoleOptions(
-          response.data.data.map((role) => ({
-            value: role,
-            label: role,
+        setNewCareerOptions(
+          response.data.data.map((career) => ({
+            value: career,
+            label: career,
           }))
         );
       } catch (error) {
         console.error("유형을 불러오는 중 오류가 발생했습니다.", error);
       }
     };
-    fetchRoleOptions();
+    fetchCareerOptions();
   }, []);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      await SignUpAPI(newEmail, newPassword, newName, newCountry, newRole);
+      await SignUpAPI(newEmail, newPassword, newName,  newCareer , newCountry);
       alert("회원가입이 완료되었습니다.");
       navigate("/login");
     } catch (error) {
@@ -96,7 +96,7 @@ const SignUp = () => {
               styles={{
                 container: (provided) => ({
                   ...provided,
-                  marginBottom: "20px", // Add margin-bottom here
+                  marginBottom: "20px", 
                 }),
                 control: (provided) => ({
                   ...provided,
@@ -116,9 +116,9 @@ const SignUp = () => {
             />
 
             <ReactSelect
-              options={newRoleOptions}
+              options={newCareerOptions}
               placeholder="유형을 선택해주세요"
-              onChange={(selected) => setNewRole(selected.value)}
+              onChange={(selected) => setNewCareer(selected.value)}
               styles={{
                 container: (provided) => ({
                   ...provided,
@@ -142,7 +142,7 @@ const SignUp = () => {
               }}
             />
 
-            <OrangeButton type="submit" width="160px" height="15px">
+            <OrangeButton type="submit" width="300px" height="50px">
               회원가입
             </OrangeButton>
           </Form>

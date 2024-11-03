@@ -10,6 +10,7 @@ import AITestQuestion from "./pages/AITestQuestion.jsx";
 import AITestResult from "./pages/AITestResult.jsx";
 import Evaluation from "./pages/Evaluation.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import TestHistory from "./pages/TestHistory.jsx";
 import styled from "styled-components";
 import EvaluateEthics from "./pages/EvaluateEthics";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
@@ -35,6 +36,8 @@ function App() {
           <Route path="/aiTestResult" element={<AITestResult />} />
           <Route path="/evaluation" element={<Evaluation />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/testHistory" element={<TestHistory />} />
+
           <Route path="/evaluateEthics" element={<EvaluateEthics />} />
           <Route path="/selfDiagnosis" element={<SelfDiagnosis />} />
           <Route
