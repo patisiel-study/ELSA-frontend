@@ -37,7 +37,7 @@ const AITestIntro = () => {
             「인공지능(AI) 윤리기준」이 제시한 3대 기본원칙을 구현하기 위한 10대
             핵심요건을 실천하기 위함입니다.
           </ChecklistContent>
-          <ChecklistTitle>2. 권장 대상 윤리기준 자율점검표의</ChecklistTitle>
+          <ChecklistTitle>2. 권장 대상 </ChecklistTitle>
           <ChecklistContent>
             권장 대상은 인공지능시스템의 개발·운영에 필요한 의사결정을 수행하는
             개인과 조직입니다. 공공과 민간부문의 구분 없이 인공지능시스템의

@@ -16,6 +16,7 @@ import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
 import IntroductionHumaind from "./pages/IntroductionHumaind.jsx";
+import IntroductionStandard from "./pages/IntroductionStandard.jsx";
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/testHistory" element={<TestHistory />} />
           <Route path="/introductionHumaind" element={<IntroductionHumaind/>}/>
+          <Route path="/introductionStandard" element={<IntroductionStandard/>}/>
           <Route path="/evaluateEthics" element={<EvaluateEthics />} />
           <Route path="/selfDiagnosis" element={<SelfDiagnosis />} />
           <Route

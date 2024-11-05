@@ -45,20 +45,30 @@ const IntroductionHumaind = () => {
     <HomepageLayout>
       <Menu />
       <WhiteContainerTop>
-        <IntroductionTitle>HUMAIND</IntroductionTitle>
+        <IntroductionTitle>HUMAIND 소개</IntroductionTitle>
         <InnerContainer>
-          안녕하세요. 저희는 팀 HUMAIND 입니다. <br />
-          <br />
-          HUMAIND의 의미는 Human + AI + mind의 합성어로서, 인간의 마음을
-          이해하는 인간 친화적인 인공지능의 <br/>개발을 기원한다는 의미로 내포하고
-          있습니다.
-          <br />
-          <br />
-          현재 인공지능이 발전함에 따라 윤리적인 인공지능의 필요성이 대두되고
-          있는 현재의 시점에서 인공지능 기술의 윤리적 사용을 보장하고, 
-          사회적 가치와 기술 발전 사이 균형을 모색하는 데 기여하는 것을 목표로
-          인공지능 윤리평가 시스템을 제작하게 되었습니다.
-          <RightContainer></RightContainer>
+          안녕하세요, 저희는 팀 HUMAIND입니다. 
+          <br/>
+          <br/>
+          HUMAIND는 인간(Human),
+          인공지능(AI), 마음(mind)의 합성어로, 인간의 마음을 이해하고
+          <br/>존중하는 인간 친화적 인공지능의 개발을 목표로 합니다.
+          <br/>
+          <br/>
+           현재 인공지능 기술이 빠르게 발전하면서 윤리적 AI에 대한 사회적 요구가 높아지고 있는 가운데, 
+          <br/>인공지능이 사회적 가치와 기술 발전 사이에서 균형을
+          유지하며 책임 있게 사용될 수 있도록 노력하고 있습니다. 
+          <br/>
+          <br/>
+          HUMAIND는 이러한 비전을 실현하기 위해 인공지능 윤리 평가 시스템을 개발하고 있으며, 
+          <br/>이를 통해 윤리적인 AI 사용을 보장하고 지속 가능한 기술 발전을
+          지원하는 데 기여하고자 합니다.
+          <RightContainer>
+            <HUMAINDLogoImg
+              src="img/HUMAIND-Logo.png"
+              alt="휴마인드 로고"
+            ></HUMAINDLogoImg>
+          </RightContainer>
         </InnerContainer>
       </WhiteContainerTop>
       <BlueCurve />
@@ -107,32 +117,33 @@ const InnerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 85%;
+  width: 95%;
 `;
 
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60%;
+  margin-right 50px;
+  
 `;
 
 const WhiteContainerTop = styled.div`
   display: flex;
-  margin-top: 50px;
-  margin-bottom: 250px;
+  margin-top: 100px;
+  margin-bottom: 350px;
   flex-direction: column;
   justify-content: center;
   width: 70%;
   height: 200px;
 `;
 const IntroductionTitle = styled.h1`
-  margin-top: 200px;
+  margin-top: 250px;
 `;
 
 const DeveloperSectionTitle = styled.h1`
   margin-bottom: 50px;
-  color:white;
+  color: white;
 `;
 
 const DeveloperCardsContainer = styled(motion.div)`
@@ -164,6 +175,10 @@ const DeveloperName = styled.h3`
 
 const DeveloperRole = styled.p`
   font-size: 0.9rem;
+`
+
+const HUMAINDLogoImg = styled.img`
+  width: 320px;
 `;
 
 export default IntroductionHumaind;
