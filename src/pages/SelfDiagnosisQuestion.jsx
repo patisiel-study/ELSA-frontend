@@ -22,7 +22,9 @@ const SelfDiagnosisQuestion = () => {
   const fetchQuestions = async () => {
     try {
       const response = await axios.get('/api/diagnosis/list/questions');
-      console.log('response:', response.data);
+      console.log('Full API response:', response.data);
+      console.log('Standards:', response.data.data);
+      console.log('Descriptions:', response.data.data.map(s => s.description));
       setStandards(response.data.data);
       setLoading(false);
     } catch (error) {
@@ -127,11 +129,18 @@ const SelfDiagnosisQuestion = () => {
     return <div>데이터가 없습니다.</div>;
   }
 
+
+
   return (
     <Container>
        {standards.map((standard) => (
       <Section key={standard.standardName}>
-        <Header>{standard.standardName}</Header>
+        <Header>
+          {standard.standardName}
+          </Header>
+          {standard.description && (
+          <Description>{standard.description}</Description>
+        )}
         {standard.questions.map((q) => (
           <Card 
             key={q.questionId} 
@@ -240,4 +249,11 @@ const StyledButton = styled.button`
     background-color: #6464d2;
   }
 `;
+const Description = styled.p`
+  font-size: 16px;
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 15px;
+`;
+
 export default SelfDiagnosisQuestion;
