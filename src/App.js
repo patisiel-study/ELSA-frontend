@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import Introduction from "./pages/Introduction.jsx";
 import Test from "./pages/Test.jsx";
 import AITestIntro from "./pages/AITestIntro.jsx";
 import AITestInfo from "./pages/AITestInfo.jsx";
@@ -16,11 +15,8 @@ import EvaluateEthics from "./pages/EvaluateEthics";
 import SelfDiagnosisResult from "./pages/SelfDiagnosisResult.jsx";
 import SelfDiagnosis from "./pages/SelfDiagnosis.jsx";
 import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
+import IntroductionHumaind from "./pages/IntroductionHumaind.jsx";
 
-
-// import Main from "./pages/Main";
-
-// import Main from "./pages/Main";
 
 function App() {
   return (
@@ -30,7 +26,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/introduction" element={<Introduction />} />
           <Route path="/test" element={<Test />} />
           <Route path="/aiTestIntro" element={<AITestIntro />} />
           <Route path="/aiTestInfo" element={<AITestInfo />} />
@@ -39,7 +34,7 @@ function App() {
           <Route path="/evaluation" element={<Evaluation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/testHistory" element={<TestHistory />} />
-
+          <Route path="/introductionHumaind" element={<IntroductionHumaind/>}/>
           <Route path="/evaluateEthics" element={<EvaluateEthics />} />
           <Route path="/selfDiagnosis" element={<SelfDiagnosis />} />
           <Route

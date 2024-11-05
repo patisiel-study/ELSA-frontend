@@ -198,6 +198,7 @@ const AITestQuestion = () => {
               <Standard>
                 <span>{standard.standardName}</span>
                 <ProgressBar progress={calculateProgress()} />
+                <Description>{standard.description}</Description>
               </Standard>
               {standard.questions.map((q) => (
                 <Card
@@ -343,5 +344,13 @@ const StyledButton = styled.button`
     background-color: ${color.accent};
   }
 `;
+
+const Description = styled.p`
+  font-size: 16px;
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 15px;
+`;
+
 
 export default AITestQuestion;

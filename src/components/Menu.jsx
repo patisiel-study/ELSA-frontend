@@ -64,7 +64,7 @@ const Menu = () => {
           </Nav>
           {showIntroductionBox && (
             <SubMenu>
-              <SubNav href="#">HUMAIND 소개</SubNav>
+              <SubNav href="/introductionHumaind">HUMAIND 소개</SubNav>
               <SubNav href="#">윤리 기준 소개</SubNav>
             </SubMenu>
           )}
@@ -149,12 +149,11 @@ const Nav = styled.a`
   padding: 0.3rem 0.6rem;
   font-size: 1rem;
   white-space: nowrap;
-
   &:hover {
     background-color: #f5f5f5;
     border-radius: 1rem;
   }
-
+  
   &::after {
     content: "";
     position: absolute;
