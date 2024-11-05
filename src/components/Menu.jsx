@@ -65,7 +65,7 @@ const Menu = () => {
           {showIntroductionBox && (
             <SubMenu>
               <SubNav href="/introductionHumaind">HUMAIND 소개</SubNav>
-              <SubNav href="#">윤리 기준 소개</SubNav>
+              <SubNav href="/introductionStandard">윤리 기준 소개</SubNav>
             </SubMenu>
           )}
         </RelativeContainer>
