@@ -13,10 +13,10 @@ const UserTestIntro = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발 윤리 검사</Title>
+        <Title>인공지능 사용자 윤리 검사</Title>
         <Content>
-          본 검사는 인공지능 사용자로서, 현재 사용 중인 인공지능이 윤리적 기준을
-          얼마나 잘 준수하고 있는지를 평가하는 검사입니다.
+          본 검사는 인공지능 사용자 본인이 윤리적 기준을 얼마나 잘 준수하고
+          있는지를 평가하는 검사입니다.
         </Content>
       </Header>
       <BlueCurve />
