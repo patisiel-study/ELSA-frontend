@@ -14,6 +14,9 @@ const Test = () => {
   const handleDeveloperClick = () => {
     navigate("/aiTestIntro");
   };
+  const handleUserClick = () => {
+    navigate("/userTestIntro");
+  };
 
   return (
     <HomepageLayout>
@@ -50,6 +53,7 @@ const Test = () => {
           <AIorUserButton
             onMouseEnter={() => setHoveredButton("user")}
             onMouseLeave={() => setHoveredButton("")}
+            onClick={handleUserClick}
           >
             <ButtonIcon
               src={
