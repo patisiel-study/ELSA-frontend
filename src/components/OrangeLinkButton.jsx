@@ -2,9 +2,11 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
 
-const OrangeLinkButton = ({ href, children }) => {
+const OrangeLinkButton = ({ href, children, width, height }) => {
   return (
-    <StyledOrangeLinkButton href={href}>{children}</StyledOrangeLinkButton>
+    <StyledOrangeLinkButton href={href} width={width} height={height}>
+      {children}
+    </StyledOrangeLinkButton>
   );
 };
 
@@ -29,13 +31,17 @@ const buttonShrink = keyframes`
 `;
 
 const StyledOrangeLinkButton = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
-  height: min-content;
-  width: max-content;
+  height: ${({ height }) => height || "min-content"};
+  width: ${({ width }) => width || "max-content"};
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
+  white-space: nowrap;
   border-radius: 2rem;
   background-color: ${color.accent};
 
