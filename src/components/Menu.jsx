@@ -38,6 +38,10 @@ const Menu = () => {
       window.location.href = "/";
     } catch (error) {
       console.error("로그아웃 실패", error);
+      if (error.error === "JWT token has expired") {
+        localStorage.removeItem("accessToken");
+        window.location.href = "/login";
+      }
     }
   };
 
