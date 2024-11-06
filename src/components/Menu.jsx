@@ -11,7 +11,7 @@ const Menu = () => {
   useEffect(() => {
     const path = window.location.pathname;
     switch (path) {
-      case "/introduction":
+      case "/introductionHumaind":
         setActiveItem("소개");
         break;
       case "/test":
