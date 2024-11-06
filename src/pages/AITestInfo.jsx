@@ -65,7 +65,7 @@ const AITestInfo = () => {
     }
 
     localStorage.setItem(
-      "dignosisInfo",
+      "diagnosisInfo",
       JSON.stringify({ career, country, llmName })
     );
 
