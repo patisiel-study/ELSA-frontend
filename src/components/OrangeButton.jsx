@@ -1,11 +1,10 @@
-
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { color } from "../color";
 
-const OrangeButton = ({ href, children, width, height }) => {
+const OrangeButton = ({ children, width, height }) => {
   return (
-    <StyledOrangeButton href={href} width={width} height={height}>
+    <StyledOrangeButton width={width} height={height}>
       {children}
     </StyledOrangeButton>
   );
@@ -36,15 +35,14 @@ const StyledOrangeButton = styled.button`
   align-items: center;
   justify-content: center;
   z-index: 1;
-  height: ${({ height }) => height || 'min-content'};
-  width: ${({ width }) => width || 'max-content'};
-
-
+  height: ${({ height }) => height || "min-content"};
+  width: ${({ width }) => width || "max-content"};
 
   padding: 1rem 4rem;
   color: white;
   font-size: 1.1rem;
   font-weight: bold;
+  white-space: nowrap;
   border-radius: 2rem;
   background-color: ${color.accent};
 

@@ -13,7 +13,7 @@ import { color } from "../color";
 const AITestInfo = () => {
   const [carrer, setCarrer] = useState("");
   const [country, setCountry] = useState("");
-  const [llmName, setLlmName] = useState("");
+  const [llmName, setLlmName] = useState("이름 없음");
   const [careersList, setCareersList] = useState([]);
   const [countriesList, setCountriesList] = useState([]);
   const [error, setError] = useState("");
