@@ -352,5 +352,4 @@ const Description = styled.p`
   margin-bottom: 15px;
 `;
 
-
 export default AITestQuestion;
