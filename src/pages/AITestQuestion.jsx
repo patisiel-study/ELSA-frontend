@@ -6,7 +6,6 @@ import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
 import { Header, Title, Content } from "../components/Header";
 import ProgressBar from "../components/ProgressBar";
-import OrangeButton from "../components/OrangeButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
@@ -70,14 +69,47 @@ const AITestQuestion = () => {
     }
   };
 
-  const submitAnswers = async (formattedAnswers, accessToken) => {
-    return axios.post(
-      "/api/diagnosis/developer/submit",
-      { answers: formattedAnswers },
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
+  const submitAnswers = async (formattedAnswers, accessToken, navigate) => {
+    const diagnosisInfo = localStorage.getItem("diagnosisInfo");
+    let career = "";
+    let country = "";
+    let llmName = "";
+    if (diagnosisInfo) {
+      try {
+        const parsedInfo = JSON.parse(diagnosisInfo);
+        career = parsedInfo.career || "";
+        country = parsedInfo.country || "";
+        llmName = parsedInfo.llmName || "";
+      } catch (error) {
+        console.error("diagnosisInfo JSON 파싱 오류:", error);
       }
-    );
+    }
+  
+    try {
+      let response;
+      if (accessToken) {
+        const data = { answers: formattedAnswers, llmName };
+        console.log("회원 제출 데이터:", data);
+        console.log("Authorization 헤더:", `Bearer ${accessToken}`);
+        response = await axios.post("/api/diagnosis/developer/submit", data, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+
+        });
+      } else {
+        const data = {
+          answers: formattedAnswers,
+          career: career,
+          country: country,
+        };
+        console.log("비회원 제출 데이터:", data);
+        response = await axios.post("/api/diagnosis/non-member/submit", data);
+      }
+      console.log("서버 응답:", response); 
+      return response;
+    } catch (error) {
+      console.error("답변 제출에 실패하였습니다:", error);
+      await handleSubmitError(error, formattedAnswers);
+    }
   };
 
   const handleSubmitError = async (error, formattedAnswers) => {
@@ -157,9 +189,10 @@ const AITestQuestion = () => {
     console.log("answers:", formattedAnswers);
 
     try {
-      await submitAnswers(formattedAnswers, accessToken);
-      console.log("답변이 성공적으로 제출되었습니다.");
-      navigate("/AITestResult");
+      const response = await submitAnswers(formattedAnswers, accessToken);
+      const { message, data: { diagnosisId } } = response.data;
+      console.log(message);
+      navigate(`/aiTestResult/${diagnosisId}`); 
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
       await handleSubmitError(error, formattedAnswers);
@@ -196,10 +229,13 @@ const AITestQuestion = () => {
           .map((standard) => (
             <Section key={standard.standardName}>
               <Standard>
-                <span>{standard.standardName}</span>
+                <StyledStandard>
+                  <Title>{standard.standardName}</Title>
+                </StyledStandard>
                 <ProgressBar progress={calculateProgress()} />
                 <Description>{standard.description}</Description>
               </Standard>
+              <Description>{standard.description}</Description>
               {standard.questions.map((q) => (
                 <Card
                   key={q.questionId}
@@ -261,15 +297,23 @@ const Section = styled.div`
 
 const Standard = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: ${color.primary};
   color: white;
-  height: 120px;
-  padding: 40px;
+  height: auto;
+  padding: 30px;
   border-radius: 20px;
-  margin-bottom: 30px;
-  font-size: 2rem;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  flex-direction: column;
+  & > * {
+    margin-bottom: 0; /* 항목 간 간격 제거 */
+  }
+`;
+
+const StyledStandard = styled.div`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Card = styled.div`
@@ -350,7 +394,7 @@ const Description = styled.p`
   color: black;
   margin-top: 5px;
   margin-bottom: 15px;
+  color: white;
 `;
-
 
 export default AITestQuestion;

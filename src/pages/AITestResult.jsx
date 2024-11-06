@@ -166,8 +166,13 @@ const AITestResult = () => {
   const fetchData = async () => {
     try {
       const AT = localStorage.getItem("accessToken");
-      const response = await MemberResultAPI(AT, diagnosisId);
-      setResultData(response.data);
+      if (AT) {
+        const response = await MemberResultAPI(AT, diagnosisId);
+        setResultData(response.data);
+      } else {
+        const response = await NonmemberResultAPI(diagnosisId);
+        setResultData(response.data);
+      }
     } catch (error) {
       console.error(
         "인공지능 개발 윤리 검사 결과 데이터를 가져오는 중 오류가 발생했습니다.",
