@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { color } from "../color";
 
 const AITestInfo = () => {
-  const [carrer, setCarrer] = useState("");
+  const [career, setCareer] = useState("");
   const [country, setCountry] = useState("");
   const [llmName, setLlmName] = useState("이름 없음");
   const [careersList, setCareersList] = useState([]);
@@ -23,7 +23,7 @@ const AITestInfo = () => {
       const AT = localStorage.getItem("accessToken");
       const response = await MemberInfoAPI(AT);
       console.log(response.data);
-      setCarrer(response.data.career);
+      setCareer(response.data.career);
       setCountry(response.data.country);
     } catch (error) {
       console.error("회원 정보를 가져오는 중 오류가 발생했습니다.", error);
@@ -59,14 +59,14 @@ const AITestInfo = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (carrer === "" || country === "") {
+    if (career === "" || country === "") {
       setError("직업과 국가를 선택해주세요.");
       return;
     }
 
     localStorage.setItem(
       "dignosisInfo",
-      JSON.stringify({ carrer, country, llmName })
+      JSON.stringify({ career, country, llmName })
     );
 
     window.location.href = "/aiTestQuestion";
@@ -89,8 +89,8 @@ const AITestInfo = () => {
               <>
                 <Dropdown
                   label="직업"
-                  value={carrer}
-                  onChange={setCarrer}
+                  value={career}
+                  onChange={setCareer}
                   options={careersList}
                 />
                 <Dropdown
