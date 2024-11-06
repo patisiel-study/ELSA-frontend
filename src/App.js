@@ -18,7 +18,6 @@ import SelfDiagnosisQuestion from "./pages/SelfDiagnosisQuestion.jsx";
 import IntroductionHumaind from "./pages/IntroductionHumaind.jsx";
 import IntroductionStandard from "./pages/IntroductionStandard.jsx";
 
-
 function App() {
   return (
     <StyledApp>
@@ -31,12 +30,18 @@ function App() {
           <Route path="/aiTestIntro" element={<AITestIntro />} />
           <Route path="/aiTestInfo" element={<AITestInfo />} />
           <Route path="/aiTestQuestion" element={<AITestQuestion />} />
-          <Route path="/aiTestResult" element={<AITestResult />} />
+          <Route path="/aiTestResult/:diagnosisId" element={<AITestResult />} />
           <Route path="/evaluation" element={<Evaluation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/testHistory" element={<TestHistory />} />
-          <Route path="/introductionHumaind" element={<IntroductionHumaind/>}/>
-          <Route path="/introductionStandard" element={<IntroductionStandard/>}/>
+          <Route
+            path="/introductionHumaind"
+            element={<IntroductionHumaind />}
+          />
+          <Route
+            path="/introductionStandard"
+            element={<IntroductionStandard />}
+          />
           <Route path="/evaluateEthics" element={<EvaluateEthics />} />
           <Route path="/selfDiagnosis" element={<SelfDiagnosis />} />
           <Route
