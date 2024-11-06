@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MemberInfoAPI from "../apis/MemberInfoAPI";
 import CareersAPI from "../apis/CareersAPI";
 import CountriesAPI from "../apis/CountriesAPI";
 import HomepageLayout from "../components/HomepageLayout";
@@ -10,12 +11,25 @@ import styled from "styled-components";
 import { color } from "../color";
 
 const AITestInfo = () => {
-  const [carrer, setCarrer] = useState("직업을 선택하세요");
-  const [country, setCountry] = useState("국가를 선택하세요");
+  const [carrer, setCarrer] = useState("");
+  const [country, setCountry] = useState("");
   const [llmName, setLlmName] = useState("");
   const [careersList, setCareersList] = useState([]);
   const [countriesList, setCountriesList] = useState([]);
   const [error, setError] = useState("");
+
+  const fetchMemberInfo = async () => {
+    try {
+      const AT = localStorage.getItem("accessToken");
+      const response = await MemberInfoAPI(AT);
+      console.log(response.data);
+      setCarrer(response.data.career);
+      setCountry(response.data.country);
+    } catch (error) {
+      console.error("회원 정보를 가져오는 중 오류가 발생했습니다.", error);
+      throw error;
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -34,13 +48,18 @@ const AITestInfo = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    const AT = localStorage.getItem("accessToken");
+    if (AT) {
+      fetchMemberInfo();
+    } else {
+      fetchData();
+    }
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (carrer === "직업을 선택하세요" || country === "국가를 선택하세요") {
+    if (carrer === "" || country === "") {
       setError("직업과 국가를 선택해주세요.");
       return;
     }
@@ -66,7 +85,7 @@ const AITestInfo = () => {
       <Container>
         <FormContainer>
           <form onSubmit={handleSubmit}>
-            {localStorage.getItem("accessToken") && (
+            {!localStorage.getItem("accessToken") && (
               <>
                 <Dropdown
                   label="직업"
