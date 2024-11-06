@@ -161,12 +161,16 @@ const QuestionsBarChart = ({ noOrNotApplicableList }) => {
 
 const AITestResult = () => {
   const { diagnosisId } = useParams();
-  const [resultData, setResultData] = useState(null);
+  const [resultData, setResultData] = useState({});
 
   const fetchData = async () => {
     try {
       const AT = localStorage.getItem("accessToken");
-      const response = await MemberResultAPI(AT, diagnosisId);
+      const response = AT
+        ? await MemberResultAPI(AT, diagnosisId)
+        : await NonmemberResultAPI(diagnosisId);
+
+      console.log(response);
       setResultData(response.data);
     } catch (error) {
       console.error(
@@ -181,8 +185,8 @@ const AITestResult = () => {
     fetchData();
   }, [diagnosisId]);
 
-  const totalScore = resultData?.totalScoreDto.scoreRatio; // 총점
-  const correctAnswer = resultData?.totalScoreDto.scoreRatioString;
+  const totalScore = resultData?.totalScoreDto?.scoreRatio; // 총점
+  const correctAnswer = resultData?.totalScoreDto?.scoreRatioString;
   const noOrNotApplicableList = resultData?.noOrNotApplicableList; // 질문 리스트
 
   return (
@@ -206,20 +210,22 @@ const AITestResult = () => {
 
           <SubTitle>인공지능 윤리기준 점검항목 당 점수</SubTitle>
           <Table>
-            <TableRow>
-              <TableHeader>핵심요건</TableHeader>
-              {resultData?.standardScoreList.map((item) => (
-                <TableHeader key={item.standardName}>
-                  {item.standardName}
-                </TableHeader>
-              ))}
-            </TableRow>
-            <TableRow>
-              <TableData>점수</TableData>
-              {resultData?.standardScoreList.map((item) => (
-                <TableData key={item.standardName}>{item.score}</TableData>
-              ))}
-            </TableRow>
+            <tbody>
+              <TableRow>
+                <TableHeader>핵심요건</TableHeader>
+                {resultData?.standardScoreList?.map((item) => (
+                  <TableHeader key={item.standardName}>
+                    {item.standardName}
+                  </TableHeader>
+                ))}
+              </TableRow>
+              <TableRow>
+                <TableData>점수</TableData>
+                {resultData?.standardScoreList?.map((item) => (
+                  <TableData key={item.standardName}>{item.score}</TableData>
+                ))}
+              </TableRow>
+            </tbody>
           </Table>
           {/* {resultData?.standardScoreList && (
             <div>
@@ -239,13 +245,13 @@ const AITestResult = () => {
         <InnerContainer>
           <SubTitle>점검해보아야 할 문항</SubTitle>
           {noOrNotApplicableList &&
-            noOrNotApplicableList.map((item) => (
+            noOrNotApplicableList?.map((item) => (
               <StandardAndQuestion key={item.standardName}>
                 <StandardContainer>
                   <Standard>{item.standardName}</Standard>
                 </StandardContainer>
                 <QuestionContainer>
-                  {item.qnaPairDtoList.map((qna, index) => (
+                  {item.qnaPairDtoList?.map((qna, index) => (
                     <Question key={index}>{qna.question}</Question>
                   ))}
                 </QuestionContainer>
