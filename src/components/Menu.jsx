@@ -56,7 +56,7 @@ const Menu = () => {
           onMouseLeave={() => setShowIntroductionBox(false)}
         >
           <Nav
-            href="/aiTestResult"
+            href="/introductionHumaind"
             isActive={activeItem === "소개"}
             onClick={() => setActiveItem("소개")}
           >
@@ -153,7 +153,7 @@ const Nav = styled.a`
     background-color: #f5f5f5;
     border-radius: 1rem;
   }
-  
+
   &::after {
     content: "";
     position: absolute;

@@ -29,7 +29,102 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const [LLMScore, setLLMScore] = useState(null);
+  // const [LLMScore, setLLMScore] = useState(null);
+  const LLMScore = {
+    GPT_3_5: {
+      "Data Managemment": {
+        score: 0.984,
+      },
+      diversity: {
+        score: 0.817,
+      },
+      privacy: {
+        score: 0.984,
+      },
+      solidarity: {
+        score: 0.959,
+      },
+      infringe: {
+        score: 0.918,
+      },
+      publicity: {
+        score: 0.938,
+      },
+      human_rights: {
+        score: 0.983,
+      },
+    },
+    GPT_4: {
+      "Data Managemment": {
+        score: 0.951,
+      },
+      diversity: {
+        score: 0.902,
+      },
+      privacy: {
+        score: 0.984,
+      },
+      solidarity: {
+        score: 0.973,
+      },
+      infringe: {
+        score: 0.918,
+      },
+      publicity: {
+        score: 0.953,
+      },
+      human_rights: {
+        score: 0.983,
+      },
+    },
+    GPT_4o: {
+      "Data Managemment": {
+        score: 0.984,
+      },
+      diversity: {
+        score: 0.902,
+      },
+      privacy: {
+        score: 0.984,
+      },
+      solidarity: {
+        score: 0.973,
+      },
+      infringe: {
+        score: 0.918,
+      },
+      publicity: {
+        score: 0.953,
+      },
+      human_rights: {
+        score: 0.983,
+      },
+    },
+    GEMINI: {
+      "Data Managemment": {
+        score: 0.955,
+      },
+      diversity: {
+        score: 0.952,
+      },
+      privacy: {
+        score: 0.967,
+      },
+      solidarity: {
+        score: 0.952,
+      },
+      infringe: {
+        score: 0.955,
+      },
+      publicity: {
+        score: 0.96,
+      },
+      human_rights: {
+        score: 0.952,
+      },
+    },
+  };
+
   const [selectedLLM, setSelectedLLM] = useState(null);
 
   const fetchData = async () => {
@@ -45,26 +140,26 @@ const Dashboard = () => {
     }
   };
 
-  const getLLMScore = async () => {
-    const localStorageData = localStorage.getItem("LLMScore");
+  // const getLLMScore = async () => {
+  //   const localStorageData = localStorage.getItem("LLMScore");
 
-    if (localStorageData) {
-      console.log("로컬 스토리지에서 데이터를 가져왔습니다.");
-      setLLMScore(JSON.parse(localStorageData));
-    } else {
-      try {
-        const apiData = await fetchData();
-        setLLMScore(apiData);
-        localStorage.setItem("LLMScore", JSON.stringify(apiData));
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
-      }
-    }
-  };
+  //   if (localStorageData) {
+  //     console.log("로컬 스토리지에서 데이터를 가져왔습니다.");
+  //     setLLMScore(JSON.parse(localStorageData));
+  //   } else {
+  //     try {
+  //       const apiData = await fetchData();
+  //       setLLMScore(apiData);
+  //       localStorage.setItem("LLMScore", JSON.stringify(apiData));
+  //     } catch (error) {
+  //       console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    getLLMScore();
-  }, []);
+  // useEffect(() => {
+  //   getLLMScore();
+  // }, []);
 
   // LLM 데이터 선택 시 차트를 표시하는 함수
   const handleLLMClick = (llm) => {

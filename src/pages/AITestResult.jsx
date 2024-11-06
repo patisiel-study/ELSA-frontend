@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
+import MemberResultAPI from "../apis/MemberResultAPI";
 import NonmemberResultAPI from "../apis/NonmemberResultAPI";
 import HomepageLayout from "../components/HomepageLayout";
 import Menu from "../components/Menu";
@@ -158,41 +160,26 @@ const QuestionsBarChart = ({ noOrNotApplicableList }) => {
 };
 
 const AITestResult = () => {
+  const { diagnosisId } = useParams();
   const [resultData, setResultData] = useState(null);
 
   const fetchData = async () => {
     try {
-      const response = await NonmemberResultAPI();
-      return response.data.data;
+      const AT = localStorage.getItem("accessToken");
+      const response = await MemberResultAPI(AT, diagnosisId);
+      setResultData(response.data);
     } catch (error) {
       console.error(
-        "비회원의 인공지능 개발 윤리 검사 결과 데이터를 가져오는 중 오류가 발생했습니다.",
+        "인공지능 개발 윤리 검사 결과 데이터를 가져오는 중 오류가 발생했습니다.",
         error
       );
       throw error;
     }
   };
 
-  const getResultData = async () => {
-    const localStorageData = localStorage.getItem("resultData");
-
-    if (localStorageData) {
-      console.log("로컬 스토리지에서 데이터를 가져왔습니다.");
-      setResultData(JSON.parse(localStorageData));
-    } else {
-      try {
-        const apiData = await fetchData();
-        setResultData(apiData);
-        localStorage.setItem("resultData", JSON.stringify(apiData));
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
-      }
-    }
-  };
-
   useEffect(() => {
-    getResultData();
-  }, []);
+    fetchData();
+  }, [diagnosisId]);
 
   const totalScore = resultData?.totalScoreDto.scoreRatio; // 총점
   const correctAnswer = resultData?.totalScoreDto.scoreRatioString;

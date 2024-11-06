@@ -38,10 +38,6 @@ const TestHistory = () => {
     setActiveTab(tab);
   };
 
-  const handleResultClick = (id) => {
-    window.location.href = `/result/${id}`;
-  };
-
   return (
     <HomepageLayout>
       <Menu />
@@ -91,7 +87,7 @@ const TestHistory = () => {
                       </Td>
                       <Td style={{ width: "10%" }}>
                         <ResultButton
-                          onClick={() => handleResultClick(item.diagnosisId)}
+                          href={`/aiTestResult/${item.diagnosisId}`}
                         >
                           상세보기
                         </ResultButton>
