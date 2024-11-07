@@ -16,17 +16,18 @@ import { Doughnut, Bar, Radar } from "react-chartjs-2";
 Chart.register(...registerables);
 
 // Doughnut 차트 컴포넌트
-const ScoreDoughnutChart = ({ correctAnswer }) => {
+const ScoreDoughnutChart = ({ totalScore, correctAnswer }) => {
   const score = parseInt(correctAnswer.split("/")[0], 10); // 정답 수
   const total = parseInt(correctAnswer.split("/")[1], 10); // 전체 문제 수
   const incorrect = total - score; // 틀린 문제 수
 
   const data = {
-    labels: ["정답 수", "점검이 필요한 문제 수"],
+    labels: ["정답 문항"],
     datasets: [
       {
         data: [score, incorrect],
-        backgroundColor: [color.primary, color.accent],
+        backgroundColor: [color.accent, "white"],
+        borderWidth: 0,
       },
     ],
   };
@@ -34,11 +35,64 @@ const ScoreDoughnutChart = ({ correctAnswer }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false, // 비율 유지 안 함
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          font: {
+            size: 14, // 글자 크기 조정
+          },
+        },
+      },
+      tooltip: {
+        enabled: true,
+      },
+      // 내부 텍스트 표시 플러그인
+      datalabels: {
+        display: true,
+        formatter: () => `${score}점`,
+        color: "#333",
+        font: {
+          size: 24,
+          weight: "bold",
+        },
+      },
+    },
+    cutout: "75%", // 도넛 두께 설정
   };
 
   return (
-    <div style={{ position: "relative", width: "20rem", height: "20rem" }}>
+    <div
+      style={{
+        position: "relative",
+        width: "20rem",
+        height: "20rem",
+        margin: "0 1rem 5rem 1rem",
+      }}
+    >
       <Doughnut data={data} options={options} />
+      <div
+        style={{
+          position: "absolute",
+          top: "54%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+        }}
+      >
+        {totalScore}점
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-2rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+      >
+        총 {total}문항 중 {score}문항
+      </div>
     </div>
   );
 };
@@ -202,14 +256,12 @@ const AITestResult = () => {
       <BlueContainer>
         <InnerContainer>
           <SubTitle>인공지능 개발 윤리 검사 점수</SubTitle>
-          <ScoreContainer>
-            <Score>
-              {totalScore}점 ({correctAnswer})
-            </Score>
-            {correctAnswer && (
-              <ScoreDoughnutChart correctAnswer={correctAnswer} />
-            )}
-          </ScoreContainer>
+          {correctAnswer && (
+            <ScoreDoughnutChart
+              totalScore={totalScore}
+              correctAnswer={correctAnswer}
+            />
+          )}
 
           <SubTitle>인공지능 윤리기준 점검항목 당 점수</SubTitle>
           <Table>

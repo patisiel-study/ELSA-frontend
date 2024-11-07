@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const NonmemberResultAPI = async () => {
+const NonmemberResultAPI = async (diagnosisId) => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   if (!SERVER_URL) {
@@ -8,7 +8,7 @@ const NonmemberResultAPI = async () => {
   }
   try {
     const response = await axios.get(
-      `${SERVER_URL}/api/diagnosis/non-member/result/detail/1`
+      `${SERVER_URL}/api/diagnosis/non-member/result/detail/${diagnosisId}`
     );
     return response;
   } catch (error) {
