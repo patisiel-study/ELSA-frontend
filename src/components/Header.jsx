@@ -7,9 +7,8 @@ const Header = styled.header`
   padding-top: 6rem;
 `;
 
-const Title = styled.h1`
-  margin-right: 1rem;
-  word-break: keep-all;
+const Title = styled.h2`
+  margin-right: 10px;
 `;
 
 const Content = styled.p`
