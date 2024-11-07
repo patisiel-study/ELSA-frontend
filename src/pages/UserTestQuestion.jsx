@@ -254,7 +254,7 @@ const AITestQuestion = () => {
             <Section key={standard.standardName}>
               <Standard>
                 <StyledStandard>
-                  <Title>{standard.standardName}</Title>
+                <StandardTitle>{standard.standardName}</StandardTitle>
                   <ProgressBar progress={calculateProgress()} />
                 </StyledStandard>
                 <FormattedDescription text={standard.description} />
@@ -334,6 +334,9 @@ const Standard = styled.div`
   }
 `;
 
+const StandardTitle = styled.h3`
+`;
+
 const StyledStandard = styled.div`
   flex-direction: row;
   align-items: center;
@@ -345,7 +348,6 @@ const Card = styled.div`
   border: none;
   margin-bottom: 10px;
   padding: 20px;
-  font-weight: bold;
   ${(props) =>
     props.$showUnanswered &&
     `
@@ -362,6 +364,7 @@ const QuestionRow = styled.div`
 
 const QuestionText = styled.div`
   flex: 1;
+  line-height: 1.5;
 `;
 
 const Options = styled.div`
@@ -402,12 +405,14 @@ const StyledButton = styled.button`
   padding: 10px;
   background-color: ${color.accent};
   color: white;
-  font-size: large;
+  font-size: 1.1rem;
   font-weight: bold;
   border: none;
   border-radius: 50px;
   cursor: pointer;
-
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-style: normal;
   &:hover {
     background-color: ${color.accent};
   }
@@ -420,6 +425,7 @@ const Description = styled.p`
   margin-bottom: 15px;
   color: black;
   border-radius: 10px;
+  line-height: 1.5;
 `;
 
 const SentenceCard = styled.div`

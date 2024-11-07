@@ -96,7 +96,7 @@ const Menu = () => {
         </Nav>
       </NavBar>
       {!localStorage.getItem("accessToken") && (
-        <Login href="/login">Login</Login>
+        <Login href="/login">로그인</Login>
       )}
       {localStorage.getItem("accessToken") && (
         <RelativeContainer

@@ -149,8 +149,12 @@ const ButtonIcon = styled.img`
 
 const ButtonText = styled.p`
   color: ${color.primary};
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  font-family: "NEXON Lv1 Gothic OTF";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+    format("woff");
+  font-style: normal;
 `;
 
 const AIorUserButton = styled.button`

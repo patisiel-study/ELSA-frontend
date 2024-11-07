@@ -183,6 +183,7 @@ const MainVisualLeft = styled.div`
   flex-direction: column;
   height: 100%;
   width: 60%;
+  line-height: 1.6;
 `;
 
 const MainVisualRight = styled.div`
@@ -199,6 +200,7 @@ const MainVisualContent = styled.p`
   margin: 1.2rem 2.6rem 4rem 0;
   font-size: 1.2rem;
   word-break: keep-all;
+  line-height: 1.6;
 `;
 
 const Circle1 = styled.div`
@@ -296,6 +298,7 @@ const SectionTitle = styled.h2`
 const SectionContent = styled.p`
   color: white;
   word-break: keep-all;
+  line-height: 1.6;
 `;
 
 const SectionImg = styled.img`
@@ -334,6 +337,7 @@ const ArticleContent = styled.p`
   max-width: 10rem;
   color: white;
   word-break: keep-all;
+  line-height: 1.6;
 `;
 
 const DetailsLink = styled.a`

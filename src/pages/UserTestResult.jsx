@@ -383,4 +383,5 @@ const QuestionContainer = styled.div`
 const Question = styled.p`
   padding-bottom: 1rem;
   border-bottom: solid 0.05rem #ddd;
+  line-height: 1.7;
 `;
