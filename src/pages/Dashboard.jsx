@@ -32,95 +32,131 @@ const Dashboard = () => {
   // const [LLMScore, setLLMScore] = useState(null);
   const LLMScore = {
     GPT_3_5: {
-      "Data Managemment": {
+      인권보장: {
         score: 0.984,
       },
-      diversity: {
+      "프라이버시 보호": {
         score: 0.817,
       },
-      privacy: {
+      "다양성 존중": {
         score: 0.984,
       },
-      solidarity: {
+      침해금지: {
         score: 0.959,
       },
-      infringe: {
+      공공성: {
         score: 0.918,
       },
-      publicity: {
+      연대성: {
         score: 0.938,
       },
-      human_rights: {
+      "데이터 관리": {
         score: 0.983,
+      },
+      책임성: {
+        score: 0.912,
+      },
+      안전성: {
+        score: 0.815,
+      },
+      투명성: {
+        score: 0.987,
       },
     },
     GPT_4: {
-      "Data Managemment": {
+      인권보장: {
         score: 0.951,
       },
-      diversity: {
+      "프라이버시 보호": {
         score: 0.902,
       },
-      privacy: {
+      "다양성 존중": {
         score: 0.984,
       },
-      solidarity: {
+      침해금지: {
+        score: 0.984,
+      },
+      공공성: {
         score: 0.973,
       },
-      infringe: {
+      연대성: {
         score: 0.918,
       },
-      publicity: {
+      "데이터 관리": {
         score: 0.953,
       },
-      human_rights: {
+      책임성: {
         score: 0.983,
+      },
+      안전성: {
+        score: 0.845,
+      },
+      투명성: {
+        score: 0.887,
       },
     },
     GPT_4o: {
-      "Data Managemment": {
+      인권보장: {
         score: 0.984,
       },
-      diversity: {
+      "프라이버시 보호": {
         score: 0.902,
       },
-      privacy: {
+      "다양성 존중": {
         score: 0.984,
       },
-      solidarity: {
+      침해금지: {
         score: 0.973,
       },
-      infringe: {
+      공공성: {
         score: 0.918,
       },
-      publicity: {
+      연대성: {
         score: 0.953,
       },
-      human_rights: {
+      "데이터 관리": {
         score: 0.983,
+      },
+      책임성: {
+        score: 0.922,
+      },
+      안전성: {
+        score: 0.845,
+      },
+      투명성: {
+        score: 0.988,
       },
     },
     GEMINI: {
-      "Data Managemment": {
+      인권보장: {
         score: 0.955,
       },
-      diversity: {
+      "프라이버시 보호": {
         score: 0.952,
       },
-      privacy: {
+      "다양성 존중": {
         score: 0.967,
       },
-      solidarity: {
+      침해금지: {
         score: 0.952,
       },
-      infringe: {
+      공공성: {
         score: 0.955,
       },
-      publicity: {
+      연대성: {
         score: 0.96,
       },
-      human_rights: {
+      "데이터 관리": {
         score: 0.952,
+      },
+      책임성: {
+        score: 0.93,
+      },
+      안전성: {
+        score: 0.871,
+      },
+      투명성: {
+        score: 0.919,
       },
     },
   };
@@ -130,6 +166,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       const response = await LLMScoreAPI();
+      console.log(response.data);
       return response.data.data;
     } catch (error) {
       console.error(
@@ -174,11 +211,11 @@ const Dashboard = () => {
     const scores = labels.map((key) => llmData[key].score); // 점수들
 
     const backgroundColor =
-      llm === "GPT_3_5" || "GPT_4" || "GPT_4o"
+      llm === "GPT_3_5" || llm === "GPT_4" || llm === "GPT_4o"
         ? "#74AA9C"
         : llm === "GEMINI"
         ? "#4E88D4"
-        : "rgba(75, 192, 192, 0.2)";
+        : color.accent;
 
     return {
       labels,
