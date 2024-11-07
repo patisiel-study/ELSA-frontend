@@ -9,8 +9,8 @@ import styled from "styled-components";
 import { color } from "../color";
 
 const Evaluation = () => {
-  const numAndTextRefs = useRef([]); // 각 NumAndTextContainer의 ref를 저장
-  const [visibleItems, setVisibleItems] = useState([]); // 보이는 아이템을 관리하는 state
+  const numAndTextRefs = useRef([]); 
+  const [visibleItems, setVisibleItems] = useState([]); 
 
   const handleScroll = () => {
     const visible = numAndTextRefs.current.map((ref) =>

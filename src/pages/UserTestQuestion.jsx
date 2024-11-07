@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
 
-const UserTestQuestion = () => {
+const AITestQuestion = () => {
   const [standards, setStandards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -67,6 +67,23 @@ const UserTestQuestion = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "center" });
     }
+  };
+
+  const FormattedDescription = ({ text }) => {
+    const sentences = text
+      .split('.')
+      .filter(sentence => sentence.trim() !== '')
+      .map(sentence => sentence.trim());
+  
+    return (
+      <Description>
+        {sentences.map((sentence, index) => (
+          <SentenceCard key={index}>
+            {sentence}.
+          </SentenceCard>
+        ))}
+      </Description>
+    );
   };
 
   const submitAnswers = async (formattedAnswers, accessToken, navigate) => {
@@ -231,11 +248,11 @@ const UserTestQuestion = () => {
               <Standard>
                 <StyledStandard>
                   <Title>{standard.standardName}</Title>
+                  <ProgressBar progress={calculateProgress()} />
                 </StyledStandard>
-                <ProgressBar progress={calculateProgress()} />
-                <Description>{standard.description}</Description>
+                <FormattedDescription text={standard.description} />
               </Standard>
-              <Description>{standard.description}</Description>
+              
               {standard.questions.map((q) => (
                 <Card
                   key={q.questionId}
@@ -306,7 +323,7 @@ const Standard = styled.div`
   font-size: 1.5rem;
   flex-direction: column;
   & > * {
-    margin-bottom: 0; /* 항목 간 간격 제거 */
+    margin-bottom: 0; 
   }
 `;
 
@@ -392,9 +409,21 @@ const StyledButton = styled.button`
 const Description = styled.p`
   font-size: 16px;
   color: black;
-  margin-top: 5px;
+  margin-top: 25px;
   margin-bottom: 15px;
-  color: white;
+  color: black;
+  border-radius:10px;
 `;
 
-export default UserTestQuestion;
+const SentenceCard = styled.div`
+  font-size: 16px;
+  color: black;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top:10px;
+  flex: 1 1 200px; 
+  max-width: 100% 
+`;
+
+export default AITestQuestion;
