@@ -304,10 +304,27 @@ const AITestResult = () => {
               <StandardAndQuestion key={item.standardName}>
                 <StandardContainer>
                   <Standard>{item.standardName}</Standard>
+                  {item.description
+                    .split(".")
+                    .filter(Boolean)
+                    .map((sentence, index) => (
+                      <Description key={index}>{sentence.trim()}.</Description>
+                    ))}
                 </StandardContainer>
                 <QuestionContainer>
                   {item.qnaPairDtoList?.map((qna, index) => (
-                    <Question key={index}>{qna.question}</Question>
+                    <Question key={index}>
+                      {qna.question}
+                      <Answer>
+                        {" "}
+                        ▶{" "}
+                        {qna.answer === "NOT_APPLICABLE"
+                          ? "해당 없음"
+                          : qna.answer === "NO"
+                          ? "아니오"
+                          : qna.answer}
+                      </Answer>
+                    </Question>
                   ))}
                 </QuestionContainer>
               </StandardAndQuestion>
@@ -416,7 +433,7 @@ const StandardAndQuestion = styled.div`
 const StandardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 0.5rem 2rem;
   box-sizing: border-box;
   background-color: ${color.primary};
   border-radius: 1.8rem;
@@ -424,6 +441,13 @@ const StandardContainer = styled.div`
 
 const Standard = styled.h3`
   color: white;
+`;
+
+const Description = styled.div`
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 1rem;
 `;
 
 const QuestionContainer = styled.div`
@@ -436,4 +460,9 @@ const Question = styled.p`
   padding-bottom: 1rem;
   border-bottom: solid 0.05rem #ddd;
   line-height: 1.7;
+`;
+
+const Answer = styled.p`
+  margin-bottom: 0;
+  color: red;
 `;
