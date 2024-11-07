@@ -255,6 +255,8 @@ const AITestResult = () => {
       <BlueCurve />
       <BlueContainer>
         <InnerContainer>
+          <SubTitle>모델 이름</SubTitle>
+          <LLMName>{resultData.llmName}</LLMName>
           <SubTitle>인공지능 개발 윤리 검사 점수</SubTitle>
           {correctAnswer && (
             <ScoreDoughnutChart
@@ -367,6 +369,11 @@ const InnerContainer = styled.div`
 
 const SubTitle = styled.h2`
   margin-top: 0;
+`;
+
+const LLMName = styled.p`
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
 `;
 
 const ScoreContainer = styled.div`
