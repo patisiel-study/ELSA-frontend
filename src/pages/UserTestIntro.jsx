@@ -113,6 +113,7 @@ const TestInformation = styled.p`
   margin-top: 0;
   font-size: 1.1rem;
   text-align: center;
+  line-height: 1.6;
 `;
 
 const ChecklistContainer = styled.div`

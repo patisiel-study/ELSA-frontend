@@ -15,6 +15,7 @@ const Content = styled.p`
   margin: 1.2rem 2.6rem 4rem 0;
   font-size: 1.2rem;
   word-break: keep-all;
+  line-height: 1.6;
 `;
 
 export { Header, Title, Content };

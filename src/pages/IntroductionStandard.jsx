@@ -15,9 +15,7 @@ const IntroductionStandard = () => {
         <IntroductionText>
           HUMAIND의 인공지능 윤리 평가 시스템은 대한민국 과학기술정보통신부에서
           발표한 인공지능 윤리 기준을 근간으로, 안전하고 공정한 인공지능 기술
-          사용을 촉진하기 위해 개발되었습니다.
-          <br />
-          저희 시스템은 3대 원칙과 10대 요건을 중심으로, 기술 발전과 윤리적 책임
+          사용을 촉진하기 위해 개발되었으며, <strong>3대 원칙과 10대 요건</strong>을 중심으로, 기술 발전과 윤리적 책임
           간의 균형을 유지하며 사회에 긍정적인 영향을 미칠 수 있도록
           설계되었습니다.
         </IntroductionText>
@@ -88,7 +86,8 @@ const BlueContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 2000px;
+  height: 100%;
+  padding-bottom: 200px;
   background-color: ${color.primary};
 `;
 const StandardTitle = styled.h1`
@@ -106,7 +105,9 @@ const WhiteContainerTop = styled.div`
   height: 20%;
 `;
 
-const IntroductionText = styled.div``;
+const IntroductionText = styled.div`
+line-height: 1.6;
+`;
 
 const StandardSection = styled.div`
   display: flex;
@@ -115,7 +116,7 @@ const StandardSection = styled.div`
   width: 100%;
 `;
 
-const IntroductionTitle = styled.h1``;
+const IntroductionTitle = styled.h2``;
 
 const StandardImg = styled.img`
   width: 50%;
@@ -125,6 +126,7 @@ const StandardImg = styled.img`
 const StandardContent = styled.div`
   color:white;
   margin-top:30px;
+  line-height: 1.6;
 `;
 
 export default IntroductionStandard;

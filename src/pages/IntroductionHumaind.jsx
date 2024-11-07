@@ -48,11 +48,10 @@ const IntroductionHumaind = () => {
       <Header>
         <Title>HUMAIND 소개</Title>
         <InnerContainer>
-          <>
+          <IntoroductionText>
             안녕하세요, 저희는 팀 HUMAIND입니다.
             <br />
-            <br />
-            HUMAIND는 인간(Human), 인공지능(AI), 마음(mind)의 합성어로, 인간의
+            HUMAIND는<strong> 인간(Human), 인공지능(AI), 마음(mind) </strong>의 합성어로, 인간의
             마음을 이해하고
             <br />
             존중하는 인간 친화적 인공지능의 개발을 목표로 합니다.
@@ -64,13 +63,13 @@ const IntroductionHumaind = () => {
             인공지능이 사회적 가치와 기술 발전 사이에서 균형을 유지하며 책임
             있게 사용될 수 있도록 노력하고 있습니다.
             <br />
-            <br />
+            <br />       
             HUMAIND는 이러한 비전을 실현하기 위해 인공지능 윤리 평가 시스템을
             개발하고 있으며,
             <br />
             이를 통해 윤리적인 AI 사용을 보장하고 지속 가능한 기술 발전을
             지원하는 데 기여하고자 합니다.
-          </>
+          </IntoroductionText>
           <HUMAINDLogoImg src="img/HUMAIND-Logo.png" alt="휴마인드 로고" />
         </InnerContainer>
       </Header>
@@ -120,6 +119,11 @@ const InnerContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 3rem;
+  
+`;
+
+const IntoroductionText = styled.div`
+  line-height: 1.6;
 `;
 
 const HUMAINDLogoImg = styled.img`
