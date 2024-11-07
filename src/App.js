@@ -10,6 +10,7 @@ import AITestQuestion from "./pages/AITestQuestion.jsx";
 import AITestResult from "./pages/AITestResult.jsx";
 
 import UserTestIntro from "./pages/UserTestIntro.jsx";
+import UserTestInfo from "./pages/UserTestInfo.jsx";
 import UserTestQuestion from "./pages/UserTestQuestion.jsx";
 import UserTestResult from "./pages/UserTestResult.jsx";
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/aiTestResult/:diagnosisId" element={<AITestResult />} />
 
           <Route path="/userTestIntro" element={<UserTestIntro />} />
+          <Route path="/userTestInfo" element={<UserTestInfo />} />
           <Route path="/userTestQuestion" element={<UserTestQuestion />} />
           <Route
             path="/userTestResult/:diagnosisId"
