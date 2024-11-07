@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RefreshTokenAPI from "../apis/RefreshTokenAPI";
 import MemberInfoAPI from "../apis/MemberInfoAPI";
 import CareersAPI from "../apis/CareersAPI";
 import CountriesAPI from "../apis/CountriesAPI";
@@ -21,12 +22,17 @@ const AITestInfo = () => {
   const fetchMemberInfo = async () => {
     try {
       const AT = localStorage.getItem("accessToken");
+      if (!AT) {
+        console.error("Access Token is missing.");
+        return;
+      }
       const response = await MemberInfoAPI(AT);
       console.log(response.data);
       setCareer(response.data.career);
       setCountry(response.data.country);
     } catch (error) {
-      console.error("회원 정보를 가져오는 중 오류가 발생했습니다.", error);
+      const response = await RefreshTokenAPI();
+      console.log(response);
       throw error;
     }
   };

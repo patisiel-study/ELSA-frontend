@@ -71,16 +71,14 @@ const AITestQuestion = () => {
 
   const FormattedDescription = ({ text }) => {
     const sentences = text
-      .split('.')
-      .filter(sentence => sentence.trim() !== '')
-      .map(sentence => sentence.trim());
-  
+      .split(".")
+      .filter((sentence) => sentence.trim() !== "")
+      .map((sentence) => sentence.trim());
+
     return (
       <Description>
         {sentences.map((sentence, index) => (
-          <SentenceCard key={index}>
-            {sentence}.
-          </SentenceCard>
+          <SentenceCard key={index}>{sentence}.</SentenceCard>
         ))}
       </Description>
     );
@@ -101,17 +99,20 @@ const AITestQuestion = () => {
         console.error("diagnosisInfo JSON 파싱 오류:", error);
       }
     }
-  
+
     try {
       let response;
       if (accessToken) {
         const data = { answers: formattedAnswers, llmName };
         console.log("회원 제출 데이터:", data);
         console.log("Authorization 헤더:", `Bearer ${accessToken}`);
-        response = await axios.post("/api/diagnosis/developer/submit/user", data, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-
-        });
+        response = await axios.post(
+          "/api/diagnosis/developer/submit/user",
+          data,
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        );
       } else {
         const data = {
           answers: formattedAnswers,
@@ -119,9 +120,12 @@ const AITestQuestion = () => {
           country: country,
         };
         console.log("비회원 제출 데이터:", data);
-        response = await axios.post("/api/diagnosis/non-member/submit/user", data);
+        response = await axios.post(
+          "/api/diagnosis/non-member/submit/user",
+          data
+        );
       }
-      console.log("서버 응답:", response); 
+      console.log("서버 응답:", response);
       return response;
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
@@ -137,7 +141,7 @@ const AITestQuestion = () => {
         localStorage.setItem("refreshToken", refreshToken);
         await submitAnswers(formattedAnswers, accessToken);
         console.log("토큰 갱신 후 답변이 성공적으로 제출되었습니다.");
-        navigate("/AITestResult");
+        navigate("/userTestResult");
       } catch (refreshError) {
         console.error("토큰 갱신 실패:", refreshError);
         navigate("/login");
@@ -207,9 +211,12 @@ const AITestQuestion = () => {
 
     try {
       const response = await submitAnswers(formattedAnswers, accessToken);
-      const { message, data: { diagnosisId } } = response.data;
+      const {
+        message,
+        data: { diagnosisId },
+      } = response.data;
       console.log(message);
-      navigate(`/aiTestResult/${diagnosisId}`); 
+      navigate(`/userTestResult/${diagnosisId}`);
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
       await handleSubmitError(error, formattedAnswers);
@@ -252,7 +259,7 @@ const AITestQuestion = () => {
                 </StyledStandard>
                 <FormattedDescription text={standard.description} />
               </Standard>
-              
+
               {standard.questions.map((q) => (
                 <Card
                   key={q.questionId}
@@ -323,7 +330,7 @@ const Standard = styled.div`
   font-size: 1.5rem;
   flex-direction: column;
   & > * {
-    margin-bottom: 0; 
+    margin-bottom: 0;
   }
 `;
 
@@ -412,7 +419,7 @@ const Description = styled.p`
   margin-top: 25px;
   margin-bottom: 15px;
   color: black;
-  border-radius:10px;
+  border-radius: 10px;
 `;
 
 const SentenceCard = styled.div`
@@ -421,9 +428,9 @@ const SentenceCard = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 10px;
-  margin-top:10px;
-  flex: 1 1 200px; 
-  max-width: 100% 
+  margin-top: 10px;
+  flex: 1 1 200px;
+  max-width: 100%;
 `;
 
 export default AITestQuestion;
