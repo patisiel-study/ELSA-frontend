@@ -23,13 +23,14 @@ const UserTestIntro = () => {
       <TestMainContent>
         <TestInformation>
           "이 질문지는 과학기술정보통신부와 정보통신정책연구원이 제정한 '2022
-          인공지능 윤리기준 실천을 위한 자율점검표(안)'에 따라 구성되어, 개발
-          중인 인공지능 시스템이 윤리적 기준을 충실히 따르고 있는지 점검할 수
-          있는 신뢰할 수 있는 평가 기준을 제공합니다."
+          인공지능 윤리기준 실천을 위한 자율점검표(안)'을 기반으로
+          구성되었습니다. 이를 통해 인공지능 시스템 사용자로서 해당 시스템이
+          윤리적 기준을 충실히 따르고 있는지를 점검할 수 있으며, 신뢰할 수 있는
+          윤리 평가 기준을 제공합니다."
         </TestInformation>
         <ChecklistContainer>
           <ChecklistTitle>
-            인공지능 윤리기준 실천을 위한 자율점검표(안)
+            챗봇 분야 인공지능 윤리기준 자율점검표(안)
           </ChecklistTitle>
           <ChecklistTitle>1. 점검 목적 윤리기준</ChecklistTitle>
           <ChecklistContent>
@@ -49,7 +50,7 @@ const UserTestIntro = () => {
           </ChecklistContent>
           <ChecklistTitle>3. 구성 </ChecklistTitle>
           <ChecklistContent>
-            챗봇 분야 인공지능 윤리기준 자율점검표는 기존 「인공지능(AI)
+            챗봇 분야 인공지능 윤리기준 자율점검표(안)는 기존 「인공지능(AI)
             윤리기준 실천을 위한 자율점검표(안)」의 점검 문항 중, 특히 챗봇
             분야에서 강조되어야 하는 문항을 선별·가공하고, 새롭게 쟁점이 되는
             윤리 이슈에 대응하기 위한 문항을 신설하는 방식으로 구성하였습니다.
