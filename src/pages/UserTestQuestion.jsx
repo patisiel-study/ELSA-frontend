@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
 
-const AITestQuestion = () => {
+const UserTestQuestion = () => {
   const [standards, setStandards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ const AITestQuestion = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get("/api/diagnosis/list/questions");
+      const response = await axios.get("/api/diagnosis/list/questions/user");
       console.log("response:", response.data);
       setStandards(response.data.data);
       setLoading(false);
@@ -91,7 +91,7 @@ const AITestQuestion = () => {
         const data = { answers: formattedAnswers, llmName };
         console.log("회원 제출 데이터:", data);
         console.log("Authorization 헤더:", `Bearer ${accessToken}`);
-        response = await axios.post("/api/diagnosis/developer/submit", data, {
+        response = await axios.post("/api/diagnosis/developer/submit/user", data, {
           headers: { Authorization: `Bearer ${accessToken}` },
 
         });
@@ -102,7 +102,7 @@ const AITestQuestion = () => {
           country: country,
         };
         console.log("비회원 제출 데이터:", data);
-        response = await axios.post("/api/diagnosis/non-member/submit", data);
+        response = await axios.post("/api/diagnosis/non-member/submit/user", data);
       }
       console.log("서버 응답:", response); 
       return response;
@@ -397,4 +397,4 @@ const Description = styled.p`
   color: white;
 `;
 
-export default AITestQuestion;
+export default UserTestQuestion;
