@@ -66,10 +66,10 @@ const TestHistory = () => {
             <Table>
               <thead>
                 <tr>
-                  <Th>연번</Th>
-                  <Th>모델 이름</Th>
-                  <Th>시간</Th>
-                  <Th>점수</Th>
+                  <Th>번호</Th>
+                  {activeTab === "developer" && <Th>모델 이름</Th>}
+                  <Th>검사 결과</Th>
+                  <Th>검사 일시</Th>
                   <Th>결과보기</Th>
                 </tr>
               </thead>
@@ -78,16 +78,34 @@ const TestHistory = () => {
                   (item, index) => (
                     <tr key={item.diagnosisId}>
                       <Td style={{ width: "10%" }}>{index + 1}</Td>
-                      <Td style={{ width: "30%" }}>{item.llmName}</Td>
-                      <Td style={{ width: "30%" }}>
-                        {new Date(item.createdAt).toLocaleString()}
-                      </Td>
-                      <Td style={{ width: "20%" }}>
+                      {activeTab === "developer" && (
+                        <Td style={{ width: "30%" }}>{item.llmName}</Td>
+                      )}
+                      <Td
+                        style={{
+                          width: activeTab === "developer" ? "20%" : "30%",
+                        }}
+                      >
                         {item.totalScoreToString}
                       </Td>
-                      <Td style={{ width: "10%" }}>
+                      <Td
+                        style={{
+                          width: activeTab === "developer" ? "30%" : "55%",
+                        }}
+                      >
+                        {new Date(item.createdAt).toLocaleString()}
+                      </Td>
+                      <Td
+                        style={{
+                          width: activeTab === "developer" ? "10%" : "5%",
+                        }}
+                      >
                         <ResultButton
-                          href={`/aiTestResult/${item.diagnosisId}`}
+                          href={`/${
+                            activeTab === "developer"
+                              ? "aiTestResult"
+                              : "userTestResult"
+                          }/${item.diagnosisId}`}
                         >
                           상세보기
                         </ResultButton>
@@ -165,6 +183,7 @@ const Th = styled.th`
   border-bottom: 1px solid #ddd;
   font-weight: bold;
   text-align: center;
+  white-space: nowrap;
 `;
 
 const Td = styled.td`
