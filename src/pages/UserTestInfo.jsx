@@ -14,7 +14,6 @@ import { color } from "../color";
 const UserTestInfo = () => {
   const [career, setCareer] = useState("");
   const [country, setCountry] = useState("");
-  const [llmName, setLlmName] = useState("이름 없음");
   const [careersList, setCareersList] = useState([]);
   const [countriesList, setCountriesList] = useState([]);
   const [error, setError] = useState("");
@@ -70,10 +69,7 @@ const UserTestInfo = () => {
       return;
     }
 
-    localStorage.setItem(
-      "diagnosisInfo",
-      JSON.stringify({ career, country, llmName })
-    );
+    localStorage.setItem("diagnosisInfo", JSON.stringify({ career, country }));
 
     window.location.href = "/userTestQuestion";
   };
@@ -107,15 +103,6 @@ const UserTestInfo = () => {
                 />
               </>
             )}
-            <FormGroup>
-              <Label>LLM 이름</Label>
-              <Input
-                type="text"
-                value={llmName}
-                onChange={(e) => setLlmName(e.target.value)}
-                placeholder="LLM 이름을 입력하세요"
-              />
-            </FormGroup>
             <br />
             {error && <ErrorMessage>{error}</ErrorMessage>}
             <OrangeButton type="submit" width={"100%"}>

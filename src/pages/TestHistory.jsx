@@ -63,58 +63,66 @@ const TestHistory = () => {
           </TabContainer>
 
           <TableContainer>
-            <Table>
-              <thead>
-                <tr>
-                  <Th>번호</Th>
-                  {activeTab === "developer" && <Th>모델 이름</Th>}
-                  <Th>검사 결과</Th>
-                  <Th>검사 일시</Th>
-                  <Th>결과보기</Th>
-                </tr>
-              </thead>
-              <tbody>
-                {(activeTab === "developer" ? AITests : UserTests).map(
-                  (item, index) => (
-                    <tr key={item.diagnosisId}>
-                      <Td style={{ width: "10%" }}>{index + 1}</Td>
-                      {activeTab === "developer" && (
-                        <Td style={{ width: "30%" }}>{item.llmName}</Td>
-                      )}
-                      <Td
-                        style={{
-                          width: activeTab === "developer" ? "20%" : "30%",
-                        }}
-                      >
-                        {item.totalScoreToString}
-                      </Td>
-                      <Td
-                        style={{
-                          width: activeTab === "developer" ? "30%" : "55%",
-                        }}
-                      >
-                        {new Date(item.createdAt).toLocaleString()}
-                      </Td>
-                      <Td
-                        style={{
-                          width: activeTab === "developer" ? "10%" : "5%",
-                        }}
-                      >
-                        <ResultButton
-                          href={`/${
-                            activeTab === "developer"
-                              ? "aiTestResult"
-                              : "userTestResult"
-                          }/${item.diagnosisId}`}
+            {(activeTab === "developer" ? AITests : UserTests).length === 0 ? (
+              <p
+                style={{ textAlign: "center", padding: "2rem", color: "#666" }}
+              >
+                검사 내역이 없습니다.
+              </p>
+            ) : (
+              <Table>
+                <thead>
+                  <tr>
+                    <Th>번호</Th>
+                    {activeTab === "developer" && <Th>모델 이름</Th>}
+                    <Th>검사 결과</Th>
+                    <Th>검사 일시</Th>
+                    <Th>결과보기</Th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(activeTab === "developer" ? AITests : UserTests).map(
+                    (item, index) => (
+                      <tr key={item.diagnosisId}>
+                        <Td style={{ width: "10%" }}>{index + 1}</Td>
+                        {activeTab === "developer" && (
+                          <Td style={{ width: "30%" }}>{item.llmName}</Td>
+                        )}
+                        <Td
+                          style={{
+                            width: activeTab === "developer" ? "20%" : "30%",
+                          }}
                         >
-                          상세보기
-                        </ResultButton>
-                      </Td>
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </Table>
+                          {item.totalScoreToString}
+                        </Td>
+                        <Td
+                          style={{
+                            width: activeTab === "developer" ? "30%" : "55%",
+                          }}
+                        >
+                          {new Date(item.createdAt).toLocaleString()}
+                        </Td>
+                        <Td
+                          style={{
+                            width: activeTab === "developer" ? "10%" : "5%",
+                          }}
+                        >
+                          <ResultButton
+                            href={`/${
+                              activeTab === "developer"
+                                ? "aiTestResult"
+                                : "userTestResult"
+                            }/${item.diagnosisId}`}
+                          >
+                            상세보기
+                          </ResultButton>
+                        </Td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </Table>
+            )}
           </TableContainer>
         </Container>
       </BlueContainer>
@@ -132,6 +140,7 @@ const BlueContainer = styled.div`
   width: 100%;
   padding: 2rem 0;
   background-color: ${color.primary};
+  min-height: 50vh;
 `;
 
 const Container = styled.div`

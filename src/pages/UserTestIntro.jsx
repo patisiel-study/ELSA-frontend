@@ -88,8 +88,14 @@ const UserTestIntro = () => {
             </TableRow>
           </Table>
         </ChecklistContainer>
-        <OrangeLinkButton href="/userTestinfo">
-          테스트 시작하기
+        <OrangeLinkButton
+          href={`${
+            localStorage.getItem("accessToken")
+              ? "/userTestQuestion"
+              : "/userTestinfo"
+          }`}
+        >
+          버튼 텍스트
         </OrangeLinkButton>
       </TestMainContent>
       <Footer />

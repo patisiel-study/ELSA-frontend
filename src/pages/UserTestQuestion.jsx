@@ -239,7 +239,7 @@ const AITestQuestion = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발 윤리 검사</Title>
+        <Title>인공지능 사용자 윤리 검사</Title>
         <Content>
           아래 질문은 인공지능 윤리 기준의 10대 핵심요건에 대한 각각의 설명과
           그에 해당하는 점검항목입니다.
@@ -254,7 +254,7 @@ const AITestQuestion = () => {
             <Section key={standard.standardName}>
               <Standard>
                 <StyledStandard>
-                <StandardTitle>{standard.standardName}</StandardTitle>
+                  <StandardTitle>{standard.standardName}</StandardTitle>
                   <ProgressBar progress={calculateProgress()} />
                 </StyledStandard>
                 <FormattedDescription text={standard.description} />
@@ -334,8 +334,7 @@ const Standard = styled.div`
   }
 `;
 
-const StandardTitle = styled.h3`
-`;
+const StandardTitle = styled.h3``;
 
 const StyledStandard = styled.div`
   flex-direction: row;
@@ -410,8 +409,9 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  font-family: 'NEXON Lv1 Gothic OTF';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-family: "NEXON Lv1 Gothic OTF";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+    format("woff");
   font-style: normal;
   &:hover {
     background-color: ${color.accent};
