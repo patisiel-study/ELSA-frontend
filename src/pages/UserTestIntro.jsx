@@ -87,7 +87,7 @@ const UserTestIntro = () => {
             </TableRow>
           </Table>
         </ChecklistContainer>
-        <OrangeLinkButton href="#">테스트 시작하기</OrangeLinkButton>
+        <OrangeLinkButton href="/userTestQuestion">테스트 시작하기</OrangeLinkButton>
       </TestMainContent>
       <Footer />
     </HomepageLayout>
