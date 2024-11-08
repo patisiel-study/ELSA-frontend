@@ -95,7 +95,7 @@ const UserTestIntro = () => {
               : "/userTestinfo"
           }`}
         >
-          버튼 텍스트
+          테스트 시작하기
         </OrangeLinkButton>
       </TestMainContent>
       <Footer />
