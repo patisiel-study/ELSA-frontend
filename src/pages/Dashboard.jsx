@@ -29,138 +29,7 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  // const [LLMScore, setLLMScore] = useState(null);
-  const LLMScore = {
-    GPT_3_5: {
-      인권보장: {
-        score: 0.984,
-      },
-      "프라이버시 보호": {
-        score: 0.817,
-      },
-      "다양성 존중": {
-        score: 0.984,
-      },
-      침해금지: {
-        score: 0.959,
-      },
-      공공성: {
-        score: 0.918,
-      },
-      연대성: {
-        score: 0.938,
-      },
-      "데이터 관리": {
-        score: 0.983,
-      },
-      책임성: {
-        score: 0.912,
-      },
-      안전성: {
-        score: 0.815,
-      },
-      투명성: {
-        score: 0.987,
-      },
-    },
-    GPT_4: {
-      인권보장: {
-        score: 0.951,
-      },
-      "프라이버시 보호": {
-        score: 0.902,
-      },
-      "다양성 존중": {
-        score: 0.984,
-      },
-      침해금지: {
-        score: 0.984,
-      },
-      공공성: {
-        score: 0.973,
-      },
-      연대성: {
-        score: 0.918,
-      },
-      "데이터 관리": {
-        score: 0.953,
-      },
-      책임성: {
-        score: 0.983,
-      },
-      안전성: {
-        score: 0.845,
-      },
-      투명성: {
-        score: 0.887,
-      },
-    },
-    GPT_4o: {
-      인권보장: {
-        score: 0.984,
-      },
-      "프라이버시 보호": {
-        score: 0.902,
-      },
-      "다양성 존중": {
-        score: 0.984,
-      },
-      침해금지: {
-        score: 0.973,
-      },
-      공공성: {
-        score: 0.918,
-      },
-      연대성: {
-        score: 0.953,
-      },
-      "데이터 관리": {
-        score: 0.983,
-      },
-      책임성: {
-        score: 0.922,
-      },
-      안전성: {
-        score: 0.845,
-      },
-      투명성: {
-        score: 0.988,
-      },
-    },
-    GEMINI: {
-      인권보장: {
-        score: 0.955,
-      },
-      "프라이버시 보호": {
-        score: 0.952,
-      },
-      "다양성 존중": {
-        score: 0.967,
-      },
-      침해금지: {
-        score: 0.952,
-      },
-      공공성: {
-        score: 0.955,
-      },
-      연대성: {
-        score: 0.96,
-      },
-      "데이터 관리": {
-        score: 0.952,
-      },
-      책임성: {
-        score: 0.93,
-      },
-      안전성: {
-        score: 0.871,
-      },
-      투명성: {
-        score: 0.919,
-      },
-    },
-  };
-
+  const [LLMScore, setLLMScore] = useState(null);
   const [selectedLLM, setSelectedLLM] = useState(null);
 
   const fetchData = async () => {
@@ -177,26 +46,26 @@ const Dashboard = () => {
     }
   };
 
-  // const getLLMScore = async () => {
-  //   const localStorageData = localStorage.getItem("LLMScore");
+  const getLLMScore = async () => {
+    const localStorageData = localStorage.getItem("LLMScore");
 
-  //   if (localStorageData) {
-  //     console.log("로컬 스토리지에서 데이터를 가져왔습니다.");
-  //     setLLMScore(JSON.parse(localStorageData));
-  //   } else {
-  //     try {
-  //       const apiData = await fetchData();
-  //       setLLMScore(apiData);
-  //       localStorage.setItem("LLMScore", JSON.stringify(apiData));
-  //     } catch (error) {
-  //       console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
-  //     }
-  //   }
-  // };
+    if (localStorageData) {
+      console.log("로컬 스토리지에서 데이터를 가져왔습니다.");
+      setLLMScore(JSON.parse(localStorageData));
+    } else {
+      try {
+        const apiData = await fetchData();
+        setLLMScore(apiData);
+        localStorage.setItem("LLMScore", JSON.stringify(apiData));
+      } catch (error) {
+        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   getLLMScore();
-  // }, []);
+  useEffect(() => {
+    getLLMScore();
+  }, []);
 
   // LLM 데이터 선택 시 차트를 표시하는 함수
   const handleLLMClick = (llm) => {
