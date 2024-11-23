@@ -52,7 +52,7 @@ const TestHistory = () => {
               active={activeTab === "developer"}
               onClick={() => handleTabClick("developer")}
             >
-              개발 윤리 검사 내역
+              개발자 윤리 검사 내역
             </Tab>
             <Tab
               active={activeTab === "user"}

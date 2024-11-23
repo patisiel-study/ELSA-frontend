@@ -47,7 +47,7 @@ const Test = () => {
               alt="로봇 아이콘"
               draggable="false"
             />
-            <ButtonText>개발 윤리 검사</ButtonText>
+            <ButtonText>개발자 윤리 검사</ButtonText>
           </AIorUserButton>
 
           <AIorUserButton
