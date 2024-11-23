@@ -82,7 +82,7 @@ const AITestInfo = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발 윤리 검사</Title>
+        <Title>인공지능 개발자 윤리 검사</Title>
         <Content>
           정보를 입력해주세요.
           <br />본 정보는 단순 통계 및 분석용으로 활용될 예정입니다.

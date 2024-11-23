@@ -13,7 +13,7 @@ const AITestIntro = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발 윤리 검사</Title>
+        <Title>인공지능 개발자 윤리 검사</Title>
         <Content>
           본 검사는 인공지능 개발자로서, 현재 개발 중인 인공지능이 윤리적 기준을
           얼마나 잘 반영하고 있는지를 평가하는 검사입니다.

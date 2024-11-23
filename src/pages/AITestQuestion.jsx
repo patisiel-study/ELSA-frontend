@@ -71,16 +71,14 @@ const AITestQuestion = () => {
 
   const FormattedDescription = ({ text }) => {
     const sentences = text
-      .split('.')
-      .filter(sentence => sentence.trim() !== '')
-      .map(sentence => sentence.trim());
-  
+      .split(".")
+      .filter((sentence) => sentence.trim() !== "")
+      .map((sentence) => sentence.trim());
+
     return (
       <Description>
         {sentences.map((sentence, index) => (
-          <SentenceCard key={index}>
-            {sentence}.
-          </SentenceCard>
+          <SentenceCard key={index}>{sentence}.</SentenceCard>
         ))}
       </Description>
     );
@@ -101,7 +99,7 @@ const AITestQuestion = () => {
         console.error("diagnosisInfo JSON 파싱 오류:", error);
       }
     }
-  
+
     try {
       let response;
       if (accessToken) {
@@ -110,7 +108,6 @@ const AITestQuestion = () => {
         console.log("Authorization 헤더:", `Bearer ${accessToken}`);
         response = await axios.post("/api/diagnosis/developer/submit", data, {
           headers: { Authorization: `Bearer ${accessToken}` },
-
         });
       } else {
         const data = {
@@ -121,7 +118,7 @@ const AITestQuestion = () => {
         console.log("비회원 제출 데이터:", data);
         response = await axios.post("/api/diagnosis/non-member/submit", data);
       }
-      console.log("서버 응답:", response); 
+      console.log("서버 응답:", response);
       return response;
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
@@ -207,9 +204,12 @@ const AITestQuestion = () => {
 
     try {
       const response = await submitAnswers(formattedAnswers, accessToken);
-      const { message, data: { diagnosisId } } = response.data;
+      const {
+        message,
+        data: { diagnosisId },
+      } = response.data;
       console.log(message);
-      navigate(`/aiTestResult/${diagnosisId}`); 
+      navigate(`/aiTestResult/${diagnosisId}`);
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
       await handleSubmitError(error, formattedAnswers);
@@ -232,7 +232,7 @@ const AITestQuestion = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발 윤리 검사</Title>
+        <Title>인공지능 개발자 윤리 검사</Title>
         <Content>
           아래 질문은 인공지능 윤리 기준의 10대 핵심요건에 대한 각각의 설명과
           그에 해당하는 점검항목입니다.
@@ -252,7 +252,7 @@ const AITestQuestion = () => {
                 </StyledStandard>
                 <FormattedDescription text={standard.description} />
               </Standard>
-              
+
               {standard.questions.map((q) => (
                 <Card
                   key={q.questionId}
@@ -323,12 +323,11 @@ const Standard = styled.div`
   font-size: 1.5rem;
   flex-direction: column;
   & > * {
-    margin-bottom: 0; 
+    margin-bottom: 0;
   }
 `;
 
-const StandardTitle = styled.h3`
-`;
+const StandardTitle = styled.h3``;
 
 const StyledStandard = styled.div`
   flex-direction: row;
@@ -403,8 +402,9 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  font-family: 'NEXON Lv1 Gothic OTF';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-family: "NEXON Lv1 Gothic OTF";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+    format("woff");
   font-style: normal;
   &:hover {
     background-color: ${color.accent};
@@ -417,7 +417,7 @@ const Description = styled.p`
   margin-top: 25px;
   margin-bottom: 15px;
   color: black;
-  border-radius:10px;
+  border-radius: 10px;
   line-height: 1.5;
 `;
 
@@ -427,9 +427,9 @@ const SentenceCard = styled.div`
   background-color: white;
   border-radius: 10px;
   padding: 10px;
-  margin-top:10px;
-  flex: 1 1 200px; 
-  max-width: 100% 
+  margin-top: 10px;
+  flex: 1 1 200px;
+  max-width: 100%;
 `;
 
 export default AITestQuestion;

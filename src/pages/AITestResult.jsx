@@ -250,7 +250,7 @@ const AITestResult = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발 윤리 검사 결과</Title>
+        <Title>인공지능 개발자 윤리 검사 결과</Title>
       </Header>
       <BlueCurve />
       <BlueContainer>
