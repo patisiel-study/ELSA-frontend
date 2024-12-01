@@ -11,7 +11,7 @@ const Menu = () => {
   useEffect(() => {
     const path = window.location.pathname;
     switch (path) {
-      case "/introduction":
+      case "/introductionHumaind":
         setActiveItem("소개");
         break;
       case "/test":
@@ -38,6 +38,10 @@ const Menu = () => {
       window.location.href = "/";
     } catch (error) {
       console.error("로그아웃 실패", error);
+      if (error.error === "JWT token has expired") {
+        localStorage.removeItem("accessToken");
+        window.location.href = "/login";
+      }
     }
   };
 
@@ -56,7 +60,7 @@ const Menu = () => {
           onMouseLeave={() => setShowIntroductionBox(false)}
         >
           <Nav
-            href="/aiTestResult"
+            href="/introductionHumaind"
             isActive={activeItem === "소개"}
             onClick={() => setActiveItem("소개")}
           >
@@ -64,8 +68,8 @@ const Menu = () => {
           </Nav>
           {showIntroductionBox && (
             <SubMenu>
-              <SubNav href="#">HUMAIND 소개</SubNav>
-              <SubNav href="#">윤리 기준 소개</SubNav>
+              <SubNav href="/introductionHumaind">HUMAIND 소개</SubNav>
+              <SubNav href="/introductionStandard">윤리 기준 소개</SubNav>
             </SubMenu>
           )}
         </RelativeContainer>
@@ -92,7 +96,7 @@ const Menu = () => {
         </Nav>
       </NavBar>
       {!localStorage.getItem("accessToken") && (
-        <Login href="/login">Login</Login>
+        <Login href="/login">로그인</Login>
       )}
       {localStorage.getItem("accessToken") && (
         <RelativeContainer
@@ -103,7 +107,7 @@ const Menu = () => {
           {showMemberBox && (
             <SubMenu>
               <SubNav href="#">회원 정보</SubNav>
-              <SubNav href="/testHistory">자가진단 내역</SubNav>
+              <SubNav href="/testHistory">AI 윤리 검사 내역</SubNav>
               <Line />
               <SubNav onClick={handleLogout}>로그아웃</SubNav>
             </SubMenu>
@@ -149,7 +153,6 @@ const Nav = styled.a`
   padding: 0.3rem 0.6rem;
   font-size: 1rem;
   white-space: nowrap;
-
   &:hover {
     background-color: #f5f5f5;
     border-radius: 1rem;

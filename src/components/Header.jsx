@@ -7,15 +7,15 @@ const Header = styled.header`
   padding-top: 6rem;
 `;
 
-const Title = styled.h1`
-  margin-right: 1rem;
-  word-break: keep-all;
+const Title = styled.h2`
+  margin-right: 10px;
 `;
 
 const Content = styled.p`
   margin: 1.2rem 2.6rem 4rem 0;
   font-size: 1.2rem;
   word-break: keep-all;
+  line-height: 1.6;
 `;
 
 export { Header, Title, Content };

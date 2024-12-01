@@ -11,10 +11,9 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
 
-const AITestInfo = () => {
+const UserTestInfo = () => {
   const [career, setCareer] = useState("");
   const [country, setCountry] = useState("");
-  const [llmName, setLlmName] = useState("이름 없음");
   const [careersList, setCareersList] = useState([]);
   const [countriesList, setCountriesList] = useState([]);
   const [error, setError] = useState("");
@@ -70,19 +69,16 @@ const AITestInfo = () => {
       return;
     }
 
-    localStorage.setItem(
-      "diagnosisInfo",
-      JSON.stringify({ career, country, llmName })
-    );
+    localStorage.setItem("diagnosisInfo", JSON.stringify({ career, country }));
 
-    window.location.href = "/aiTestQuestion";
+    window.location.href = "/userTestQuestion";
   };
 
   return (
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발자 윤리 검사</Title>
+        <Title>인공지능 사용자 윤리 검사</Title>
         <Content>
           정보를 입력해주세요.
           <br />본 정보는 단순 통계 및 분석용으로 활용될 예정입니다.
@@ -107,15 +103,6 @@ const AITestInfo = () => {
                 />
               </>
             )}
-            <FormGroup>
-              <Label>LLM 이름</Label>
-              <Input
-                type="text"
-                value={llmName}
-                onChange={(e) => setLlmName(e.target.value)}
-                placeholder="LLM 이름을 입력하세요"
-              />
-            </FormGroup>
             <br />
             {error && <ErrorMessage>{error}</ErrorMessage>}
             <OrangeButton type="submit" width={"100%"}>
@@ -156,7 +143,7 @@ const Dropdown = ({ label, value, onChange, options }) => (
   </FormGroup>
 );
 
-export default AITestInfo;
+export default UserTestInfo;
 
 const Container = styled.div`
   display: flex;

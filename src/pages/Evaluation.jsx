@@ -9,8 +9,8 @@ import styled from "styled-components";
 import { color } from "../color";
 
 const Evaluation = () => {
-  const numAndTextRefs = useRef([]); // 각 NumAndTextContainer의 ref를 저장
-  const [visibleItems, setVisibleItems] = useState([]); // 보이는 아이템을 관리하는 state
+  const numAndTextRefs = useRef([]); 
+  const [visibleItems, setVisibleItems] = useState([]); 
 
   const handleScroll = () => {
     const visible = numAndTextRefs.current.map((ref) =>
@@ -36,10 +36,10 @@ const Evaluation = () => {
       <BlueContainer>
         <InnerContainer>
           <LeftContainer>
-            <TextWhite>LLM의 윤리성을 평가하고 싶으신가요?</TextWhite>
+            <TextWhiteTitle>LLM의 윤리성을 평가하고 싶으신가요?</TextWhiteTitle>
             <TextWhite>
-              LLM의 윤리적 판단능력을 평가하기 위해 다양한 질문을 제시하고, 그
-              답변을 분석하여 LLM의 윤리성을 종합적으로 판단하는 과정을
+              LLM의 윤리적 판단능력을 평가하기 위해 다양한 질문을 제시하고, 질문에 대한
+              <br/>답변을 분석하여 LLM의 윤리성을 종합적으로 판단하는 과정을
               진행합니다.
             </TextWhite>
             <OrangeLinkButton href={"#"}>평가하기</OrangeLinkButton>
@@ -76,7 +76,7 @@ const Evaluation = () => {
         <InnerContainer>
           <LeftContainer>
             <TextWhite>
-              Humaind 만의 평가 시스템에서 평가를 완료 하신다면 상세한 결과
+              HUMAIND 만의 평가 시스템에서 평가를 완료 하신다면 상세한 결과
               보고서와 인증서를 받아 보실 수 있습니다.
             </TextWhite>
             <OrangeLinkButton href={"#"}>문의하기</OrangeLinkButton>
@@ -121,11 +121,20 @@ const LeftContainer = styled.div`
   width: 60%;
 `;
 
+const TextWhiteTitle = styled.h2`
+  width: 100%;
+  margin: 0 0 2rem 0;
+  color: white;
+  font-size: 1.4rem;
+  line-height: 1.6;
+`;
+
 const TextWhite = styled.p`
   width: 100%;
   margin: 0 0 2rem 0;
   color: white;
   font-size: 1.1rem;
+  line-height: 1.6;
 `;
 
 const WhiteContainer = styled.div`

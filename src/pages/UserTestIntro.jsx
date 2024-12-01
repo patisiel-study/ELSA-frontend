@@ -8,15 +8,15 @@ import Footer from "../components/Footer";
 import styled from "styled-components";
 import { color } from "../color";
 
-const AITestIntro = () => {
+const UserTestIntro = () => {
   return (
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발자 윤리 검사</Title>
+        <Title>인공지능 사용자 윤리 검사</Title>
         <Content>
-          본 검사는 인공지능 개발자로서, 현재 개발 중인 인공지능이 윤리적 기준을
-          얼마나 잘 반영하고 있는지를 평가하는 검사입니다.
+          본 검사는 인공지능 사용자 본인이 윤리적 기준을 얼마나 잘 준수하고
+          있는지를 평가하는 검사입니다.
         </Content>
       </Header>
       <BlueCurve />
@@ -24,13 +24,13 @@ const AITestIntro = () => {
         <TestInformation>
           "이 질문지는 과학기술정보통신부와 정보통신정책연구원이 제정한 '2022
           인공지능 윤리기준 실천을 위한 자율점검표(안)'을 기반으로
-          구성되었습니다. 이를 통해 개발 중인 인공지능 시스템이 국가에서 제시한
+          구성되었습니다. 이를 통해 인공지능 시스템 사용자로서 해당 시스템이
           윤리적 기준을 충실히 따르고 있는지를 점검할 수 있으며, 신뢰할 수 있는
           윤리 평가 기준을 제공합니다."
         </TestInformation>
         <ChecklistContainer>
           <ChecklistTitle>
-            인공지능 윤리기준 실천을 위한 자율점검표(안)
+            챗봇 분야 인공지능 윤리기준 자율점검표(안)
           </ChecklistTitle>
           <ChecklistTitle>1. 점검 목적 윤리기준</ChecklistTitle>
           <ChecklistContent>
@@ -40,20 +40,21 @@ const AITestIntro = () => {
           </ChecklistContent>
           <ChecklistTitle>2. 권장 대상 </ChecklistTitle>
           <ChecklistContent>
-            권장 대상은 인공지능시스템의 개발·운영에 필요한 의사결정을 수행하는
-            개인과 조직입니다. 공공과 민간부문의 구분 없이 인공지능시스템의
-            개발·운영의 목적과 절차를 수립하고 규정을 정하는 개인이나 조직이 본
-            자율점검표의 점검문항을 참조하여 인공지능 윤리기준을 실천할 수 있는
-            내부지침을 별도로 마련하거나 내부 규정에 반영할 수 있습니다.
-            인공지능시스템을 설계·제작하고, 데이터와 알고리즘을 통해
-            인공지능시스템을 구현하고, 인공지능시스템을 유지·관리하는 구성원이나
-            집단이 업무를 수행하는 과정에서 자율점검표가 반영된 내부지침을
-            따름으로써 「인공지능(AI) 윤리기준」의 핵심요건을 현장에서 실천할 수
-            있습니다.
+            이 글은 인공지능시스템을 사용하는 개인과 조직을 대상으로 합니다.
+            공공과 민간부문을 불문하고, 인공지능시스템을 사용하는 목적과 절차를
+            이해하고 윤리적인 사용 기준을 마련하고자 하는 개인이나 조직은 이
+            자율점검표의 문항을 참조하여 내부지침을 만들거나 내부 규정에 반영할
+            수 있습니다. 인공지능시스템을 사용하여 업무를 수행하는 개인이나
+            집단은 이 자율점검표에 포함된 윤리적 지침을 따름으로써
+            「인공지능(AI) 윤리기준」의 핵심요건을 실천할 수 있습니다.
           </ChecklistContent>
-          <ChecklistTitle>3. 구성</ChecklistTitle>
+          <ChecklistTitle>3. 구성 </ChecklistTitle>
           <ChecklistContent>
-            본 자율점검표는 인공지능 윤리기준의 10대 핵심요건별로 35개의
+            챗봇 분야 인공지능 윤리기준 자율점검표(안)는 기존 「인공지능(AI)
+            윤리기준 실천을 위한 자율점검표(안)」의 점검 문항 중, 특히 챗봇
+            분야에서 강조되어야 하는 문항을 선별·가공하고, 새롭게 쟁점이 되는
+            윤리 이슈에 대응하기 위한 문항을 신설하는 방식으로 구성하였습니다.
+            본 자율 점검표는 인공지능 윤리기준의 10대 핵심요건별로 27개의
             점검항목을 제시합니다.
           </ChecklistContent>
 
@@ -74,27 +75,35 @@ const AITestIntro = () => {
             </TableRow>
             <TableRow>
               <TableData>문항 수</TableData>
+              <TableData>4</TableData>
+              <TableData>4</TableData>
+              <TableData>4</TableData>
               <TableData>5</TableData>
               <TableData>2</TableData>
-              <TableData>5</TableData>
-              <TableData>4</TableData>
-              <TableData>3</TableData>
-              <TableData>3</TableData>
-              <TableData>3</TableData>
-              <TableData>4</TableData>
-              <TableData>3</TableData>
-              <TableData>3</TableData>
+              <TableData>1</TableData>
+              <TableData>2</TableData>
+              <TableData>1</TableData>
+              <TableData>2</TableData>
+              <TableData>2</TableData>
             </TableRow>
           </Table>
         </ChecklistContainer>
-        <OrangeLinkButton href="/aiTestInfo">테스트 시작하기</OrangeLinkButton>
+        <OrangeLinkButton
+          href={`${
+            localStorage.getItem("accessToken")
+              ? "/userTestQuestion"
+              : "/userTestinfo"
+          }`}
+        >
+          테스트 시작하기
+        </OrangeLinkButton>
       </TestMainContent>
       <Footer />
     </HomepageLayout>
   );
 };
 
-export default AITestIntro;
+export default UserTestIntro;
 
 const TestMainContent = styled.main`
   display: flex;
@@ -111,7 +120,7 @@ const TestInformation = styled.p`
   margin-top: 0;
   font-size: 1.1rem;
   text-align: center;
-  line-height: 1.8;
+  line-height: 1.6;
 `;
 
 const ChecklistContainer = styled.div`

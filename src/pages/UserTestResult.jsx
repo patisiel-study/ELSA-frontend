@@ -213,7 +213,7 @@ const QuestionsBarChart = ({ noOrNotApplicableList }) => {
   return <Bar data={data} options={options} />;
 };
 
-const AITestResult = () => {
+const UserTestResult = () => {
   const { diagnosisId } = useParams();
   const [resultData, setResultData] = useState({});
 
@@ -231,7 +231,7 @@ const AITestResult = () => {
       }
     } catch (error) {
       console.error(
-        "인공지능 개발 윤리 검사 결과 데이터를 가져오는 중 오류가 발생했습니다.",
+        "인공지능 사용자 윤리 검사 결과 데이터를 가져오는 중 오류가 발생했습니다.",
         error
       );
       throw error;
@@ -250,14 +250,12 @@ const AITestResult = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발자 윤리 검사 결과</Title>
+        <Title>인공지능 사용자 윤리 검사 결과</Title>
       </Header>
       <BlueCurve />
       <BlueContainer>
         <InnerContainer>
-          <SubTitle>모델 이름</SubTitle>
-          <LLMName>{resultData.llmName}</LLMName>
-          <SubTitle>인공지능 개발 윤리 검사 점수</SubTitle>
+          <SubTitle>인공지능 사용자 윤리 검사 점수</SubTitle>
           {correctAnswer && (
             <ScoreDoughnutChart
               totalScore={totalScore}
@@ -341,7 +339,7 @@ const AITestResult = () => {
   );
 };
 
-export default AITestResult;
+export default UserTestResult;
 
 const BlueCurveReverse = styled.div`
   height: 2rem;
@@ -369,11 +367,6 @@ const InnerContainer = styled.div`
 
 const SubTitle = styled.h2`
   margin-top: 0;
-`;
-
-const LLMName = styled.p`
-  margin-bottom: 3rem;
-  font-size: 1.1rem;
 `;
 
 const ScoreContainer = styled.div`
@@ -440,7 +433,7 @@ const StandardAndQuestion = styled.div`
 const StandardContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem 2rem 0.5rem 2rem;
+  padding: 1rem 2rem;
   box-sizing: border-box;
   background-color: ${color.primary};
   border-radius: 1.8rem;

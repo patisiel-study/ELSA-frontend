@@ -14,6 +14,9 @@ const Test = () => {
   const handleDeveloperClick = () => {
     navigate("/aiTestIntro");
   };
+  const handleUserClick = () => {
+    navigate("/userTestIntro");
+  };
 
   return (
     <HomepageLayout>
@@ -44,12 +47,13 @@ const Test = () => {
               alt="로봇 아이콘"
               draggable="false"
             />
-            <ButtonText>개발 윤리 검사</ButtonText>
+            <ButtonText>개발자 윤리 검사</ButtonText>
           </AIorUserButton>
 
           <AIorUserButton
             onMouseEnter={() => setHoveredButton("user")}
             onMouseLeave={() => setHoveredButton("")}
+            onClick={handleUserClick}
           >
             <ButtonIcon
               src={
@@ -145,8 +149,12 @@ const ButtonIcon = styled.img`
 
 const ButtonText = styled.p`
   color: ${color.primary};
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  font-family: "NEXON Lv1 Gothic OTF";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff")
+    format("woff");
+  font-style: normal;
 `;
 
 const AIorUserButton = styled.button`

@@ -13,10 +13,10 @@ const Footer = () => {
         </FooterLeft>
         <FooterRight>
           <FooterNavbar>
-            <FooterNav href="/introduction">소개</FooterNav>
+            <FooterNav href="/introductionHumaind">소개</FooterNav>
             <FooterNav href="/test">AI 윤리 검사</FooterNav>
             <FooterNav href="/evaluation">AI 윤리 평가</FooterNav>
-            <FooterNav href="#">업적</FooterNav>
+            <FooterNav href="/dashboard">평가 데이터</FooterNav>
           </FooterNavbar>
         </FooterRight>
       </FooterContainer>

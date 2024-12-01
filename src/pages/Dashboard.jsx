@@ -35,6 +35,7 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       const response = await LLMScoreAPI();
+      console.log(response.data);
       return response.data.data;
     } catch (error) {
       console.error(
@@ -79,11 +80,11 @@ const Dashboard = () => {
     const scores = labels.map((key) => llmData[key].score); // 점수들
 
     const backgroundColor =
-      llm === "GPT_3_5" || "GPT_4" || "GPT_4o"
+      llm === "GPT_3_5" || llm === "GPT_4" || llm === "GPT_4o"
         ? "#74AA9C"
         : llm === "GEMINI"
         ? "#4E88D4"
-        : "rgba(75, 192, 192, 0.2)";
+        : color.accent;
 
     return {
       labels,

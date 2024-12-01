@@ -11,10 +11,10 @@ const ProgressBar = ({ progress }) => {
 
 const ProgressContainer = styled.div`
   height: 10px;
-  width: 60%;
+  width: 100%;
   background-color: #FFFFFF;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const ProgressFiller = styled.div`

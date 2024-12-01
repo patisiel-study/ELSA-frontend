@@ -26,7 +26,7 @@ const AITestQuestion = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await axios.get("/api/diagnosis/list/questions");
+      const response = await axios.get("/api/diagnosis/list/questions/user");
       console.log("response:", response.data);
       setStandards(response.data.data);
       setLoading(false);
@@ -106,9 +106,13 @@ const AITestQuestion = () => {
         const data = { answers: formattedAnswers, llmName };
         console.log("회원 제출 데이터:", data);
         console.log("Authorization 헤더:", `Bearer ${accessToken}`);
-        response = await axios.post("/api/diagnosis/developer/submit", data, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        });
+        response = await axios.post(
+          "/api/diagnosis/developer/submit/user",
+          data,
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        );
       } else {
         const data = {
           answers: formattedAnswers,
@@ -116,7 +120,10 @@ const AITestQuestion = () => {
           country: country,
         };
         console.log("비회원 제출 데이터:", data);
-        response = await axios.post("/api/diagnosis/non-member/submit", data);
+        response = await axios.post(
+          "/api/diagnosis/non-member/submit/user",
+          data
+        );
       }
       console.log("서버 응답:", response);
       return response;
@@ -134,7 +141,7 @@ const AITestQuestion = () => {
         localStorage.setItem("refreshToken", refreshToken);
         await submitAnswers(formattedAnswers, accessToken);
         console.log("토큰 갱신 후 답변이 성공적으로 제출되었습니다.");
-        navigate("/AITestResult");
+        navigate("/userTestResult");
       } catch (refreshError) {
         console.error("토큰 갱신 실패:", refreshError);
         navigate("/login");
@@ -209,7 +216,7 @@ const AITestQuestion = () => {
         data: { diagnosisId },
       } = response.data;
       console.log(message);
-      navigate(`/aiTestResult/${diagnosisId}`);
+      navigate(`/userTestResult/${diagnosisId}`);
     } catch (error) {
       console.error("답변 제출에 실패하였습니다:", error);
       await handleSubmitError(error, formattedAnswers);
@@ -232,7 +239,7 @@ const AITestQuestion = () => {
     <HomepageLayout>
       <Menu />
       <Header>
-        <Title>인공지능 개발자 윤리 검사</Title>
+        <Title>인공지능 사용자 윤리 검사</Title>
         <Content>
           아래 질문은 인공지능 윤리 기준의 10대 핵심요건에 대한 각각의 설명과
           그에 해당하는 점검항목입니다.
